@@ -13,8 +13,8 @@ namespace GeradorDePacotes
 {
     public partial class Frm_Index : Form
     {
-        bool sideBarExpand = true;
-        bool arrowExpand = true;
+        bool sideBarExpanded = true;
+        List<string> tempTextButtons = new List<string>();
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -49,53 +49,82 @@ namespace GeradorDePacotes
             SidebarTransition.Start();
             Pic_ExpandirMenu.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
             Pic_ExpandirMenu.Refresh();
-
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Btn_Gerar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void SidebarTransition_Tick(object sender, EventArgs e)
         {
-            if (sideBarExpand)
+            if (sideBarExpanded)
             {
                 if (Flp_sidebar.Width == 52)
+                {
                     Flp_sidebar.Width -= 8;
+                    Pnl_Exit.Width -= 8;
+                }
                 else
+                {
                     Flp_sidebar.Width -= 10;
-
+                    Pnl_Exit.Width -= 10;
+                }
                 if (Flp_sidebar.Width <= 44)
                 {
                     Pic_Logo.Visible = false;
-                    sideBarExpand = false;
+                    sideBarExpanded = false;
                     SidebarTransition.Stop();
+                    ChageButtonsText();
                 }
+
+
             }
             else
             {
                 if (Flp_sidebar.Width == 224)
+                {
                     Flp_sidebar.Width += 8;
+                    Pnl_Exit.Width += 8;
+                }
                 else
+                {
                     Flp_sidebar.Width += 10;
-
+                    Pnl_Exit.Width += 10;
+                }
                 if (Flp_sidebar.Width >= 232)
                 {
                     Pic_Logo.Visible = true;
-                    sideBarExpand = true;
+                    sideBarExpanded = true;
                     SidebarTransition.Stop();
+                    ChageButtonsText();
                 }
+            }
+
+        }
+
+        private void ChageButtonsText()
+        {
+            if (tempTextButtons.Count <= 0)
+            {
+                tempTextButtons.Add(Btn_inicio.Text);
+                tempTextButtons.Add(Btn_Configuracoes.Text);
+                tempTextButtons.Add(Btn_Sobre.Text);
+                tempTextButtons.Add(Btn_Exit.Text);
+            }
+            if (sideBarExpanded)
+            {
+                Btn_inicio.Text = tempTextButtons
+                    .Where(x => x.Contains("Início", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Configuracoes.Text = tempTextButtons
+                    .Where(x => x.Contains("Configurações", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Sobre.Text = tempTextButtons
+                    .Where(x => x.Contains("Sobre", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Exit.Text = tempTextButtons
+                    .Where(x => x.Contains("Sair", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            }
+            else
+            {
+                Btn_inicio.Text = string.Empty;
+                Btn_Configuracoes.Text = string.Empty;
+                Btn_Sobre.Text = string.Empty;
+                Btn_Exit.Text = string.Empty;
             }
 
         }
@@ -121,5 +150,19 @@ namespace GeradorDePacotes
             ShowUserControl(new Frm_IndexUC());
         }
 
+        private void Btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Btn_Configuracoes_Click(object sender, EventArgs e)
+        {
+            ShowUserControl(new Frm_ConfigUC());
+        }
+
+        private void Btn_Sobre_Click(object sender, EventArgs e)
+        {
+            ShowUserControl(new Frm_AboutUC());
+        }
     }
 }

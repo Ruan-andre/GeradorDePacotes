@@ -48,12 +48,14 @@
             Btn_inicio = new Button();
             Btn_Configuracoes = new Button();
             Btn_Sobre = new Button();
-            button1 = new Button();
             Pnl_Principal = new Panel();
+            Pnl_Exit = new Panel();
+            Btn_Exit = new Button();
             Pnl_Top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_ExpandirMenu).BeginInit();
             Flp_sidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_Logo).BeginInit();
+            Pnl_Exit.SuspendLayout();
             SuspendLayout();
             // 
             // Pnl_Top
@@ -159,10 +161,9 @@
             Flp_sidebar.Controls.Add(Btn_inicio);
             Flp_sidebar.Controls.Add(Btn_Configuracoes);
             Flp_sidebar.Controls.Add(Btn_Sobre);
-            Flp_sidebar.Controls.Add(button1);
             Flp_sidebar.Location = new Point(0, 31);
             Flp_sidebar.Name = "Flp_sidebar";
-            Flp_sidebar.Size = new Size(224, 705);
+            Flp_sidebar.Size = new Size(232, 627);
             Flp_sidebar.TabIndex = 2;
             // 
             // Pic_Logo
@@ -191,8 +192,9 @@
             Btn_inicio.Location = new Point(3, 186);
             Btn_inicio.Margin = new Padding(3, 40, 3, 3);
             Btn_inicio.Name = "Btn_inicio";
-            Btn_inicio.Size = new Size(221, 67);
+            Btn_inicio.Size = new Size(229, 67);
             Btn_inicio.TabIndex = 3;
+            Btn_inicio.Tag = "temp";
             Btn_inicio.Text = "INÍCIO";
             Btn_inicio.TextImageRelation = TextImageRelation.ImageBeforeText;
             Btn_inicio.UseVisualStyleBackColor = false;
@@ -212,18 +214,19 @@
             Btn_Configuracoes.ImageAlign = ContentAlignment.MiddleLeft;
             Btn_Configuracoes.Location = new Point(3, 259);
             Btn_Configuracoes.Name = "Btn_Configuracoes";
-            Btn_Configuracoes.Size = new Size(221, 67);
+            Btn_Configuracoes.Size = new Size(229, 67);
             Btn_Configuracoes.TabIndex = 4;
+            Btn_Configuracoes.Tag = "temp";
             Btn_Configuracoes.Text = "CONFIGURAÇÕES";
             Btn_Configuracoes.TextImageRelation = TextImageRelation.ImageBeforeText;
             Btn_Configuracoes.UseVisualStyleBackColor = false;
+            Btn_Configuracoes.Click += Btn_Configuracoes_Click;
             // 
             // Btn_Sobre
             // 
             Btn_Sobre.BackColor = Color.FromArgb(198, 172, 143);
             Btn_Sobre.BackgroundImageLayout = ImageLayout.None;
             Btn_Sobre.Cursor = Cursors.Hand;
-            Btn_Sobre.Dock = DockStyle.Bottom;
             Btn_Sobre.FlatAppearance.BorderSize = 0;
             Btn_Sobre.FlatStyle = FlatStyle.Flat;
             Flp_sidebar.SetFlowBreak(Btn_Sobre, true);
@@ -233,47 +236,62 @@
             Btn_Sobre.ImageAlign = ContentAlignment.MiddleLeft;
             Btn_Sobre.Location = new Point(3, 332);
             Btn_Sobre.Name = "Btn_Sobre";
-            Btn_Sobre.Size = new Size(221, 67);
+            Btn_Sobre.Size = new Size(229, 67);
             Btn_Sobre.TabIndex = 6;
+            Btn_Sobre.Tag = "temp";
             Btn_Sobre.Text = "SOBRE";
             Btn_Sobre.TextImageRelation = TextImageRelation.ImageBeforeText;
             Btn_Sobre.UseVisualStyleBackColor = false;
-            Btn_Sobre.Click += button4_Click;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(198, 172, 143);
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            Flp_sidebar.SetFlowBreak(button1, true);
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.FromArgb(45, 40, 33);
-            button1.Image = Properties.Resources.sobre;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(3, 405);
-            button1.Name = "button1";
-            button1.Size = new Size(221, 67);
-            button1.TabIndex = 7;
-            button1.Text = "SOBRE";
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = false;
+            Btn_Sobre.Click += Btn_Sobre_Click;
             // 
             // Pnl_Principal
             // 
             Pnl_Principal.AllowDrop = true;
+            Pnl_Principal.Dock = DockStyle.Fill;
             Pnl_Principal.ImeMode = ImeMode.NoControl;
-            Pnl_Principal.Location = new Point(41, 31);
+            Pnl_Principal.Location = new Point(0, 0);
             Pnl_Principal.Name = "Pnl_Principal";
-            Pnl_Principal.Size = new Size(922, 705);
+            Pnl_Principal.Size = new Size(963, 737);
             Pnl_Principal.TabIndex = 3;
+            // 
+            // Pnl_Exit
+            // 
+            Pnl_Exit.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            Pnl_Exit.BackColor = Color.FromArgb(198, 172, 143);
+            Pnl_Exit.Controls.Add(Btn_Exit);
+            Pnl_Exit.Location = new Point(0, 657);
+            Pnl_Exit.Name = "Pnl_Exit";
+            Pnl_Exit.Size = new Size(232, 79);
+            Pnl_Exit.TabIndex = 4;
+            // 
+            // Btn_Exit
+            // 
+            Btn_Exit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            Btn_Exit.BackColor = Color.FromArgb(198, 172, 143);
+            Btn_Exit.BackgroundImageLayout = ImageLayout.None;
+            Btn_Exit.Cursor = Cursors.Hand;
+            Btn_Exit.FlatAppearance.BorderSize = 0;
+            Btn_Exit.FlatStyle = FlatStyle.Flat;
+            Btn_Exit.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Btn_Exit.ForeColor = Color.FromArgb(45, 40, 33);
+            Btn_Exit.Image = Properties.Resources.sair;
+            Btn_Exit.ImageAlign = ContentAlignment.MiddleLeft;
+            Btn_Exit.Location = new Point(0, 0);
+            Btn_Exit.Name = "Btn_Exit";
+            Btn_Exit.Size = new Size(232, 79);
+            Btn_Exit.TabIndex = 8;
+            Btn_Exit.Tag = "temp";
+            Btn_Exit.Text = "SAIR";
+            Btn_Exit.TextImageRelation = TextImageRelation.ImageBeforeText;
+            Btn_Exit.UseVisualStyleBackColor = false;
+            Btn_Exit.Click += Btn_Exit_Click;
             // 
             // Frm_Index
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(963, 737);
+            Controls.Add(Pnl_Exit);
             Controls.Add(Flp_sidebar);
             Controls.Add(Pnl_Top);
             Controls.Add(Pnl_Principal);
@@ -287,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)Pic_ExpandirMenu).EndInit();
             Flp_sidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Pic_Logo).EndInit();
+            Pnl_Exit.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -302,10 +321,11 @@
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private FlowLayoutPanel Flp_sidebar;
         private PictureBox Pic_Logo;
-        private Button Btn_inicio;
         private Button Btn_Configuracoes;
         private Button Btn_Sobre;
-        private Button button1;
         private Panel Pnl_Principal;
+        private Panel Pnl_Exit;
+        private Button Btn_Exit;
+        internal Button Btn_inicio;
     }
 }
