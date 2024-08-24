@@ -56,10 +56,10 @@ namespace GeradorDePacotes
         {
             if (sideBarExpanded)
             {
-                if (Flp_sidebar.Width == 52)
+                if (Flp_sidebar.Width == 50)
                 {
-                    Flp_sidebar.Width -= 8;
-                    Pnl_Exit.Width -= 8;
+                    Flp_sidebar.Width -= 6;
+                    Pnl_Exit.Width -= 6;
                 }
                 else
                 {
@@ -78,17 +78,17 @@ namespace GeradorDePacotes
             }
             else
             {
-                if (Flp_sidebar.Width == 224)
+                if (Flp_sidebar.Width == 184)
                 {
-                    Flp_sidebar.Width += 8;
-                    Pnl_Exit.Width += 8;
+                    Flp_sidebar.Width += 6;
+                    Pnl_Exit.Width += 6;
                 }
                 else
                 {
                     Flp_sidebar.Width += 10;
                     Pnl_Exit.Width += 10;
                 }
-                if (Flp_sidebar.Width >= 232)
+                if (Flp_sidebar.Width >= 190)
                 {
                     Pic_Logo.Visible = true;
                     sideBarExpanded = true;

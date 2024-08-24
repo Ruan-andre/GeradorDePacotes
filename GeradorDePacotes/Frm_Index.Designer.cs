@@ -163,7 +163,7 @@
             Flp_sidebar.Controls.Add(Btn_Sobre);
             Flp_sidebar.Location = new Point(0, 31);
             Flp_sidebar.Name = "Flp_sidebar";
-            Flp_sidebar.Size = new Size(232, 627);
+            Flp_sidebar.Size = new Size(190, 627);
             Flp_sidebar.TabIndex = 2;
             // 
             // Pic_Logo
@@ -172,7 +172,7 @@
             Pic_Logo.Image = Properties.Resources.LOGO_PRINCIPAL;
             Pic_Logo.Location = new Point(3, 3);
             Pic_Logo.Name = "Pic_Logo";
-            Pic_Logo.Size = new Size(210, 140);
+            Pic_Logo.Size = new Size(187, 140);
             Pic_Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Pic_Logo.TabIndex = 1;
             Pic_Logo.TabStop = false;
@@ -192,7 +192,7 @@
             Btn_inicio.Location = new Point(3, 186);
             Btn_inicio.Margin = new Padding(3, 40, 3, 3);
             Btn_inicio.Name = "Btn_inicio";
-            Btn_inicio.Size = new Size(229, 67);
+            Btn_inicio.Size = new Size(187, 67);
             Btn_inicio.TabIndex = 3;
             Btn_inicio.Tag = "temp";
             Btn_inicio.Text = "INÍCIO";
@@ -214,7 +214,7 @@
             Btn_Configuracoes.ImageAlign = ContentAlignment.MiddleLeft;
             Btn_Configuracoes.Location = new Point(3, 259);
             Btn_Configuracoes.Name = "Btn_Configuracoes";
-            Btn_Configuracoes.Size = new Size(229, 67);
+            Btn_Configuracoes.Size = new Size(187, 67);
             Btn_Configuracoes.TabIndex = 4;
             Btn_Configuracoes.Tag = "temp";
             Btn_Configuracoes.Text = "CONFIGURAÇÕES";
@@ -236,7 +236,7 @@
             Btn_Sobre.ImageAlign = ContentAlignment.MiddleLeft;
             Btn_Sobre.Location = new Point(3, 332);
             Btn_Sobre.Name = "Btn_Sobre";
-            Btn_Sobre.Size = new Size(229, 67);
+            Btn_Sobre.Size = new Size(187, 67);
             Btn_Sobre.TabIndex = 6;
             Btn_Sobre.Tag = "temp";
             Btn_Sobre.Text = "SOBRE";
@@ -261,7 +261,7 @@
             Pnl_Exit.Controls.Add(Btn_Exit);
             Pnl_Exit.Location = new Point(0, 657);
             Pnl_Exit.Name = "Pnl_Exit";
-            Pnl_Exit.Size = new Size(232, 79);
+            Pnl_Exit.Size = new Size(190, 79);
             Pnl_Exit.TabIndex = 4;
             // 
             // Btn_Exit
