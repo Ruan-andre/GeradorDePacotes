@@ -63,6 +63,26 @@ namespace GeradorDePacotes.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap abrir_pasta {
+            get {
+                object obj = ResourceManager.GetObject("abrir-pasta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arquivo {
+            get {
+                object obj = ResourceManager.GetObject("arquivo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap botao_de_inicio {
             get {
                 object obj = ResourceManager.GetObject("botao-de-inicio", resourceCulture);
@@ -86,6 +106,16 @@ namespace GeradorDePacotes.Properties {
         internal static System.Drawing.Bitmap LOGO_PRINCIPAL {
             get {
                 object obj = ResourceManager.GetObject("LOGO-PRINCIPAL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pasta {
+            get {
+                object obj = ResourceManager.GetObject("pasta", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

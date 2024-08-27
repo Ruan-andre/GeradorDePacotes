@@ -29,21 +29,18 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Index));
             Pnl_Top = new Panel();
-            guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
-            guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            Cbtn_Minimize = new Guna.UI2.WinForms.Guna2ControlBox();
             Lbl_TituloPrograma = new Label();
             Pic_ExpandirMenu = new PictureBox();
-            Cb_items = new Guna.UI2.WinForms.Guna2ControlBox();
+            Cbtn_Close = new Guna.UI2.WinForms.Guna2ControlBox();
             SidebarTransition = new System.Windows.Forms.Timer(components);
-            Flp_sidebar = new FlowLayoutPanel();
+            Flp_Sidebar = new FlowLayoutPanel();
             Pic_Logo = new PictureBox();
             Btn_inicio = new Button();
             Btn_Configuracoes = new Button();
@@ -53,7 +50,7 @@
             Btn_Exit = new Button();
             Pnl_Top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_ExpandirMenu).BeginInit();
-            Flp_sidebar.SuspendLayout();
+            Flp_Sidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_Logo).BeginInit();
             Pnl_Exit.SuspendLayout();
             SuspendLayout();
@@ -62,11 +59,10 @@
             // 
             Pnl_Top.AllowDrop = true;
             Pnl_Top.BackColor = Color.FromArgb(198, 172, 143);
-            Pnl_Top.Controls.Add(guna2ControlBox2);
-            Pnl_Top.Controls.Add(guna2ControlBox1);
+            Pnl_Top.Controls.Add(Cbtn_Minimize);
             Pnl_Top.Controls.Add(Lbl_TituloPrograma);
             Pnl_Top.Controls.Add(Pic_ExpandirMenu);
-            Pnl_Top.Controls.Add(Cb_items);
+            Pnl_Top.Controls.Add(Cbtn_Close);
             Pnl_Top.Dock = DockStyle.Top;
             Pnl_Top.ForeColor = SystemColors.ButtonHighlight;
             Pnl_Top.ImeMode = ImeMode.NoControl;
@@ -76,34 +72,19 @@
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
             // 
-            // guna2ControlBox2
+            // Cbtn_Minimize
             // 
-            guna2ControlBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            guna2ControlBox2.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            guna2ControlBox2.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
-            guna2ControlBox2.CustomizableEdges = customizableEdges1;
-            guna2ControlBox2.FillColor = Color.FromArgb(198, 172, 143);
-            guna2ControlBox2.HoverState.IconColor = Color.Blue;
-            guna2ControlBox2.IconColor = Color.White;
-            guna2ControlBox2.Location = new Point(855, -4);
-            guna2ControlBox2.Name = "guna2ControlBox2";
-            guna2ControlBox2.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2ControlBox2.Size = new Size(56, 36);
-            guna2ControlBox2.TabIndex = 3;
-            // 
-            // guna2ControlBox1
-            // 
-            guna2ControlBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            guna2ControlBox1.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            guna2ControlBox1.CustomizableEdges = customizableEdges3;
-            guna2ControlBox1.FillColor = Color.FromArgb(198, 172, 143);
-            guna2ControlBox1.IconColor = Color.White;
-            guna2ControlBox1.Location = new Point(806, -4);
-            guna2ControlBox1.Name = "guna2ControlBox1";
-            guna2ControlBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2ControlBox1.Size = new Size(56, 36);
-            guna2ControlBox1.TabIndex = 2;
+            Cbtn_Minimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Cbtn_Minimize.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
+            Cbtn_Minimize.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            Cbtn_Minimize.CustomizableEdges = customizableEdges5;
+            Cbtn_Minimize.FillColor = Color.FromArgb(198, 172, 143);
+            Cbtn_Minimize.IconColor = Color.White;
+            Cbtn_Minimize.Location = new Point(855, -4);
+            Cbtn_Minimize.Name = "Cbtn_Minimize";
+            Cbtn_Minimize.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            Cbtn_Minimize.Size = new Size(56, 36);
+            Cbtn_Minimize.TabIndex = 2;
             // 
             // Lbl_TituloPrograma
             // 
@@ -135,36 +116,36 @@
             Pic_ExpandirMenu.MouseLeave += Pic_ExpandirMenu_MouseLeave;
             Pic_ExpandirMenu.MouseHover += Pic_ExpandirMenu_MouseHover;
             // 
-            // Cb_items
+            // Cbtn_Close
             // 
-            Cb_items.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Cb_items.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            Cb_items.CustomizableEdges = customizableEdges5;
-            Cb_items.FillColor = Color.FromArgb(198, 172, 143);
-            Cb_items.HoverState.FillColor = Color.FromArgb(192, 0, 0);
-            Cb_items.IconColor = Color.White;
-            Cb_items.Location = new Point(907, -4);
-            Cb_items.Name = "Cb_items";
-            Cb_items.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            Cb_items.Size = new Size(56, 36);
-            Cb_items.TabIndex = 0;
+            Cbtn_Close.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Cbtn_Close.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
+            Cbtn_Close.CustomizableEdges = customizableEdges7;
+            Cbtn_Close.FillColor = Color.FromArgb(198, 172, 143);
+            Cbtn_Close.HoverState.FillColor = Color.FromArgb(192, 0, 0);
+            Cbtn_Close.IconColor = Color.White;
+            Cbtn_Close.Location = new Point(907, -4);
+            Cbtn_Close.Name = "Cbtn_Close";
+            Cbtn_Close.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            Cbtn_Close.Size = new Size(56, 36);
+            Cbtn_Close.TabIndex = 0;
             // 
             // SidebarTransition
             // 
             SidebarTransition.Interval = 10;
             SidebarTransition.Tick += SidebarTransition_Tick;
             // 
-            // Flp_sidebar
+            // Flp_Sidebar
             // 
-            Flp_sidebar.BackColor = Color.FromArgb(198, 172, 143);
-            Flp_sidebar.Controls.Add(Pic_Logo);
-            Flp_sidebar.Controls.Add(Btn_inicio);
-            Flp_sidebar.Controls.Add(Btn_Configuracoes);
-            Flp_sidebar.Controls.Add(Btn_Sobre);
-            Flp_sidebar.Location = new Point(0, 31);
-            Flp_sidebar.Name = "Flp_sidebar";
-            Flp_sidebar.Size = new Size(190, 627);
-            Flp_sidebar.TabIndex = 2;
+            Flp_Sidebar.BackColor = Color.FromArgb(198, 172, 143);
+            Flp_Sidebar.Controls.Add(Pic_Logo);
+            Flp_Sidebar.Controls.Add(Btn_inicio);
+            Flp_Sidebar.Controls.Add(Btn_Configuracoes);
+            Flp_Sidebar.Controls.Add(Btn_Sobre);
+            Flp_Sidebar.Location = new Point(0, 31);
+            Flp_Sidebar.Name = "Flp_Sidebar";
+            Flp_Sidebar.Size = new Size(190, 627);
+            Flp_Sidebar.TabIndex = 2;
             // 
             // Pic_Logo
             // 
@@ -229,7 +210,7 @@
             Btn_Sobre.Cursor = Cursors.Hand;
             Btn_Sobre.FlatAppearance.BorderSize = 0;
             Btn_Sobre.FlatStyle = FlatStyle.Flat;
-            Flp_sidebar.SetFlowBreak(Btn_Sobre, true);
+            Flp_Sidebar.SetFlowBreak(Btn_Sobre, true);
             Btn_Sobre.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Btn_Sobre.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Sobre.Image = Properties.Resources.sobre;
@@ -253,6 +234,7 @@
             Pnl_Principal.Name = "Pnl_Principal";
             Pnl_Principal.Size = new Size(963, 737);
             Pnl_Principal.TabIndex = 3;
+            Pnl_Principal.ControlAdded += Pnl_Principal_ControlAdded;
             // 
             // Pnl_Exit
             // 
@@ -292,7 +274,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(963, 737);
             Controls.Add(Pnl_Exit);
-            Controls.Add(Flp_sidebar);
+            Controls.Add(Flp_Sidebar);
             Controls.Add(Pnl_Top);
             Controls.Add(Pnl_Principal);
             FormBorderStyle = FormBorderStyle.None;
@@ -303,7 +285,7 @@
             Pnl_Top.ResumeLayout(false);
             Pnl_Top.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_ExpandirMenu).EndInit();
-            Flp_sidebar.ResumeLayout(false);
+            Flp_Sidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Pic_Logo).EndInit();
             Pnl_Exit.ResumeLayout(false);
             ResumeLayout(false);
@@ -316,10 +298,9 @@
         private Label Lbl_TituloPrograma;
         private Button Btn_Gerar;
         private System.Windows.Forms.Timer SidebarTransition;
-        private Guna.UI2.WinForms.Guna2ControlBox Cb_items;
-        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox2;
-        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
-        private FlowLayoutPanel Flp_sidebar;
+        private Guna.UI2.WinForms.Guna2ControlBox Cbtn_Close;
+        private Guna.UI2.WinForms.Guna2ControlBox Cbtn_Minimize;
+        private FlowLayoutPanel Flp_Sidebar;
         private PictureBox Pic_Logo;
         private Button Btn_Configuracoes;
         private Button Btn_Sobre;

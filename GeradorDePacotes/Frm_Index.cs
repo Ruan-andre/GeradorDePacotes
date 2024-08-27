@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Reflection.Metadata;
+using GeradorDePacotes.Classes;
 
 namespace GeradorDePacotes
 {
     public partial class Frm_Index : Form
     {
-        bool sideBarExpanded = true;
+        public static bool sideBarExpanded { get; set; } = true;
+        public static int sideBarWidth { get; set; }
         List<string> tempTextButtons = new List<string>();
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -21,6 +24,7 @@ namespace GeradorDePacotes
 
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
         public Frm_Index()
@@ -37,9 +41,16 @@ namespace GeradorDePacotes
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
         private void ShowUserControl(UserControl userControl)
         {
-            Pnl_Principal.Controls.Clear();
+            foreach (Control item in Pnl_Principal.Controls)
+                if (item.Name == userControl.Name)
+                    return;
+
+            if (Pnl_Principal.Controls.Count > 0)
+                Pnl_Principal.Controls.Clear();
+
             userControl.Dock = DockStyle.Fill;
             Pnl_Principal.Controls.Add(userControl);
         }
@@ -51,45 +62,50 @@ namespace GeradorDePacotes
             Pic_ExpandirMenu.Refresh();
         }
 
-
         private void SidebarTransition_Tick(object sender, EventArgs e)
         {
+            var content = Pnl_Principal.Controls[0].Controls[0];
+
+
             if (sideBarExpanded)
             {
-                if (Flp_sidebar.Width == 50)
+
+                if (Flp_Sidebar.Width == 50)
                 {
-                    Flp_sidebar.Width -= 6;
+                    Flp_Sidebar.Width -= 6;
                     Pnl_Exit.Width -= 6;
+
+
                 }
                 else
                 {
-                    Flp_sidebar.Width -= 10;
+                    Flp_Sidebar.Width -= 10;
                     Pnl_Exit.Width -= 10;
                 }
-                if (Flp_sidebar.Width <= 44)
+                if (Flp_Sidebar.Width <= 44)
                 {
+                    Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: false);
                     Pic_Logo.Visible = false;
                     sideBarExpanded = false;
                     SidebarTransition.Stop();
                     ChageButtonsText();
                 }
-
-
             }
             else
             {
-                if (Flp_sidebar.Width == 184)
+                if (Flp_Sidebar.Width == 184)
                 {
-                    Flp_sidebar.Width += 6;
+                    Flp_Sidebar.Width += 6;
                     Pnl_Exit.Width += 6;
                 }
                 else
                 {
-                    Flp_sidebar.Width += 10;
+                    Flp_Sidebar.Width += 10;
                     Pnl_Exit.Width += 10;
                 }
-                if (Flp_sidebar.Width >= 190)
+                if (Flp_Sidebar.Width >= 190)
                 {
+                    Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: true);
                     Pic_Logo.Visible = true;
                     sideBarExpanded = true;
                     SidebarTransition.Stop();
@@ -133,6 +149,7 @@ namespace GeradorDePacotes
         {
 
         }
+
         private void Pic_ExpandirMenu_MouseHover(object sender, EventArgs e)
         {
             var pic = (PictureBox)sender;
@@ -163,6 +180,12 @@ namespace GeradorDePacotes
         private void Btn_Sobre_Click(object sender, EventArgs e)
         {
             ShowUserControl(new Frm_AboutUC());
+        }
+
+        private void Pnl_Principal_ControlAdded(object sender, ControlEventArgs e)
+        {
+            var content = Pnl_Principal.Controls[0].Controls[0];
+            Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: true);
         }
     }
 }
