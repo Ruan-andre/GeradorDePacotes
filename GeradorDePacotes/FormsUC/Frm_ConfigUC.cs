@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeradorDePacotes.FormsUC;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace GeradorDePacotes
         public Frm_ConfigUC()
         {
             InitializeComponent();
+            Cmb_Formatos.SelectedIndex = 0;
         }
+
+        private void Btn_ExploreFolders_Click(object sender, EventArgs e)
+        {
+            Fbd_Config.ShowDialog();
+            Txt_TargetFolder.Text = Fbd_Config.SelectedPath;
+        }
+
     }
 }
