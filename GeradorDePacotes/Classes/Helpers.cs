@@ -8,7 +8,7 @@ namespace GeradorDePacotes.Classes
 {
     public static class Helpers
     {
-        public static void CenterPanel(Control frmParent, Control sideBar, Control ctrlContent, bool expandedBar)
+        public static void CenterPanelSideBar(Control frmParent, Control sideBar, Control ctrlContent, bool expandedBar)
         {
             int x;
             int y = (frmParent.Height - ctrlContent.Height) / 2;
@@ -23,6 +23,14 @@ namespace GeradorDePacotes.Classes
             }
 
             ctrlContent.Location = new Point(x, y);
+        }
+
+
+        public static void CenterPanel(Control ctrlParent, Control ctrlChild)
+        {
+            int x = (ctrlParent.Width - ctrlChild.Width) / 2;
+            int y = (ctrlParent.Height - ctrlChild.Height) / 2;
+            ctrlChild.Location = new Point(x, y);
         }
 
     }
