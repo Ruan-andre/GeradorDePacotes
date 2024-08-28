@@ -34,6 +34,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(227, 213, 202);
             Name = "Frm_AboutUC";
             Size = new Size(989, 721);
             ResumeLayout(false);
