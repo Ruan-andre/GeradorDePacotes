@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using System.Runtime.InteropServices;
-using System.Reflection.Metadata;
 using GeradorDePacotes.Classes;
 
 namespace GeradorDePacotes
@@ -17,9 +8,11 @@ namespace GeradorDePacotes
     {
         public static bool sideBarExpanded { get; set; } = true;
         public static int sideBarWidth { get; set; }
+
         List<string> tempTextButtons = new List<string>();
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
+
         public const int HT_CAPTION = 0x2;
 
         [DllImport("user32.dll")]
@@ -84,7 +77,7 @@ namespace GeradorDePacotes
                 }
                 if (Flp_Sidebar.Width <= 44)
                 {
-                    Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: false);
+                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: false);
                     Pic_Logo.Visible = false;
                     sideBarExpanded = false;
                     SidebarTransition.Stop();
@@ -105,7 +98,7 @@ namespace GeradorDePacotes
                 }
                 if (Flp_Sidebar.Width >= 190)
                 {
-                    Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: true);
+                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: true);
                     Pic_Logo.Visible = true;
                     sideBarExpanded = true;
                     SidebarTransition.Stop();
@@ -185,7 +178,7 @@ namespace GeradorDePacotes
         private void Pnl_Principal_ControlAdded(object sender, ControlEventArgs e)
         {
             var content = Pnl_Principal.Controls[0].Controls[0];
-            Helpers.CenterPanel(this, Flp_Sidebar, content, expandedBar: true);
+            Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: true);
         }
     }
 }
