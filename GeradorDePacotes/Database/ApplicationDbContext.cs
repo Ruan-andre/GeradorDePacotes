@@ -2,7 +2,7 @@
 using GeradorDePacotes.Database.Entities;
 namespace GeradorDePacotes.Database
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<ParKey> ParKeys { get; set; }
         public DbSet<FolderToVerify> FoldersToVerify { get; set; }
