@@ -24,13 +24,45 @@ namespace GeradorDePacotes.Classes
 
             ctrlContent.Location = new Point(x, y);
         }
-
-
         public static void CenterPanel(Control ctrlParent, Control ctrlChild)
         {
             int x = (ctrlParent.Width - ctrlChild.Width) / 2;
             int y = (ctrlParent.Height - ctrlChild.Height) / 2;
             ctrlChild.Location = new Point(x, y);
+        }
+
+        public static bool IsDirectoryValid(TextBox ctrl)
+        {
+            if (!Directory.Exists(ctrl.Text))
+            {
+                MessageBox.Show("O diretório informado não existe, ou é inválido!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ctrl.Text = string.Empty;
+                ctrl.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsDirectoryValid(Control ctrl, string path, bool focus = true)
+        {
+            if (!Directory.Exists(path))
+            {
+                MessageBox.Show("O diretório informado não existe, ou é inválido!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ctrl.Text = string.Empty;
+                ctrl.Focus();
+                return false;
+            }
+            return true;
+        }
+        public static bool IsDirectoryValid(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                MessageBox.Show("O diretório informado não existe, ou é inválido!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
         }
 
     }
