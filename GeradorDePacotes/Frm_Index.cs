@@ -48,11 +48,22 @@ namespace GeradorDePacotes
             Pnl_Principal.Controls.Add(userControl);
         }
 
-        private void Pic_ExpandirMenu_Click(object sender, EventArgs e)
+        internal void Pic_ExpandirMenu_Click(object sender, EventArgs e)
         {
             SidebarTransition.Start();
             Pic_ExpandirMenu.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
             Pic_ExpandirMenu.Refresh();
+        }
+        private void Pic_ExpandirMenu_MouseHover(object sender, EventArgs e)
+        {
+            var pic = (PictureBox)sender;
+            pic.BackColor = Color.FromArgb(33, 33, 33, 51);
+        }
+
+        private void Pic_ExpandirMenu_MouseLeave(object sender, EventArgs e)
+        {
+            var pic = (PictureBox)sender;
+            pic.BackColor = Color.FromArgb(198, 172, 143);
         }
 
         private void SidebarTransition_Tick(object sender, EventArgs e)
@@ -77,7 +88,7 @@ namespace GeradorDePacotes
                 }
                 if (Flp_Sidebar.Width <= 44)
                 {
-                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: false);
+                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: false);
                     Pic_Logo.Visible = false;
                     sideBarExpanded = false;
                     SidebarTransition.Stop();
@@ -98,7 +109,7 @@ namespace GeradorDePacotes
                 }
                 if (Flp_Sidebar.Width >= 190)
                 {
-                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: true);
+                    Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: true);
                     Pic_Logo.Visible = true;
                     sideBarExpanded = true;
                     SidebarTransition.Stop();
@@ -143,18 +154,7 @@ namespace GeradorDePacotes
 
         }
 
-        private void Pic_ExpandirMenu_MouseHover(object sender, EventArgs e)
-        {
-            var pic = (PictureBox)sender;
-            pic.BackColor = Color.FromArgb(33, 33, 33, 51);
-        }
-
-        private void Pic_ExpandirMenu_MouseLeave(object sender, EventArgs e)
-        {
-            var pic = (PictureBox)sender;
-            pic.BackColor = Color.FromArgb(198, 172, 143);
-        }
-
+      
         private void Btn_inicio_Click(object sender, EventArgs e)
         {
             ShowUserControl(new Frm_IndexUC());
@@ -167,7 +167,7 @@ namespace GeradorDePacotes
 
         private void Btn_Configuracoes_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_ConfigUC());
+            ShowUserControl(new Frm_ConfigUC(this));
         }
 
         private void Btn_Sobre_Click(object sender, EventArgs e)
@@ -178,7 +178,7 @@ namespace GeradorDePacotes
         private void Pnl_Principal_ControlAdded(object sender, ControlEventArgs e)
         {
             var content = Pnl_Principal.Controls[0].Controls[0];
-            Helpers.CenterPanelSideBar(this, Flp_Sidebar, content, expandedBar: true);
+            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: true);
         }
     }
 }
