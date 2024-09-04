@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GeradorDePacotes.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeradorDePacotes.Classes
 {
@@ -86,6 +82,10 @@ namespace GeradorDePacotes.Classes
             var lastIndexCharSeparator = pathTargetFolder.LastIndexOf(charSeparator);
             var nameTargetFolderWithoutPath = pathTargetFolder.Substring(lastIndexCharSeparator + 1);
             var lastIndex = path.IndexOf(nameTargetFolderWithoutPath);
+            if (lastIndex < 0)
+            {
+                throw new Exception("O diretório selecionado não está contido no diretório da pasta alvo");
+            }
             var pathAfterTargetFolder = path.Substring(lastIndex + nameTargetFolderWithoutPath.Length + 1);
             return pathAfterTargetFolder;
         }
@@ -96,6 +96,43 @@ namespace GeradorDePacotes.Classes
 
             return controls.Concat(parent.Controls.OfType<Control>()
                                         .SelectMany(ctrl => GetAllControlsOfType<T>(ctrl)));
+        }
+
+        public static async Task DataBindDataGridsAsync(ApplicationDbContext ctx, DataGridView? dataGrid = null, Control? ctrl = null)
+        {
+            if (dataGrid != null)
+            {
+                var tableName = dataGrid.Name.Replace("Dt_", "");
+                var dbSetProperty = ctx.GetType().GetProperty(tableName);
+                var dbSet = dbSetProperty.GetValue(ctx);
+                var query = dbSet as IQueryable<object>;
+                var data = await query.ToListAsync();
+                dataGrid.AutoGenerateColumns = false;
+                dataGrid.DataSource = data;
+                return;
+            }
+            else if (ctrl != null)
+            {
+                {
+                    var Dts = GetAllControlsOfType<DataGridView>(ctrl);
+
+                    foreach (DataGridView dt in Dts)
+                    {
+                        var tableName = dt.Name.Replace("Dt_", "");
+                        var dbSetProperty = ctx.GetType().GetProperty(tableName);
+                        var dbSet = dbSetProperty.GetValue(ctx);
+                        var query = dbSet as IQueryable<object>;
+                        var data = await query.ToListAsync();
+                        dt.AutoGenerateColumns = false;
+                        dt.DataSource = data;
+                    }
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Pelo menos um parâmetro não deve ser nulo");
+            }
+
         }
     }
 }
