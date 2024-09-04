@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Index));
             Pnl_Top = new Panel();
             Cbtn_Minimize = new Guna.UI2.WinForms.Guna2ControlBox();
@@ -68,7 +68,7 @@
             Pnl_Top.ImeMode = ImeMode.NoControl;
             Pnl_Top.Location = new Point(0, 0);
             Pnl_Top.Name = "Pnl_Top";
-            Pnl_Top.Size = new Size(963, 32);
+            Pnl_Top.Size = new Size(1024, 32);
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
             // 
@@ -77,12 +77,12 @@
             Cbtn_Minimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Cbtn_Minimize.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
             Cbtn_Minimize.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            Cbtn_Minimize.CustomizableEdges = customizableEdges5;
+            Cbtn_Minimize.CustomizableEdges = customizableEdges1;
             Cbtn_Minimize.FillColor = Color.FromArgb(198, 172, 143);
             Cbtn_Minimize.IconColor = Color.White;
-            Cbtn_Minimize.Location = new Point(855, -4);
+            Cbtn_Minimize.Location = new Point(916, -4);
             Cbtn_Minimize.Name = "Cbtn_Minimize";
-            Cbtn_Minimize.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            Cbtn_Minimize.ShadowDecoration.CustomizableEdges = customizableEdges2;
             Cbtn_Minimize.Size = new Size(56, 36);
             Cbtn_Minimize.TabIndex = 2;
             // 
@@ -120,13 +120,13 @@
             // 
             Cbtn_Close.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Cbtn_Close.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            Cbtn_Close.CustomizableEdges = customizableEdges7;
+            Cbtn_Close.CustomizableEdges = customizableEdges3;
             Cbtn_Close.FillColor = Color.FromArgb(198, 172, 143);
             Cbtn_Close.HoverState.FillColor = Color.FromArgb(192, 0, 0);
             Cbtn_Close.IconColor = Color.White;
-            Cbtn_Close.Location = new Point(907, -4);
+            Cbtn_Close.Location = new Point(968, -4);
             Cbtn_Close.Name = "Cbtn_Close";
-            Cbtn_Close.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            Cbtn_Close.ShadowDecoration.CustomizableEdges = customizableEdges4;
             Cbtn_Close.Size = new Size(56, 36);
             Cbtn_Close.TabIndex = 0;
             // 
@@ -232,7 +232,7 @@
             Pnl_Principal.ImeMode = ImeMode.NoControl;
             Pnl_Principal.Location = new Point(0, 0);
             Pnl_Principal.Name = "Pnl_Principal";
-            Pnl_Principal.Size = new Size(963, 737);
+            Pnl_Principal.Size = new Size(1024, 866);
             Pnl_Principal.TabIndex = 3;
             Pnl_Principal.ControlAdded += Pnl_Principal_ControlAdded;
             // 
@@ -243,7 +243,7 @@
             Pnl_Exit.Controls.Add(Btn_Exit);
             Pnl_Exit.Location = new Point(0, 657);
             Pnl_Exit.Name = "Pnl_Exit";
-            Pnl_Exit.Size = new Size(190, 79);
+            Pnl_Exit.Size = new Size(190, 208);
             Pnl_Exit.TabIndex = 4;
             // 
             // Btn_Exit
@@ -258,7 +258,7 @@
             Btn_Exit.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Exit.Image = Properties.Resources.sair;
             Btn_Exit.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_Exit.Location = new Point(0, 0);
+            Btn_Exit.Location = new Point(0, 129);
             Btn_Exit.Name = "Btn_Exit";
             Btn_Exit.Size = new Size(232, 79);
             Btn_Exit.TabIndex = 8;
@@ -272,7 +272,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(963, 737);
+            ClientSize = new Size(1024, 866);
             Controls.Add(Pnl_Exit);
             Controls.Add(Flp_Sidebar);
             Controls.Add(Pnl_Top);

@@ -1,7 +1,6 @@
 ﻿using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using GeradorDePacotes.Database.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace GeradorDePacotes
 {
