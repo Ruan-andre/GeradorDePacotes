@@ -280,9 +280,6 @@ namespace GeradorDePacotes.Database
 
             var sqlDelete = $"DELETE FROM {tableName}";
             await ctx.Database.ExecuteSqlRawAsync(sqlDelete);
-
-            var sqlResetSeq = $"DELETE FROM sqlite_sequence WHERE name='{tableName}'";
-            await ctx.Database.ExecuteSqlRawAsync(sqlResetSeq);
         }
 
 
