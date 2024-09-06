@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Lbl_About.Text" xml:space="preserve">
-    <value>Este software foi desenvolvido para atender a uma necessidade
-pessoal que surgiu no dia a dia. Além disso, vi nessa oportunidade 
-uma chance de testar minhas habilidades e aplicar na prática os 
-conhecimentos adquiridos ao longo dos meus estudos.</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Este software é uma evolução de uma Console Application originalmente desenvolvida para atender a uma necessidade pessoal. O objetivo foi criar uma interface gráfica para a aplicação, proporcionando uma experiência de uso mais intuitiva. Além disso, vi nessa oportunidade uma chance de testar minhas habilidades e aplicar na prática os conhecimentos adquiridos ao longo dos meus estudos.</value>
   </data>
 </root>
