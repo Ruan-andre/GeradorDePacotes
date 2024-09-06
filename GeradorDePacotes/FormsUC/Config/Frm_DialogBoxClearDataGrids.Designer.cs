@@ -49,9 +49,9 @@
             Lbl_DtName.ForeColor = Color.FromArgb(80, 80, 80);
             Lbl_DtName.Location = new Point(3, 12);
             Lbl_DtName.Name = "Lbl_DtName";
-            Lbl_DtName.Size = new Size(323, 50);
+            Lbl_DtName.Size = new Size(395, 50);
             Lbl_DtName.TabIndex = 0;
-            Lbl_DtName.Text = "Pastas para excluir";
+            Lbl_DtName.Text = "PASTAS PARA DELETAR";
             // 
             // Btn_ClearCurrentDt
             // 

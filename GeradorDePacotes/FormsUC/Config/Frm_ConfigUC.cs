@@ -3,6 +3,7 @@ using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using GeradorDePacotes.Database.Entities;
 using GeradorDePacotes.FormsUC.Config;
+using System.Windows.Forms;
 
 namespace GeradorDePacotes
 {
@@ -14,14 +15,14 @@ namespace GeradorDePacotes
 
         private Frm_Index _parentForm;
 
-        private object _cachedName;
+        private object? _cachedName;
 
         public static string PathTargetFolder { get; private set; }
 
-        public Frm_ConfigUC(Frm_Index parentForm)
+        public Frm_ConfigUC(ApplicationDbContext ctx, Frm_Index parentForm)
         {
             InitializeComponent();
-            _context = new ApplicationDbContext();
+            _context = ctx;
             _parentForm = parentForm;
         }
 
@@ -30,14 +31,35 @@ namespace GeradorDePacotes
         private void Frm_ConfigUC_Load(object sender, EventArgs e)
         {
             FillOwnControls();
-            ExpandOrContractGrpsConfig(Chb_SameOutputFolder.Checked);
+            ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
             _initializing = false;
             if (_parentForm != null && Frm_Index.sideBarExpanded)
                 _parentForm.Pic_ExpandirMenu_Click(this, EventArgs.Empty);
 
             PathTargetFolder = Txt_TargetFolder.Text;
+
+            ShowOrHideImgMsg();
         }
 
+        private void ShowOrHideImgMsg()
+        {
+            var visible = (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
+                           && Chb_SameOutputFolder.Checked == true)
+                           || (Chb_SameOutputFolder.Checked == false
+                                && (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
+                                    || string.IsNullOrWhiteSpace(Txt_OutputFolder.Text))) ? false : true;
+
+            var PnlsToHide = Pnl_ContentConfig.Controls;
+
+            foreach (Control item in PnlsToHide)
+            {
+                if (item.Tag?.ToString() == "hide")
+                {
+                    item.Visible = visible;
+                }
+            }
+            Pic_Msg_Fields.Visible = !visible;
+        }
 
         private void Txt_OutputFile_Leave(object sender, EventArgs e)
         {
@@ -65,10 +87,13 @@ namespace GeradorDePacotes
             if (!Helpers.IsDirectoryValid(Txt_TargetFolder.Text))
             {
                 Txt_TargetFolder.Text = await UtilDb.GetParValueAsync(_context, "target_folder");
+                ShowOrHideImgMsg();
                 return;
             }
 
             AddPathFolder(Txt_TargetFolder, "target_folder");
+
+            ShowOrHideImgMsg();
         }
 
         private async void Cmb_Formatos_SelectedIndexChanged(object sender, EventArgs e)
@@ -95,7 +120,7 @@ namespace GeradorDePacotes
 
         private async void Chb_SameOutputFolder_CheckedChanged(object sender, EventArgs e)
         {
-            ExpandOrContractGrpsConfig(Chb_SameOutputFolder.Checked);
+            ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
 
             if (_initializing) return;
 
@@ -119,6 +144,7 @@ namespace GeradorDePacotes
 
             Txt_TargetFolder.Text = Fbd_ConfigUC.SelectedPath;
             AddPathFolder(Txt_TargetFolder, "target_folder");
+            ShowOrHideImgMsg();
         }
         private void Btn_ExploreOutputFolder_Click(object sender, EventArgs e)
         {
@@ -133,11 +159,11 @@ namespace GeradorDePacotes
             AddPathFolder(Txt_OutputFolder, "output_folder");
         }
 
-        private async void Btn_AddFolderToDelete_Click(object sender, EventArgs e)
+        private async void Pic_AddFolderToDelete_Click(object sender, EventArgs e)
         {
             Fbd_ConfigUC.Description = "Selecione a pasta que será adicionada à lista de exclusões";
             Fbd_ConfigUC.UseDescriptionForTitle = true;
-            
+
             if (!VerifyPathTargetFolder()) return;
 
             Fbd_ConfigUC.InitialDirectory = Txt_TargetFolder.Text;
@@ -147,7 +173,7 @@ namespace GeradorDePacotes
             await Helpers.DataBindDataGridsAsync(_context, Dt_FoldersToDelete);
         }
 
-        private async void Btn_AddFileToDelete_Click(object sender, EventArgs e)
+        private async void Pic_AddFileToDelete_Click(object sender, EventArgs e)
         {
 
             if (!VerifyPathTargetFolder()) return;
@@ -160,7 +186,7 @@ namespace GeradorDePacotes
             await Helpers.DataBindDataGridsAsync(_context, Dt_FilesToDelete);
         }
 
-        private async void Btn_AddFolderToVerify_Click(object sender, EventArgs e)
+        private async void Pic_AddFolderToVerify_Click(object sender, EventArgs e)
         {
 
             if (!VerifyPathTargetFolder()) return;
@@ -173,7 +199,7 @@ namespace GeradorDePacotes
             await Helpers.DataBindDataGridsAsync(_context, Dt_FoldersToVerify);
         }
 
-        private async void Btn_AddFileToVerify_Click(object sender, EventArgs e)
+        private async void Pic_AddFileToVerify_Click(object sender, EventArgs e)
         {
             if (!VerifyPathTargetFolder()) return;
 
@@ -275,56 +301,39 @@ namespace GeradorDePacotes
 
             return true;
         }
-        private void ExpandOrContractGrpsConfig(bool check)
+        private void ExpandOrContractPnlsConfig(bool check)
         {
 
             if (!check)
             {
-                Grp_OutputFile.Height = 174;
-                Grp_TargetFolder.Height = 174;
-
-                Grp_FoldersToDelete.Location = new Point(0, 187);
-                Grp_FilesToDelete.Location = new Point(411, 187);
-                Grp_FoldersToVerify.Location = new Point(0, 442);
-                Grp_FilesToVerify.Location = new Point(411, 442);
-
+                Tlp_Content.RowStyles[0].Height += 45;
+                Tlp_Content.Height += 45;
                 Chb_AddDateHourToName.Location = new Point(13, 90);
-
-                Cmb_Formatos.Location = new Point(10, 120);
-
+                Cmb_Formatos.Location = new Point(10, 137);
                 Txt_OutputFolder.Visible = true;
-                Txt_OutputFolder.Location = new Point(8, 120);
-                Txt_OutputFolder.Width = 327;
-
                 Btn_ExploreOutputFolder.Visible = true;
-                Btn_ExploreOutputFolder.Location = new Point(335, 120);
-
-                Btn_ClearTables.Location = new Point(292, 692);
-                Pnl_ContentConfig.Height += 40;
+                Btn_ClearTables.Location = new Point(292, 705);
+                Pnl_ContentConfig.Height = 760;
             }
             else
             {
-                Grp_OutputFile.Height = 130;
-                Grp_TargetFolder.Height = 130;
+                Tlp_Content.RowStyles[0].Height = 133;
+                Tlp_Content.RowStyles[1].Height = 260;
+                Tlp_Content.RowStyles[2].Height = 260;
 
-                Grp_FoldersToDelete.Location = new Point(0, 147);
-                Grp_FilesToDelete.Location = new Point(411, 147);
-                Grp_FoldersToVerify.Location = new Point(0, 402);
-                Grp_FilesToVerify.Location = new Point(411, 402);
-
-                Chb_AddDateHourToName.Location = new Point(13, 90);
-                Cmb_Formatos.Location = new Point(316, 84);
+                Chb_AddDateHourToName.Location = new Point(9, 95);
+                Cmb_Formatos.Location = new Point(310, 95);
                 Txt_OutputFolder.Visible = false;
                 Btn_ExploreOutputFolder.Visible = false;
-
-                Btn_ClearTables.Location = new Point(292, 652);
-                Pnl_ContentConfig.Height = 689;
+                Tlp_Content.Height = 654;
+                Btn_ClearTables.Location = new Point(292, 666);
+                Pnl_ContentConfig.Height = 700;
             }
 
         }
         private async void FillOwnControls()
         {
-            #region["Grp_OutputFile"]
+            #region["Pnl_OutputFile"]
 
             var lastFileName = _context.FileNameOutputLogs
                                     .AsEnumerable()
@@ -346,7 +355,7 @@ namespace GeradorDePacotes
 
             #endregion
 
-            #region["Grp_TargetFolder"]
+            #region["Pnl_TargetFolder"]
 
             var txtTargetFolder = await UtilDb.GetParValueAsync(_context, "target_folder");
             if (!string.IsNullOrWhiteSpace(txtTargetFolder))
@@ -451,6 +460,16 @@ namespace GeradorDePacotes
             var dialogBox = new Frm_DialogBoxClearDataGrids(_context, dataGrids);
             dialogBox.ShowDialog();
 
+        }
+
+        private void Txt_TargetFolder_TextChanged(object sender, EventArgs e)
+        {
+            ShowOrHideImgMsg();
+        }
+
+        private void Txt_OutputFolder_TextChanged(object sender, EventArgs e)
+        {
+            ShowOrHideImgMsg();
         }
 
     }

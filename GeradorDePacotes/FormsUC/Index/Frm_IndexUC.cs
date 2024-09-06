@@ -7,72 +7,88 @@ namespace GeradorDePacotes
     public partial class Frm_IndexUC : UserControl
     {
         private ApplicationDbContext _context;
-        public Frm_IndexUC()
+        
+        private bool _initializing = true;
+        public Frm_IndexUC(ApplicationDbContext ctx)
         {
             InitializeComponent();
-            _context = new ApplicationDbContext();
+            _context = ctx;
         }
 
-        private void Chk_Inicializar_CheckedChanged(object sender, EventArgs e)
+        private async void Chk_Inicializar_CheckedChanged(object sender, EventArgs e)
         {
-
-            var chk_initialize = _context.ParKeys
-                .AsEnumerable()
-                .FirstOrDefault(x => x.ParName.Equals("chk_initialize", StringComparison.OrdinalIgnoreCase));
-
-            if (chk_initialize == null)
-            {
-                var new_chk_initialize = new ParKey() { ParName = "chk_initialize", ParValue = Chk_Inicializar.Checked.ToString() };
-                _context.ParKeys.Add(new_chk_initialize);
-            }
-            else
-            {
-                chk_initialize.ParValue = Chk_Inicializar.Checked.ToString();
-            }
-            _context.SaveChanges();
-
+            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "chk_initialize", Chk_Inicializar.Checked.ToString());
         }
 
         private void Frm_IndexUC_Load(object sender, EventArgs e)
         {
-            Helpers.CenterPanel(Pnl_Content_IndexUC, Pnl_BtnGerar);
-            UpdateChkInitialize();
+            FillChkInitialize();
+            CheckInitialize();
+            _initializing= false; 
         }
 
-        private void UpdateChkInitialize()
+        private async void FillChkInitialize()
         {
-            var chk_initialize = _context.ParKeys.FirstOrDefault(x => x.ParName.Equals("chk_initialize"));
-            if (!string.IsNullOrEmpty(chk_initialize?.ParValue))
+            var parValue = await UtilDb.GetParValueAsync(_context, "chk_initialize");
+
+            if (!string.IsNullOrEmpty(parValue))
             {
-                Chk_Inicializar.Checked = Convert.ToBoolean(chk_initialize.ParValue);
+                Chk_Inicializar.Checked = Convert.ToBoolean(parValue);
+            }
+            else
+            {
+                Chk_Inicializar.Checked = false;
             }
         }
 
-        private void Btn_GerarPacote_Click(object sender, EventArgs e)
+        private async void Btn_GerarPacote_Click(object sender, EventArgs e)
         {
             Btn_GerarPacote.Visible = false;
+            Btn_Stop.Visible = true;
             Chk_Inicializar.Visible = false;
             Prg_Bar.Visible = true;
-            
+
+            Lbl_Progresso.Visible = true;
+            Lbl_Progresso.Text = "Gerando pacote, aguarde...";
+            Lbl_Progresso.Refresh();
+            await Task.Run(() => ProcessarPacote());
+            Btn_GerarPacote.Visible = true;
+            Btn_Stop.Visible = false;
+            Chk_Inicializar.Visible = true;
+        }
+        private void ProcessarPacote()
+        {
             int contador = 0;
-            while (true)
+            Prg_Bar.Percentage = 0;
+            Lbl_Progresso.ForeColor = default;
+            // Simulando o processo com um contador
+            while (contador < 100)
             {
-                if (contador < 50)
+                // Atualiza a barra de progresso e faz uma pausa
+                this.Invoke(new Action(() =>
                 {
                     Prg_Bar.Percentage++;
                     Prg_Bar.Refresh();
-                    contador++;
-                    Lbl_Progresso.Visible = true;
-                    Lbl_Progresso.Text = "Gerando pacote, aguarde...";
-                    Lbl_Progresso.Refresh();
+                }));
 
+                // Simula o tempo de processamento
+                Thread.Sleep(50);
+                contador++;
+            }
 
-                    if (contador < 50)
-                        Thread.Sleep(50);
+            // Quando o processo terminar, atualizar o label na UI thread
+            this.Invoke(new Action(() =>
+            {
+                Lbl_Progresso.Text = "Pacote gerado com sucesso!";
+                Lbl_Progresso.ForeColor = Color.Green;
+            }));
+        }
 
-                    continue;
-                }
-                break;
+        private void CheckInitialize()
+        {
+            if (Chk_Inicializar.Checked)
+            {
+                Btn_GerarPacote_Click(null!, null!);
             }
         }
     }

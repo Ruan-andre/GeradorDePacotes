@@ -29,16 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Index));
             Pnl_Top = new Panel();
-            Cbtn_Minimize = new Guna.UI2.WinForms.Guna2ControlBox();
+            button1 = new Button();
+            Btn_MinimizeApplication = new Button();
             Lbl_TituloPrograma = new Label();
             Pic_ExpandirMenu = new PictureBox();
-            Cbtn_Close = new Guna.UI2.WinForms.Guna2ControlBox();
             SidebarTransition = new System.Windows.Forms.Timer(components);
             Flp_Sidebar = new FlowLayoutPanel();
             Pic_Logo = new PictureBox();
@@ -59,10 +55,10 @@
             // 
             Pnl_Top.AllowDrop = true;
             Pnl_Top.BackColor = Color.FromArgb(198, 172, 143);
-            Pnl_Top.Controls.Add(Cbtn_Minimize);
+            Pnl_Top.Controls.Add(button1);
+            Pnl_Top.Controls.Add(Btn_MinimizeApplication);
             Pnl_Top.Controls.Add(Lbl_TituloPrograma);
             Pnl_Top.Controls.Add(Pic_ExpandirMenu);
-            Pnl_Top.Controls.Add(Cbtn_Close);
             Pnl_Top.Dock = DockStyle.Top;
             Pnl_Top.ForeColor = SystemColors.ButtonHighlight;
             Pnl_Top.ImeMode = ImeMode.NoControl;
@@ -72,19 +68,39 @@
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
             // 
-            // Cbtn_Minimize
+            // button1
             // 
-            Cbtn_Minimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Cbtn_Minimize.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            Cbtn_Minimize.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            Cbtn_Minimize.CustomizableEdges = customizableEdges1;
-            Cbtn_Minimize.FillColor = Color.FromArgb(198, 172, 143);
-            Cbtn_Minimize.IconColor = Color.White;
-            Cbtn_Minimize.Location = new Point(916, -4);
-            Cbtn_Minimize.Name = "Cbtn_Minimize";
-            Cbtn_Minimize.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            Cbtn_Minimize.Size = new Size(56, 36);
-            Cbtn_Minimize.TabIndex = 2;
+            button1.BackColor = Color.FromArgb(198, 172, 143);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 15F);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(970, -10);
+            button1.Name = "button1";
+            button1.Padding = new Padding(0, 0, 0, 5);
+            button1.Size = new Size(56, 42);
+            button1.TabIndex = 6;
+            button1.Text = "x";
+            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += Btn_CloseApplication_Click;
+            // 
+            // Btn_MinimizeApplication
+            // 
+            Btn_MinimizeApplication.BackColor = Color.FromArgb(198, 172, 143);
+            Btn_MinimizeApplication.FlatAppearance.BorderSize = 0;
+            Btn_MinimizeApplication.FlatStyle = FlatStyle.Flat;
+            Btn_MinimizeApplication.Font = new Font("Segoe UI", 20F);
+            Btn_MinimizeApplication.ForeColor = Color.White;
+            Btn_MinimizeApplication.Location = new Point(914, -25);
+            Btn_MinimizeApplication.Name = "Btn_MinimizeApplication";
+            Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 5);
+            Btn_MinimizeApplication.Size = new Size(56, 57);
+            Btn_MinimizeApplication.TabIndex = 5;
+            Btn_MinimizeApplication.Text = "_";
+            Btn_MinimizeApplication.TextAlign = ContentAlignment.TopCenter;
+            Btn_MinimizeApplication.UseVisualStyleBackColor = false;
+            Btn_MinimizeApplication.Click += Btn_MinimizeApplication_Click;
             // 
             // Lbl_TituloPrograma
             // 
@@ -115,20 +131,6 @@
             Pic_ExpandirMenu.Click += Pic_ExpandirMenu_Click;
             Pic_ExpandirMenu.MouseLeave += Pic_ExpandirMenu_MouseLeave;
             Pic_ExpandirMenu.MouseHover += Pic_ExpandirMenu_MouseHover;
-            // 
-            // Cbtn_Close
-            // 
-            Cbtn_Close.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Cbtn_Close.ControlBoxStyle = Guna.UI2.WinForms.Enums.ControlBoxStyle.Custom;
-            Cbtn_Close.CustomizableEdges = customizableEdges3;
-            Cbtn_Close.FillColor = Color.FromArgb(198, 172, 143);
-            Cbtn_Close.HoverState.FillColor = Color.FromArgb(192, 0, 0);
-            Cbtn_Close.IconColor = Color.White;
-            Cbtn_Close.Location = new Point(968, -4);
-            Cbtn_Close.Name = "Cbtn_Close";
-            Cbtn_Close.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            Cbtn_Close.Size = new Size(56, 36);
-            Cbtn_Close.TabIndex = 0;
             // 
             // SidebarTransition
             // 
@@ -298,8 +300,6 @@
         private Label Lbl_TituloPrograma;
         private Button Btn_Gerar;
         private System.Windows.Forms.Timer SidebarTransition;
-        private Guna.UI2.WinForms.Guna2ControlBox Cbtn_Close;
-        private Guna.UI2.WinForms.Guna2ControlBox Cbtn_Minimize;
         private FlowLayoutPanel Flp_Sidebar;
         private PictureBox Pic_Logo;
         private Button Btn_Configuracoes;
@@ -308,5 +308,7 @@
         private Panel Pnl_Exit;
         private Button Btn_Exit;
         internal Button Btn_inicio;
+        private Button Btn_MinimizeApplication;
+        private Button button1;
     }
 }

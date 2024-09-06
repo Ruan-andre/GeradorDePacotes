@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Runtime.InteropServices;
 using GeradorDePacotes.Classes;
+using GeradorDePacotes.Database;
 
 namespace GeradorDePacotes
 {
@@ -15,16 +16,19 @@ namespace GeradorDePacotes
 
         public const int HT_CAPTION = 0x2;
 
+        private ApplicationDbContext _context;
+        public Frm_Index()
+        {
+            InitializeComponent();
+            _context = new ApplicationDbContext();
+            ShowUserControl(new Frm_IndexUC(_context));
+        }
+
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-        public Frm_Index()
-        {
-            InitializeComponent();
-            ShowUserControl(new Frm_IndexUC());
-        }
 
         private void Pnl_Top_MouseDown(object sender, MouseEventArgs e)
         {
@@ -78,8 +82,6 @@ namespace GeradorDePacotes
                 {
                     Flp_Sidebar.Width -= 6;
                     Pnl_Exit.Width -= 6;
-
-
                 }
                 else
                 {
@@ -154,10 +156,10 @@ namespace GeradorDePacotes
 
         }
 
-      
+
         private void Btn_inicio_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_IndexUC());
+            ShowUserControl(new Frm_IndexUC(_context));
         }
 
         private void Btn_Exit_Click(object sender, EventArgs e)
@@ -167,7 +169,7 @@ namespace GeradorDePacotes
 
         private void Btn_Configuracoes_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_ConfigUC(this));
+            ShowUserControl(new Frm_ConfigUC(_context, this));
         }
 
         private void Btn_Sobre_Click(object sender, EventArgs e)
@@ -179,6 +181,16 @@ namespace GeradorDePacotes
         {
             var content = Pnl_Principal.Controls[0].Controls[0];
             Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: true);
+        }
+
+        private void Btn_MinimizeApplication_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Btn_CloseApplication_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
