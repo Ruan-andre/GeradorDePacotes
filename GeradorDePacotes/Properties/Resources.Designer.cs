@@ -73,6 +73,16 @@ namespace GeradorDePacotes.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add {
+            get {
+                object obj = ResourceManager.GetObject("add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arquivo {
             get {
                 object obj = ResourceManager.GetObject("arquivo", resourceCulture);
@@ -156,6 +166,16 @@ namespace GeradorDePacotes.Properties {
         internal static System.Drawing.Bitmap LOGO_PRINCIPAL {
             get {
                 object obj = ResourceManager.GetObject("LOGO-PRINCIPAL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap msg_preencher_campos {
+            get {
+                object obj = ResourceManager.GetObject("msg-preencher-campos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
