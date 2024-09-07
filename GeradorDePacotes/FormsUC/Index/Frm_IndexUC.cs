@@ -7,8 +7,7 @@ namespace GeradorDePacotes
     public partial class Frm_IndexUC : UserControl
     {
         private ApplicationDbContext _context;
-        
-        private bool _initializing = true;
+
         public Frm_IndexUC(ApplicationDbContext ctx)
         {
             InitializeComponent();
@@ -22,9 +21,9 @@ namespace GeradorDePacotes
 
         private void Frm_IndexUC_Load(object sender, EventArgs e)
         {
+
             FillChkInitialize();
             CheckInitialize();
-            _initializing= false; 
         }
 
         private async void FillChkInitialize()
@@ -48,9 +47,9 @@ namespace GeradorDePacotes
             Chk_Inicializar.Visible = false;
             Prg_Bar.Visible = true;
 
-            Lbl_Progresso.Visible = true;
-            Lbl_Progresso.Text = "Gerando pacote, aguarde...";
-            Lbl_Progresso.Refresh();
+            Lbl_Progress.Visible = true;
+            Lbl_Progress.Text = "Gerando pacote, aguarde...";
+            Lbl_Progress.Refresh();
             await Task.Run(() => ProcessarPacote());
             Btn_GerarPacote.Visible = true;
             Btn_Stop.Visible = false;
@@ -60,11 +59,11 @@ namespace GeradorDePacotes
         {
             int contador = 0;
             Prg_Bar.Percentage = 0;
-            Lbl_Progresso.ForeColor = default;
+            Lbl_Progress.ForeColor = default;
             // Simulando o processo com um contador
             while (contador < 100)
             {
-                // Atualiza a barra de progresso e faz uma pausa
+                // Atualiza a barra de Progress e faz uma pausa
                 this.Invoke(new Action(() =>
                 {
                     Prg_Bar.Percentage++;
@@ -79,17 +78,26 @@ namespace GeradorDePacotes
             // Quando o processo terminar, atualizar o label na UI thread
             this.Invoke(new Action(() =>
             {
-                Lbl_Progresso.Text = "Pacote gerado com sucesso!";
-                Lbl_Progresso.ForeColor = Color.Green;
+                Lbl_Progress.Text = "Pacote gerado com sucesso!";
+                Lbl_Progress.ForeColor = Color.Green;
             }));
         }
 
-        private void CheckInitialize()
+        private async void CheckInitialize()
         {
-            if (Chk_Inicializar.Checked)
-            {
+            var parValue = await UtilDb.GetParValueAsync(_context, "first_initializing");
+            bool firstInitializing = true;
+
+            if (parValue != null)
+                firstInitializing = Convert.ToBoolean(parValue);
+            else
+                await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
+
+            if (Chk_Inicializar.Checked && firstInitializing)
                 Btn_GerarPacote_Click(null!, null!);
-            }
+
+            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "false");
+            
         }
     }
 }
