@@ -24,12 +24,13 @@ namespace GeradorDePacotes
         private Control firstControl;
 
         private ApplicationDbContext _context;
+
+        private Dictionary<int, UserControl> _dicUsersControl = new Dictionary<int, UserControl>();
         public Frm_Index()
         {
             InitializeComponent();
             _context = new ApplicationDbContext();
-            ShowUserControl(new Frm_IndexUC(_context));
-            _currentUserControl = 0;
+            ShowUserControl(0, new Frm_IndexUC(_context));
         }
 
         [DllImport("user32.dll")]
@@ -38,56 +39,87 @@ namespace GeradorDePacotes
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void Pnl_Top_MouseDown(object sender, MouseEventArgs e)
+        // PERSONALIZED
+
+        private static Control? GetMainPanel(Control.ControlCollection controls)
         {
-            if (e.Button == MouseButtons.Left)
+            Control? content = null;
+            foreach (Control item in controls)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                var tag = item.Tag?.ToString();
+                if (!string.IsNullOrEmpty(tag) && tag.Equals("main", StringComparison.OrdinalIgnoreCase))
+                {
+                    content = item;
+                    break;
+                }
             }
+
+            return content;
         }
 
-        private void ShowUserControl(Control userControl)
+        private void ChageButtonsText()
         {
-
-            if (firstControl == null)
+            if (tempTextButtons.Count <= 0)
             {
-                firstControl = userControl;
-                userControl.Dock = DockStyle.Fill;
-                Pnl_Principal.Controls.Add(userControl);
-                return;
+                tempTextButtons.Add(Btn_inicio.Text);
+                tempTextButtons.Add(Btn_Configuracoes.Text);
+                tempTextButtons.Add(Btn_Sobre.Text);
+                tempTextButtons.Add(Btn_Exit.Text);
             }
-
-            if (Pnl_Principal.Controls.ContainsKey(userControl.Name) && userControl.Name.Equals(firstControl.Name))
+            if (sideBarExpanded)
             {
-                foreach (Control control in Pnl_Principal.Controls)
-                {
-                    control.Hide();
-                }
-                firstControl.Show();
-                firstControl.BringToFront();
-                return;
-            }
-
-            foreach (Control control in Pnl_Principal.Controls)
-            {
-                if (!userControl.Name.Equals(control.Name))
-                    control.Hide();
-            }
-
-            userControl.Dock = DockStyle.Fill;
-            var ctrlInPnl = Pnl_Principal.Controls.Find(userControl.Name, true).FirstOrDefault();
-
-            if (ctrlInPnl == null)
-            {
-                Pnl_Principal.Controls.Add(userControl);
-                userControl.Show();
+                Btn_inicio.Text = tempTextButtons
+                    .Where(x => x.Contains("Início", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Configuracoes.Text = tempTextButtons
+                    .Where(x => x.Contains("Configurações", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Sobre.Text = tempTextButtons
+                    .Where(x => x.Contains("Sobre", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                Btn_Exit.Text = tempTextButtons
+                    .Where(x => x.Contains("Sair", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
             }
             else
             {
-                ctrlInPnl.Show();
+                Btn_inicio.Text = string.Empty;
+                Btn_Configuracoes.Text = string.Empty;
+                Btn_Sobre.Text = string.Empty;
+                Btn_Exit.Text = string.Empty;
             }
-            
+
+        }
+
+        private void ShowUserControl(int idUC, UserControl uc)
+        {
+            var exists = _dicUsersControl.ContainsKey(idUC);
+            if (!exists)
+            {
+                HideAllControls();
+                _dicUsersControl.Add(idUC, uc);
+                uc.Dock = DockStyle.Fill;
+                Pnl_Principal.Controls.Add(uc);
+            }
+            else
+            {
+                UserControl ucDic = _dicUsersControl[_currentUserControl];
+                if (uc.Name.Equals(ucDic.Name))
+                    return;
+
+                HideAllControls();
+                _dicUsersControl[idUC].Show();
+            }
+
+        }
+
+        private void CenterContent()
+        {
+            Control? ctrlContent = null;
+            foreach (Control control in Pnl_Principal.Controls)
+            {
+                if (control.Visible)
+                {
+                    ctrlContent = control.Controls[0];
+                }
+            }
+            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, ctrlContent!, sideBarExpanded);
         }
 
         private void HideAllControls()
@@ -97,12 +129,25 @@ namespace GeradorDePacotes
                 control.Hide();
             }
         }
+
+
+        //EVENTS
+        private void Pnl_Top_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
         internal void Pic_ExpandirMenu_Click(object sender, EventArgs e)
         {
             SidebarTransition.Start();
             Pic_ExpandirMenu.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
             Pic_ExpandirMenu.Refresh();
         }
+
         private void Pic_ExpandirMenu_MouseHover(object sender, EventArgs e)
         {
             var pic = (PictureBox)sender;
@@ -167,55 +212,9 @@ namespace GeradorDePacotes
 
         }
 
-        private static Control? GetMainPanel(Control.ControlCollection controls)
-        {
-            Control? content = null;
-            foreach (Control item in controls)
-            {
-                var tag = item.Tag?.ToString();
-                if (!string.IsNullOrEmpty(tag) && tag.Equals("main", StringComparison.OrdinalIgnoreCase))
-                {
-                    content = item;
-                    break;
-                }
-            }
-
-            return content;
-        }
-
-        private void ChageButtonsText()
-        {
-            if (tempTextButtons.Count <= 0)
-            {
-                tempTextButtons.Add(Btn_inicio.Text);
-                tempTextButtons.Add(Btn_Configuracoes.Text);
-                tempTextButtons.Add(Btn_Sobre.Text);
-                tempTextButtons.Add(Btn_Exit.Text);
-            }
-            if (sideBarExpanded)
-            {
-                Btn_inicio.Text = tempTextButtons
-                    .Where(x => x.Contains("Início", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                Btn_Configuracoes.Text = tempTextButtons
-                    .Where(x => x.Contains("Configurações", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                Btn_Sobre.Text = tempTextButtons
-                    .Where(x => x.Contains("Sobre", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                Btn_Exit.Text = tempTextButtons
-                    .Where(x => x.Contains("Sair", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-            }
-            else
-            {
-                Btn_inicio.Text = string.Empty;
-                Btn_Configuracoes.Text = string.Empty;
-                Btn_Sobre.Text = string.Empty;
-                Btn_Exit.Text = string.Empty;
-            }
-
-        }
-
         private void Btn_inicio_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_IndexUC(_context));
+            ShowUserControl(0, new Frm_IndexUC(_context));
             _currentUserControl = 0;
         }
 
@@ -226,22 +225,16 @@ namespace GeradorDePacotes
 
         private void Btn_Configuracoes_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_ConfigUC(_context, this));
+            ShowUserControl(1, new Frm_ConfigUC(_context, this));
             _currentUserControl = 1;
         }
 
         private void Btn_Sobre_Click(object sender, EventArgs e)
         {
-            ShowUserControl(new Frm_AboutUC());
+            ShowUserControl(2, new Frm_AboutUC());
             _currentUserControl = 2;
         }
 
-        private void Pnl_Principal_ControlAdded(object sender, ControlEventArgs e)
-        {
-            var controls = Pnl_Principal.Controls[_currentUserControl].Controls;
-            var content = GetMainPanel(controls);
-            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content!, expandedBar: true);
-        }
 
         private void Btn_MinimizeApplication_Click(object sender, EventArgs e)
         {
@@ -257,5 +250,9 @@ namespace GeradorDePacotes
         {
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
         }
+
+
+
+
     }
 }

@@ -236,7 +236,6 @@
             Pnl_Principal.Name = "Pnl_Principal";
             Pnl_Principal.Size = new Size(1024, 866);
             Pnl_Principal.TabIndex = 3;
-            Pnl_Principal.ControlAdded += Pnl_Principal_ControlAdded;
             // 
             // Pnl_Exit
             // 
