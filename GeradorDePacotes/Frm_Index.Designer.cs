@@ -284,6 +284,7 @@
             Name = "Frm_Index";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gerador de Pacotes";
+            FormClosing += Frm_Index_FormClosing;
             Pnl_Top.ResumeLayout(false);
             Pnl_Top.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_ExpandirMenu).EndInit();

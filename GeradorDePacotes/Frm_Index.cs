@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 
@@ -16,12 +17,19 @@ namespace GeradorDePacotes
 
         public const int HT_CAPTION = 0x2;
 
+        private int _currentUserControl;
+
+        private Control _fixedUserControl;
+
+        private Control firstControl;
+
         private ApplicationDbContext _context;
         public Frm_Index()
         {
             InitializeComponent();
             _context = new ApplicationDbContext();
             ShowUserControl(new Frm_IndexUC(_context));
+            _currentUserControl = 0;
         }
 
         [DllImport("user32.dll")]
@@ -39,19 +47,56 @@ namespace GeradorDePacotes
             }
         }
 
-        private void ShowUserControl(UserControl userControl)
+        private void ShowUserControl(Control userControl)
         {
-            foreach (Control item in Pnl_Principal.Controls)
-                if (item.Name == userControl.Name)
-                    return;
 
-            if (Pnl_Principal.Controls.Count > 0)
-                Pnl_Principal.Controls.Clear();
+            if (firstControl == null)
+            {
+                firstControl = userControl;
+                userControl.Dock = DockStyle.Fill;
+                Pnl_Principal.Controls.Add(userControl);
+                return;
+            }
+
+            if (Pnl_Principal.Controls.ContainsKey(userControl.Name) && userControl.Name.Equals(firstControl.Name))
+            {
+                foreach (Control control in Pnl_Principal.Controls)
+                {
+                    control.Hide();
+                }
+                firstControl.Show();
+                firstControl.BringToFront();
+                return;
+            }
+
+            foreach (Control control in Pnl_Principal.Controls)
+            {
+                if (!userControl.Name.Equals(control.Name))
+                    control.Hide();
+            }
 
             userControl.Dock = DockStyle.Fill;
-            Pnl_Principal.Controls.Add(userControl);
+            var ctrlInPnl = Pnl_Principal.Controls.Find(userControl.Name, true).FirstOrDefault();
+
+            if (ctrlInPnl == null)
+            {
+                Pnl_Principal.Controls.Add(userControl);
+                userControl.Show();
+            }
+            else
+            {
+                ctrlInPnl.Show();
+            }
+            
         }
 
+        private void HideAllControls()
+        {
+            foreach (Control control in Pnl_Principal.Controls)
+            {
+                control.Hide();
+            }
+        }
         internal void Pic_ExpandirMenu_Click(object sender, EventArgs e)
         {
             SidebarTransition.Start();
@@ -72,7 +117,8 @@ namespace GeradorDePacotes
 
         private void SidebarTransition_Tick(object sender, EventArgs e)
         {
-            var content = Pnl_Principal.Controls[0].Controls[0];
+            var controls = Pnl_Principal.Controls[_currentUserControl].Controls;
+            Control? content = GetMainPanel(controls);
 
 
             if (sideBarExpanded)
@@ -121,6 +167,22 @@ namespace GeradorDePacotes
 
         }
 
+        private static Control? GetMainPanel(Control.ControlCollection controls)
+        {
+            Control? content = null;
+            foreach (Control item in controls)
+            {
+                var tag = item.Tag?.ToString();
+                if (!string.IsNullOrEmpty(tag) && tag.Equals("main", StringComparison.OrdinalIgnoreCase))
+                {
+                    content = item;
+                    break;
+                }
+            }
+
+            return content;
+        }
+
         private void ChageButtonsText()
         {
             if (tempTextButtons.Count <= 0)
@@ -151,15 +213,10 @@ namespace GeradorDePacotes
 
         }
 
-        void RemoveTextButtons()
-        {
-
-        }
-
-
         private void Btn_inicio_Click(object sender, EventArgs e)
         {
             ShowUserControl(new Frm_IndexUC(_context));
+            _currentUserControl = 0;
         }
 
         private void Btn_Exit_Click(object sender, EventArgs e)
@@ -170,17 +227,20 @@ namespace GeradorDePacotes
         private void Btn_Configuracoes_Click(object sender, EventArgs e)
         {
             ShowUserControl(new Frm_ConfigUC(_context, this));
+            _currentUserControl = 1;
         }
 
         private void Btn_Sobre_Click(object sender, EventArgs e)
         {
             ShowUserControl(new Frm_AboutUC());
+            _currentUserControl = 2;
         }
 
         private void Pnl_Principal_ControlAdded(object sender, ControlEventArgs e)
         {
-            var content = Pnl_Principal.Controls[0].Controls[0];
-            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: true);
+            var controls = Pnl_Principal.Controls[_currentUserControl].Controls;
+            var content = GetMainPanel(controls);
+            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content!, expandedBar: true);
         }
 
         private void Btn_MinimizeApplication_Click(object sender, EventArgs e)
@@ -191,6 +251,11 @@ namespace GeradorDePacotes
         private void Btn_CloseApplication_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void Frm_Index_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
         }
     }
 }
