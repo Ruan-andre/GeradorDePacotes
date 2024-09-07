@@ -19,10 +19,6 @@ namespace GeradorDePacotes
 
         private int _currentUserControl;
 
-        private Control _fixedUserControl;
-
-        private Control firstControl;
-
         private ApplicationDbContext _context;
 
         private Dictionary<int, UserControl> _dicUsersControl = new Dictionary<int, UserControl>();
@@ -96,6 +92,7 @@ namespace GeradorDePacotes
                 _dicUsersControl.Add(idUC, uc);
                 uc.Dock = DockStyle.Fill;
                 Pnl_Principal.Controls.Add(uc);
+                Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, uc.Controls[0], sideBarExpanded);
             }
             else
             {
@@ -105,29 +102,14 @@ namespace GeradorDePacotes
 
                 HideAllControls();
                 _dicUsersControl[idUC].Show();
+                Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, _dicUsersControl[idUC].Controls[0], sideBarExpanded);
             }
-
-        }
-
-        private void CenterContent()
-        {
-            Control? ctrlContent = null;
-            foreach (Control control in Pnl_Principal.Controls)
-            {
-                if (control.Visible)
-                {
-                    ctrlContent = control.Controls[0];
-                }
-            }
-            Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, ctrlContent!, sideBarExpanded);
         }
 
         private void HideAllControls()
         {
             foreach (Control control in Pnl_Principal.Controls)
-            {
                 control.Hide();
-            }
         }
 
 
@@ -235,7 +217,6 @@ namespace GeradorDePacotes
             _currentUserControl = 2;
         }
 
-
         private void Btn_MinimizeApplication_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -250,9 +231,6 @@ namespace GeradorDePacotes
         {
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
         }
-
-
-
 
     }
 }
