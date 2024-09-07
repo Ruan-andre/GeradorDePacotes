@@ -150,7 +150,7 @@
             Pnl_ContentConfig.Controls.Add(Tlp_Content);
             Pnl_ContentConfig.Controls.Add(Btn_ClearTables);
             Pnl_ContentConfig.Controls.Add(Pic_Msg_Fields);
-            Pnl_ContentConfig.Location = new Point(189, 22);
+            Pnl_ContentConfig.Location = new Point(193, 95);
             Pnl_ContentConfig.Name = "Pnl_ContentConfig";
             Pnl_ContentConfig.Size = new Size(804, 707);
             Pnl_ContentConfig.TabIndex = 13;

@@ -60,7 +60,7 @@
             // 
             Pnl_ContentAbout.Controls.Add(modernGroupBox2);
             Pnl_ContentAbout.Controls.Add(modernGroupBox1);
-            Pnl_ContentAbout.Location = new Point(312, 61);
+            Pnl_ContentAbout.Location = new Point(312, 95);
             Pnl_ContentAbout.Name = "Pnl_ContentAbout";
             Pnl_ContentAbout.Size = new Size(602, 667);
             Pnl_ContentAbout.TabIndex = 0;
