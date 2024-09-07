@@ -58,42 +58,42 @@
             DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
             Pnl_ContentConfig = new Panel();
             Tlp_Content = new TableLayoutPanel();
-            panel1 = new Panel();
+            Pnl_FilesToVerify = new Panel();
             Dt_FilesToVerify = new DataGridView();
-            NameFileToVerify = new DataGridViewTextBoxColumn();
-            dataGridViewCheckBoxColumn1 = new DataGridViewCheckBoxColumn();
-            dataGridViewImageColumn1 = new DataGridViewImageColumn();
-            idFileToVerify = new DataGridViewTextBoxColumn();
+            Col_NameFileToVerify = new DataGridViewTextBoxColumn();
+            Col_Chk_FileToVerify = new DataGridViewCheckBoxColumn();
+            Col_Btn_FileToVerify = new DataGridViewImageColumn();
+            Col_idFileToVerify = new DataGridViewTextBoxColumn();
             filesToVerifyBindingSource = new BindingSource(components);
             Pic_AddFileToVerify = new PictureBox();
             pictureBox2 = new PictureBox();
             Lbl_FilesToVerify = new Label();
             panel2 = new Panel();
             Dt_FoldersToVerify = new DataGridView();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewCheckBoxColumn2 = new DataGridViewCheckBoxColumn();
-            dataGridViewImageColumn2 = new DataGridViewImageColumn();
-            idFolderToVerify = new DataGridViewTextBoxColumn();
+            Col_NameFolderToVerify = new DataGridViewTextBoxColumn();
+            Col_Chk_FolderToVerify = new DataGridViewCheckBoxColumn();
+            Col_Btn_FolderToVerify = new DataGridViewImageColumn();
+            Col_IdFolderToVerify = new DataGridViewTextBoxColumn();
             foldersToVerifyBindingSource = new BindingSource(components);
             Pic_AddFolderToVerify = new PictureBox();
             pictureBox4 = new PictureBox();
             Lbl_FoldersToVerify = new Label();
             panel3 = new Panel();
             Dt_FilesToDelete = new DataGridView();
-            NameFile = new DataGridViewTextBoxColumn();
-            dataGridViewCheckBoxColumn3 = new DataGridViewCheckBoxColumn();
-            dataGridViewImageColumn3 = new DataGridViewImageColumn();
-            idFileToDelete = new DataGridViewTextBoxColumn();
+            Col_NameFileToDelete = new DataGridViewTextBoxColumn();
+            Col_Chk_FileToDelete = new DataGridViewCheckBoxColumn();
+            Col_Btn_FileToDelete = new DataGridViewImageColumn();
+            Col_IdFileToDelete = new DataGridViewTextBoxColumn();
             filesToDeleteBindingSource = new BindingSource(components);
             Pic_AddFileToDelete = new PictureBox();
             pictureBox6 = new PictureBox();
             Lbl_FilesToDelete = new Label();
             panel4 = new Panel();
             Dt_FoldersToDelete = new DataGridView();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewCheckBoxColumn4 = new DataGridViewCheckBoxColumn();
-            dataGridViewImageColumn4 = new DataGridViewImageColumn();
-            idFolderToDelete = new DataGridViewTextBoxColumn();
+            Col_FolderName = new DataGridViewTextBoxColumn();
+            Col_Chk_FolderToDelete = new DataGridViewCheckBoxColumn();
+            Col_Btn_FolderToDelete = new DataGridViewImageColumn();
+            Col_IdFolderToDelete = new DataGridViewTextBoxColumn();
             foldersToDeleteBindingSource = new BindingSource(components);
             Pic_AddFolderToDelete = new PictureBox();
             pictureBox8 = new PictureBox();
@@ -118,7 +118,7 @@
             Fd_ConfigUC = new OpenFileDialog();
             Pnl_ContentConfig.SuspendLayout();
             Tlp_Content.SuspendLayout();
-            panel1.SuspendLayout();
+            Pnl_FilesToVerify.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Dt_FilesToVerify).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filesToVerifyBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).BeginInit();
@@ -150,17 +150,18 @@
             Pnl_ContentConfig.Controls.Add(Tlp_Content);
             Pnl_ContentConfig.Controls.Add(Btn_ClearTables);
             Pnl_ContentConfig.Controls.Add(Pic_Msg_Fields);
-            Pnl_ContentConfig.Location = new Point(205, 37);
+            Pnl_ContentConfig.Location = new Point(189, 22);
             Pnl_ContentConfig.Name = "Pnl_ContentConfig";
             Pnl_ContentConfig.Size = new Size(804, 707);
             Pnl_ContentConfig.TabIndex = 13;
+            Pnl_ContentConfig.Tag = "main";
             // 
             // Tlp_Content
             // 
             Tlp_Content.ColumnCount = 2;
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            Tlp_Content.Controls.Add(panel1, 1, 2);
+            Tlp_Content.Controls.Add(Pnl_FilesToVerify, 1, 2);
             Tlp_Content.Controls.Add(panel2, 0, 2);
             Tlp_Content.Controls.Add(panel3, 1, 1);
             Tlp_Content.Controls.Add(panel4, 0, 1);
@@ -175,18 +176,18 @@
             Tlp_Content.Size = new Size(798, 654);
             Tlp_Content.TabIndex = 0;
             // 
-            // panel1
+            // Pnl_FilesToVerify
             // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(Dt_FilesToVerify);
-            panel1.Controls.Add(Pic_AddFileToVerify);
-            panel1.Controls.Add(pictureBox2);
-            panel1.Controls.Add(Lbl_FilesToVerify);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(402, 396);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(393, 255);
-            panel1.TabIndex = 20;
+            Pnl_FilesToVerify.BorderStyle = BorderStyle.FixedSingle;
+            Pnl_FilesToVerify.Controls.Add(Dt_FilesToVerify);
+            Pnl_FilesToVerify.Controls.Add(Pic_AddFileToVerify);
+            Pnl_FilesToVerify.Controls.Add(pictureBox2);
+            Pnl_FilesToVerify.Controls.Add(Lbl_FilesToVerify);
+            Pnl_FilesToVerify.Dock = DockStyle.Fill;
+            Pnl_FilesToVerify.Location = new Point(402, 396);
+            Pnl_FilesToVerify.Name = "Pnl_FilesToVerify";
+            Pnl_FilesToVerify.Size = new Size(393, 255);
+            Pnl_FilesToVerify.TabIndex = 20;
             // 
             // Dt_FilesToVerify
             // 
@@ -208,7 +209,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             Dt_FilesToVerify.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             Dt_FilesToVerify.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Dt_FilesToVerify.Columns.AddRange(new DataGridViewColumn[] { NameFileToVerify, dataGridViewCheckBoxColumn1, dataGridViewImageColumn1, idFileToVerify });
+            Dt_FilesToVerify.Columns.AddRange(new DataGridViewColumn[] { Col_NameFileToVerify, Col_Chk_FileToVerify, Col_Btn_FileToVerify, Col_idFileToVerify });
             Dt_FilesToVerify.DataSource = filesToVerifyBindingSource;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = SystemColors.Window;
@@ -247,51 +248,51 @@
             Dt_FilesToVerify.CellMouseEnter += CellMouseEnter;
             Dt_FilesToVerify.CellMouseLeave += CellMouseLeave;
             // 
-            // NameFileToVerify
+            // Col_NameFileToVerify
             // 
-            NameFileToVerify.DataPropertyName = "NameFile";
-            NameFileToVerify.HeaderText = "Nome";
-            NameFileToVerify.MinimumWidth = 6;
-            NameFileToVerify.Name = "NameFileToVerify";
-            NameFileToVerify.Width = 203;
+            Col_NameFileToVerify.DataPropertyName = "NameFile";
+            Col_NameFileToVerify.HeaderText = "Nome";
+            Col_NameFileToVerify.MinimumWidth = 6;
+            Col_NameFileToVerify.Name = "Col_NameFileToVerify";
+            Col_NameFileToVerify.Width = 203;
             // 
-            // dataGridViewCheckBoxColumn1
+            // Col_Chk_FileToVerify
             // 
-            dataGridViewCheckBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCheckBoxColumn1.DataPropertyName = "Disconsider";
+            Col_Chk_FileToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_Chk_FileToVerify.DataPropertyName = "Disconsider";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.NullValue = false;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCheckBoxColumn1.HeaderText = "Desconsiderar";
-            dataGridViewCheckBoxColumn1.MinimumWidth = 6;
-            dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            dataGridViewCheckBoxColumn1.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewCheckBoxColumn1.Width = 136;
+            Col_Chk_FileToVerify.DefaultCellStyle = dataGridViewCellStyle3;
+            Col_Chk_FileToVerify.HeaderText = "Desconsiderar";
+            Col_Chk_FileToVerify.MinimumWidth = 6;
+            Col_Chk_FileToVerify.Name = "Col_Chk_FileToVerify";
+            Col_Chk_FileToVerify.SortMode = DataGridViewColumnSortMode.Automatic;
+            Col_Chk_FileToVerify.Width = 136;
             // 
-            // dataGridViewImageColumn1
+            // Col_Btn_FileToVerify
             // 
-            dataGridViewImageColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Col_Btn_FileToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.White;
             dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
             dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewImageColumn1.HeaderText = "";
-            dataGridViewImageColumn1.Image = Properties.Resources.excluir;
-            dataGridViewImageColumn1.MinimumWidth = 36;
-            dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            dataGridViewImageColumn1.Resizable = DataGridViewTriState.False;
-            dataGridViewImageColumn1.ToolTipText = "Excluir";
+            Col_Btn_FileToVerify.DefaultCellStyle = dataGridViewCellStyle4;
+            Col_Btn_FileToVerify.HeaderText = "";
+            Col_Btn_FileToVerify.Image = Properties.Resources.excluir;
+            Col_Btn_FileToVerify.MinimumWidth = 36;
+            Col_Btn_FileToVerify.Name = "Col_Btn_FileToVerify";
+            Col_Btn_FileToVerify.Resizable = DataGridViewTriState.False;
+            Col_Btn_FileToVerify.ToolTipText = "Excluir";
             // 
-            // idFileToVerify
+            // Col_idFileToVerify
             // 
-            idFileToVerify.DataPropertyName = "Id";
-            idFileToVerify.HeaderText = "id";
-            idFileToVerify.MinimumWidth = 6;
-            idFileToVerify.Name = "idFileToVerify";
-            idFileToVerify.Visible = false;
-            idFileToVerify.Width = 125;
+            Col_idFileToVerify.DataPropertyName = "Id";
+            Col_idFileToVerify.HeaderText = "id";
+            Col_idFileToVerify.MinimumWidth = 6;
+            Col_idFileToVerify.Name = "Col_idFileToVerify";
+            Col_idFileToVerify.Visible = false;
+            Col_idFileToVerify.Width = 125;
             // 
             // filesToVerifyBindingSource
             // 
@@ -367,7 +368,7 @@
             dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToVerify.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             Dt_FoldersToVerify.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Dt_FoldersToVerify.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewCheckBoxColumn2, dataGridViewImageColumn2, idFolderToVerify });
+            Dt_FoldersToVerify.Columns.AddRange(new DataGridViewColumn[] { Col_NameFolderToVerify, Col_Chk_FolderToVerify, Col_Btn_FolderToVerify, Col_IdFolderToVerify });
             Dt_FoldersToVerify.DataSource = foldersToVerifyBindingSource;
             dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = SystemColors.Window;
@@ -406,55 +407,55 @@
             Dt_FoldersToVerify.CellMouseEnter += CellMouseEnter;
             Dt_FoldersToVerify.CellMouseLeave += CellMouseLeave;
             // 
-            // dataGridViewTextBoxColumn2
+            // Col_NameFolderToVerify
             // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewTextBoxColumn2.DataPropertyName = "NameFolder";
+            Col_NameFolderToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_NameFolderToVerify.DataPropertyName = "NameFolder";
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle9;
-            dataGridViewTextBoxColumn2.HeaderText = "Nome";
-            dataGridViewTextBoxColumn2.MinimumWidth = 4;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.Width = 203;
+            Col_NameFolderToVerify.DefaultCellStyle = dataGridViewCellStyle9;
+            Col_NameFolderToVerify.HeaderText = "Nome";
+            Col_NameFolderToVerify.MinimumWidth = 4;
+            Col_NameFolderToVerify.Name = "Col_NameFolderToVerify";
+            Col_NameFolderToVerify.Width = 203;
             // 
-            // dataGridViewCheckBoxColumn2
+            // Col_Chk_FolderToVerify
             // 
-            dataGridViewCheckBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCheckBoxColumn2.DataPropertyName = "Disconsider";
+            Col_Chk_FolderToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_Chk_FolderToVerify.DataPropertyName = "Disconsider";
             dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle10.NullValue = false;
             dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            dataGridViewCheckBoxColumn2.DefaultCellStyle = dataGridViewCellStyle10;
-            dataGridViewCheckBoxColumn2.HeaderText = "Desconsiderar";
-            dataGridViewCheckBoxColumn2.MinimumWidth = 6;
-            dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            dataGridViewCheckBoxColumn2.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewCheckBoxColumn2.Width = 136;
+            Col_Chk_FolderToVerify.DefaultCellStyle = dataGridViewCellStyle10;
+            Col_Chk_FolderToVerify.HeaderText = "Desconsiderar";
+            Col_Chk_FolderToVerify.MinimumWidth = 6;
+            Col_Chk_FolderToVerify.Name = "Col_Chk_FolderToVerify";
+            Col_Chk_FolderToVerify.SortMode = DataGridViewColumnSortMode.Automatic;
+            Col_Chk_FolderToVerify.Width = 136;
             // 
-            // dataGridViewImageColumn2
+            // Col_Btn_FolderToVerify
             // 
-            dataGridViewImageColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Col_Btn_FolderToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle11.BackColor = Color.White;
             dataGridViewCellStyle11.NullValue = resources.GetObject("dataGridViewCellStyle11.NullValue");
             dataGridViewCellStyle11.SelectionBackColor = Color.White;
-            dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle11;
-            dataGridViewImageColumn2.HeaderText = "";
-            dataGridViewImageColumn2.Image = Properties.Resources.excluir;
-            dataGridViewImageColumn2.MinimumWidth = 36;
-            dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
-            dataGridViewImageColumn2.Resizable = DataGridViewTriState.False;
-            dataGridViewImageColumn2.ToolTipText = "Excluir";
+            Col_Btn_FolderToVerify.DefaultCellStyle = dataGridViewCellStyle11;
+            Col_Btn_FolderToVerify.HeaderText = "";
+            Col_Btn_FolderToVerify.Image = Properties.Resources.excluir;
+            Col_Btn_FolderToVerify.MinimumWidth = 36;
+            Col_Btn_FolderToVerify.Name = "Col_Btn_FolderToVerify";
+            Col_Btn_FolderToVerify.Resizable = DataGridViewTriState.False;
+            Col_Btn_FolderToVerify.ToolTipText = "Excluir";
             // 
-            // idFolderToVerify
+            // Col_IdFolderToVerify
             // 
-            idFolderToVerify.DataPropertyName = "Id";
-            idFolderToVerify.HeaderText = "id";
-            idFolderToVerify.MinimumWidth = 6;
-            idFolderToVerify.Name = "idFolderToVerify";
-            idFolderToVerify.Visible = false;
-            idFolderToVerify.Width = 125;
+            Col_IdFolderToVerify.DataPropertyName = "Id";
+            Col_IdFolderToVerify.HeaderText = "id";
+            Col_IdFolderToVerify.MinimumWidth = 6;
+            Col_IdFolderToVerify.Name = "Col_IdFolderToVerify";
+            Col_IdFolderToVerify.Visible = false;
+            Col_IdFolderToVerify.Width = 125;
             // 
             // foldersToVerifyBindingSource
             // 
@@ -530,7 +531,7 @@
             dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
             Dt_FilesToDelete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             Dt_FilesToDelete.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Dt_FilesToDelete.Columns.AddRange(new DataGridViewColumn[] { NameFile, dataGridViewCheckBoxColumn3, dataGridViewImageColumn3, idFileToDelete });
+            Dt_FilesToDelete.Columns.AddRange(new DataGridViewColumn[] { Col_NameFileToDelete, Col_Chk_FileToDelete, Col_Btn_FileToDelete, Col_IdFileToDelete });
             Dt_FilesToDelete.DataSource = filesToDeleteBindingSource;
             dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle18.BackColor = SystemColors.Window;
@@ -569,51 +570,51 @@
             Dt_FilesToDelete.CellMouseEnter += CellMouseEnter;
             Dt_FilesToDelete.CellMouseLeave += CellMouseLeave;
             // 
-            // NameFile
+            // Col_NameFileToDelete
             // 
-            NameFile.DataPropertyName = "NameFile";
-            NameFile.HeaderText = "Nome";
-            NameFile.MinimumWidth = 6;
-            NameFile.Name = "NameFile";
-            NameFile.Width = 203;
+            Col_NameFileToDelete.DataPropertyName = "NameFile";
+            Col_NameFileToDelete.HeaderText = "Nome";
+            Col_NameFileToDelete.MinimumWidth = 6;
+            Col_NameFileToDelete.Name = "Col_NameFileToDelete";
+            Col_NameFileToDelete.Width = 203;
             // 
-            // dataGridViewCheckBoxColumn3
+            // Col_Chk_FileToDelete
             // 
-            dataGridViewCheckBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCheckBoxColumn3.DataPropertyName = "Disconsider";
+            Col_Chk_FileToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_Chk_FileToDelete.DataPropertyName = "Disconsider";
             dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle16.NullValue = false;
             dataGridViewCellStyle16.WrapMode = DataGridViewTriState.False;
-            dataGridViewCheckBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
-            dataGridViewCheckBoxColumn3.HeaderText = "Desconsiderar";
-            dataGridViewCheckBoxColumn3.MinimumWidth = 6;
-            dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
-            dataGridViewCheckBoxColumn3.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewCheckBoxColumn3.Width = 136;
+            Col_Chk_FileToDelete.DefaultCellStyle = dataGridViewCellStyle16;
+            Col_Chk_FileToDelete.HeaderText = "Desconsiderar";
+            Col_Chk_FileToDelete.MinimumWidth = 6;
+            Col_Chk_FileToDelete.Name = "Col_Chk_FileToDelete";
+            Col_Chk_FileToDelete.SortMode = DataGridViewColumnSortMode.Automatic;
+            Col_Chk_FileToDelete.Width = 136;
             // 
-            // dataGridViewImageColumn3
+            // Col_Btn_FileToDelete
             // 
-            dataGridViewImageColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Col_Btn_FileToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle17.BackColor = Color.White;
             dataGridViewCellStyle17.NullValue = resources.GetObject("dataGridViewCellStyle17.NullValue");
             dataGridViewCellStyle17.SelectionBackColor = Color.White;
-            dataGridViewImageColumn3.DefaultCellStyle = dataGridViewCellStyle17;
-            dataGridViewImageColumn3.HeaderText = "";
-            dataGridViewImageColumn3.Image = Properties.Resources.excluir;
-            dataGridViewImageColumn3.MinimumWidth = 36;
-            dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
-            dataGridViewImageColumn3.Resizable = DataGridViewTriState.False;
-            dataGridViewImageColumn3.ToolTipText = "Excluir";
+            Col_Btn_FileToDelete.DefaultCellStyle = dataGridViewCellStyle17;
+            Col_Btn_FileToDelete.HeaderText = "";
+            Col_Btn_FileToDelete.Image = Properties.Resources.excluir;
+            Col_Btn_FileToDelete.MinimumWidth = 36;
+            Col_Btn_FileToDelete.Name = "Col_Btn_FileToDelete";
+            Col_Btn_FileToDelete.Resizable = DataGridViewTriState.False;
+            Col_Btn_FileToDelete.ToolTipText = "Excluir";
             // 
-            // idFileToDelete
+            // Col_IdFileToDelete
             // 
-            idFileToDelete.DataPropertyName = "Id";
-            idFileToDelete.HeaderText = "id";
-            idFileToDelete.MinimumWidth = 6;
-            idFileToDelete.Name = "idFileToDelete";
-            idFileToDelete.Visible = false;
-            idFileToDelete.Width = 125;
+            Col_IdFileToDelete.DataPropertyName = "Id";
+            Col_IdFileToDelete.HeaderText = "id";
+            Col_IdFileToDelete.MinimumWidth = 6;
+            Col_IdFileToDelete.Name = "Col_IdFileToDelete";
+            Col_IdFileToDelete.Visible = false;
+            Col_IdFileToDelete.Width = 125;
             // 
             // filesToDeleteBindingSource
             // 
@@ -689,7 +690,7 @@
             dataGridViewCellStyle21.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToDelete.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
             Dt_FoldersToDelete.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Dt_FoldersToDelete.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn4, dataGridViewCheckBoxColumn4, dataGridViewImageColumn4, idFolderToDelete });
+            Dt_FoldersToDelete.Columns.AddRange(new DataGridViewColumn[] { Col_FolderName, Col_Chk_FolderToDelete, Col_Btn_FolderToDelete, Col_IdFolderToDelete });
             Dt_FoldersToDelete.DataSource = foldersToDeleteBindingSource;
             dataGridViewCellStyle25.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle25.BackColor = SystemColors.Window;
@@ -728,55 +729,55 @@
             Dt_FoldersToDelete.CellMouseEnter += CellMouseEnter;
             Dt_FoldersToDelete.CellMouseLeave += CellMouseLeave;
             // 
-            // dataGridViewTextBoxColumn4
+            // Col_FolderName
             // 
-            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewTextBoxColumn4.DataPropertyName = "NameFolder";
+            Col_FolderName.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_FolderName.DataPropertyName = "NameFolder";
             dataGridViewCellStyle22.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle22.WrapMode = DataGridViewTriState.True;
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle22;
-            dataGridViewTextBoxColumn4.HeaderText = "Nome";
-            dataGridViewTextBoxColumn4.MinimumWidth = 4;
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.Width = 203;
+            Col_FolderName.DefaultCellStyle = dataGridViewCellStyle22;
+            Col_FolderName.HeaderText = "Nome";
+            Col_FolderName.MinimumWidth = 4;
+            Col_FolderName.Name = "Col_FolderName";
+            Col_FolderName.Width = 203;
             // 
-            // dataGridViewCheckBoxColumn4
+            // Col_Chk_FolderToDelete
             // 
-            dataGridViewCheckBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCheckBoxColumn4.DataPropertyName = "Disconsider";
+            Col_Chk_FolderToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Col_Chk_FolderToDelete.DataPropertyName = "Disconsider";
             dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle23.NullValue = false;
             dataGridViewCellStyle23.WrapMode = DataGridViewTriState.False;
-            dataGridViewCheckBoxColumn4.DefaultCellStyle = dataGridViewCellStyle23;
-            dataGridViewCheckBoxColumn4.HeaderText = "Desconsiderar";
-            dataGridViewCheckBoxColumn4.MinimumWidth = 6;
-            dataGridViewCheckBoxColumn4.Name = "dataGridViewCheckBoxColumn4";
-            dataGridViewCheckBoxColumn4.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewCheckBoxColumn4.Width = 136;
+            Col_Chk_FolderToDelete.DefaultCellStyle = dataGridViewCellStyle23;
+            Col_Chk_FolderToDelete.HeaderText = "Desconsiderar";
+            Col_Chk_FolderToDelete.MinimumWidth = 6;
+            Col_Chk_FolderToDelete.Name = "Col_Chk_FolderToDelete";
+            Col_Chk_FolderToDelete.SortMode = DataGridViewColumnSortMode.Automatic;
+            Col_Chk_FolderToDelete.Width = 136;
             // 
-            // dataGridViewImageColumn4
+            // Col_Btn_FolderToDelete
             // 
-            dataGridViewImageColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Col_Btn_FolderToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle24.BackColor = Color.White;
             dataGridViewCellStyle24.NullValue = resources.GetObject("dataGridViewCellStyle24.NullValue");
             dataGridViewCellStyle24.SelectionBackColor = Color.White;
-            dataGridViewImageColumn4.DefaultCellStyle = dataGridViewCellStyle24;
-            dataGridViewImageColumn4.HeaderText = "";
-            dataGridViewImageColumn4.Image = Properties.Resources.excluir;
-            dataGridViewImageColumn4.MinimumWidth = 36;
-            dataGridViewImageColumn4.Name = "dataGridViewImageColumn4";
-            dataGridViewImageColumn4.Resizable = DataGridViewTriState.False;
-            dataGridViewImageColumn4.ToolTipText = "Excluir";
+            Col_Btn_FolderToDelete.DefaultCellStyle = dataGridViewCellStyle24;
+            Col_Btn_FolderToDelete.HeaderText = "";
+            Col_Btn_FolderToDelete.Image = Properties.Resources.excluir;
+            Col_Btn_FolderToDelete.MinimumWidth = 36;
+            Col_Btn_FolderToDelete.Name = "Col_Btn_FolderToDelete";
+            Col_Btn_FolderToDelete.Resizable = DataGridViewTriState.False;
+            Col_Btn_FolderToDelete.ToolTipText = "Excluir";
             // 
-            // idFolderToDelete
+            // Col_IdFolderToDelete
             // 
-            idFolderToDelete.DataPropertyName = "Id";
-            idFolderToDelete.HeaderText = "id";
-            idFolderToDelete.MinimumWidth = 6;
-            idFolderToDelete.Name = "idFolderToDelete";
-            idFolderToDelete.Visible = false;
-            idFolderToDelete.Width = 125;
+            Col_IdFolderToDelete.DataPropertyName = "Id";
+            Col_IdFolderToDelete.HeaderText = "id";
+            Col_IdFolderToDelete.MinimumWidth = 6;
+            Col_IdFolderToDelete.Name = "Col_IdFolderToDelete";
+            Col_IdFolderToDelete.Visible = false;
+            Col_IdFolderToDelete.Width = 125;
             // 
             // foldersToDeleteBindingSource
             // 
@@ -1065,7 +1066,7 @@
             Pnl_ContentConfig.ResumeLayout(false);
             Pnl_ContentConfig.PerformLayout();
             Tlp_Content.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            Pnl_FilesToVerify.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Dt_FilesToVerify).EndInit();
             ((System.ComponentModel.ISupportInitialize)filesToVerifyBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).EndInit();
@@ -1142,21 +1143,22 @@
         private PictureBox pictureBox10;
         private Label Lbl_OutputFile;
         private Button Btn_ClearTables;
-        private DataGridViewTextBoxColumn NameFileToVerify;
-        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private DataGridViewImageColumn dataGridViewImageColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn4;
-        private DataGridViewImageColumn dataGridViewImageColumn4;
-        private DataGridViewTextBoxColumn idFolderToDelete;
-        private DataGridViewTextBoxColumn idFileToVerify;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private DataGridViewImageColumn dataGridViewImageColumn2;
-        private DataGridViewTextBoxColumn idFolderToVerify;
-        private DataGridViewTextBoxColumn NameFile;
-        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
-        private DataGridViewImageColumn dataGridViewImageColumn3;
-        private DataGridViewTextBoxColumn idFileToDelete;
+        private Panel Pnl_FilesToVerify;
+        private DataGridViewTextBoxColumn Col_NameFileToDelete;
+        private DataGridViewCheckBoxColumn Col_Chk_FileToDelete;
+        private DataGridViewImageColumn Col_Btn_FileToDelete;
+        private DataGridViewTextBoxColumn Col_IdFileToDelete;
+        private DataGridViewTextBoxColumn Col_FolderName;
+        private DataGridViewCheckBoxColumn Col_Chk_FolderToDelete;
+        private DataGridViewImageColumn Col_Btn_FolderToDelete;
+        private DataGridViewTextBoxColumn Col_IdFolderToDelete;
+        private DataGridViewTextBoxColumn Col_NameFileToVerify;
+        private DataGridViewCheckBoxColumn Col_Chk_FileToVerify;
+        private DataGridViewImageColumn Col_Btn_FileToVerify;
+        private DataGridViewTextBoxColumn Col_idFileToVerify;
+        private DataGridViewTextBoxColumn Col_NameFolderToVerify;
+        private DataGridViewCheckBoxColumn Col_Chk_FolderToVerify;
+        private DataGridViewImageColumn Col_Btn_FolderToVerify;
+        private DataGridViewTextBoxColumn Col_IdFolderToVerify;
     }
 }
