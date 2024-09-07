@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_AboutUC));
-            panel1 = new Panel();
+            Pnl_ContentAbout = new Panel();
             modernGroupBox2 = new PersonalizedComponents.ModernGroupBox();
             BgLbl_Title = new ReaLTaiizor.Controls.BigLabel();
             Pnl_Portfolio = new Panel();
@@ -45,7 +45,7 @@
             Lk_Linkedin = new LinkLabel();
             modernGroupBox1 = new PersonalizedComponents.ModernGroupBox();
             label1 = new Label();
-            panel1.SuspendLayout();
+            Pnl_ContentAbout.SuspendLayout();
             modernGroupBox2.SuspendLayout();
             Pnl_Portfolio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_Portfolio).BeginInit();
@@ -56,14 +56,15 @@
             modernGroupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // Pnl_ContentAbout
             // 
-            panel1.Controls.Add(modernGroupBox2);
-            panel1.Controls.Add(modernGroupBox1);
-            panel1.Location = new Point(312, 61);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(602, 667);
-            panel1.TabIndex = 0;
+            Pnl_ContentAbout.Controls.Add(modernGroupBox2);
+            Pnl_ContentAbout.Controls.Add(modernGroupBox1);
+            Pnl_ContentAbout.Location = new Point(312, 61);
+            Pnl_ContentAbout.Name = "Pnl_ContentAbout";
+            Pnl_ContentAbout.Size = new Size(602, 667);
+            Pnl_ContentAbout.TabIndex = 0;
+            Pnl_ContentAbout.Tag = "main";
             // 
             // modernGroupBox2
             // 
@@ -269,10 +270,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(227, 213, 202);
-            Controls.Add(panel1);
+            Controls.Add(Pnl_ContentAbout);
             Name = "Frm_AboutUC";
             Size = new Size(1024, 866);
-            panel1.ResumeLayout(false);
+            Pnl_ContentAbout.ResumeLayout(false);
             modernGroupBox2.ResumeLayout(false);
             modernGroupBox2.PerformLayout();
             Pnl_Portfolio.ResumeLayout(false);
@@ -290,7 +291,7 @@
 
         #endregion
 
-        private Panel panel1;
+        private Panel Pnl_ContentAbout;
         private Label label1;
         private Panel Pnl_Portfolio;
         private LinkLabel Lk_Portfolio;
