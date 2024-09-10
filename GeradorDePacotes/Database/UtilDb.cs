@@ -5,9 +5,42 @@ using Microsoft.EntityFrameworkCore;
 namespace GeradorDePacotes.Database
 {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-    public class UtilDb
+    public static class UtilDb
     {
-        #region["DataGrids"]
+        #region["GenericFields AddOrUpdate"]
+
+        public static async Task AddOrUpdateFileName(ApplicationDbContext ctx, string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentNullException("O nome do arquivo não pode ser vazio");
+
+            var fileNameLog = ctx.FileNameOutputLogs
+                    .AsEnumerable()
+                    .FirstOrDefault(x => x.NameFile.Equals(fileName));
+
+            var lastSelected = await ctx.FileNameOutputLogs.Where(x => x.LastSelected == true).FirstOrDefaultAsync();
+
+            if (fileNameLog != null)
+            {
+                fileNameLog.LastSelected = true;
+            }
+            else
+            {
+                var newFileNameOutput = new FileNameOutputLogs
+                {
+                    NameFile = fileName
+                };
+            }
+
+            if (lastSelected != null)
+                lastSelected.LastSelected = false;
+
+            await ctx.SaveChangesAsync().ConfigureAwait(false);
+        }
+     
+        #endregion
+
+        #region["DataGrids AddOrUpdate"]
 
         public async static Task AddOrUpdateToGridFoldersToDeleteAsync(ApplicationDbContext ctx, string pathFolder, string pathTargetFolder, bool disconsider = false)
         {
@@ -116,7 +149,7 @@ namespace GeradorDePacotes.Database
 
         #endregion
 
-        #region["Tables"]
+        #region["Tables AddOrUpdate"]
 
         public async static Task AddOrUpdateTableFoldersToDeleteAsync(ApplicationDbContext ctx, string? name = null, int? id = null, bool? disconsider = null)
         {
@@ -143,7 +176,7 @@ namespace GeradorDePacotes.Database
             }
             await ctx.SaveChangesAsync(); // SaveChangesAsync não bloqueia a UI
         }
-       
+
         public async static Task AddOrUpdateTableFilesToDeleteAsync(ApplicationDbContext ctx, string? name = null, int? id = null, bool? disconsider = null)
         {
             if (string.IsNullOrWhiteSpace(name) && id == null)
@@ -224,23 +257,7 @@ namespace GeradorDePacotes.Database
             }
             await ctx.SaveChangesAsync();
         }
-
-
-        public async static Task DeleteAsync<T>(ApplicationDbContext ctx, string tableName, object id) where T : class
-        {
-            var dbSet = ctx.Set<T>();
-
-            var entity = await dbSet.FindAsync(id);
-
-            if (entity == null)
-            {
-                throw new Exception("Registro não encontrado.");
-            }
-
-            dbSet.Remove(entity);
-            await ctx.SaveChangesAsync();
-        }
-
+      
         public async static Task AddOrUpdateTableParKeysAsync(ApplicationDbContext ctx, string parName, string parValue)
         {
             var par = await ctx.ParKeys
@@ -264,6 +281,23 @@ namespace GeradorDePacotes.Database
             await ctx.SaveChangesAsync();
         }
 
+       
+       
+        #endregion
+
+        #region["Selects"]
+        public static async Task<string?> GetLastSelectedFileNameAsync(ApplicationDbContext ctx)
+        {
+            return await ctx.FileNameOutputLogs
+                                     .Where(x => x.LastSelected == true)
+                                     .Select(x => x.NameFile)
+                                     .FirstOrDefaultAsync();
+        }
+
+        public static async Task<string[]> GetListFileName(ApplicationDbContext ctx)
+        {
+            return await ctx.FileNameOutputLogs.Select(x => x.NameFile).ToArrayAsync();
+        }
         public async static Task<string?> GetParValueAsync(ApplicationDbContext ctx, string parName)
         {
             return await ctx.ParKeys
@@ -273,6 +307,9 @@ namespace GeradorDePacotes.Database
                 .FirstOrDefaultAsync();
         }
 
+        #endregion
+
+        #region["Deletes"]
         public async static Task ClearTableAsync(ApplicationDbContext ctx, string tableName)
         {
             if (string.IsNullOrWhiteSpace(tableName))
@@ -281,9 +318,25 @@ namespace GeradorDePacotes.Database
             var sqlDelete = $"DELETE FROM {tableName}";
             await ctx.Database.ExecuteSqlRawAsync(sqlDelete);
         }
+        public async static Task DeleteAsync<T>(ApplicationDbContext ctx, string tableName, object id) where T : class
+        {
+            var dbSet = ctx.Set<T>();
+
+            var entity = await dbSet.FindAsync(id);
+
+            if (entity == null)
+            {
+                throw new Exception("Registro não encontrado.");
+            }
+
+            dbSet.Remove(entity);
+            await ctx.SaveChangesAsync();
+        }
 
 
         #endregion
+
+
     }
 }
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
