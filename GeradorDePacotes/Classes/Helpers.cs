@@ -41,6 +41,19 @@ namespace GeradorDePacotes.Classes
             return true;
         }
 
+        public static bool IsFileNameValid(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                return false;
+
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+
+            if (fileName.Any(ch => invalidChars.Contains(ch)))
+                return false;
+
+            return true;
+        }
+
         public static bool IsDirectoryValid(Control ctrl, string path, bool focus = true)
         {
             if (!Directory.Exists(path))
