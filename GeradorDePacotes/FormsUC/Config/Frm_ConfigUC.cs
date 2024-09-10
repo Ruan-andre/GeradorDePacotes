@@ -31,69 +31,76 @@ namespace GeradorDePacotes
         private void Frm_ConfigUC_Load(object sender, EventArgs e)
         {
             FillOwnControls();
-            ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
             _initializing = false;
             if (_parentForm != null && Frm_Index.sideBarExpanded)
                 _parentForm.Pic_ExpandirMenu_Click(this, EventArgs.Empty);
 
             PathTargetFolder = Txt_TargetFolder.Text;
-
-            ShowOrHideImgMsg();
         }
 
         private void ShowOrHideImgMsg()
         {
+            // Condição para mostrar ou ocultar as linhas
             var visible = (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
                            && Chb_SameOutputFolder.Checked == true)
                            || (Chb_SameOutputFolder.Checked == false
                                 && (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
                                     || string.IsNullOrWhiteSpace(Txt_OutputFolder.Text))) ? false : true;
 
-            var PnlsToHide = Pnl_ContentConfig.Controls;
-
-            foreach (Control item in PnlsToHide)
+            if (!visible)
             {
-                if (item.Tag?.ToString() == "hide")
+                // Oculta a última e penúltima linha
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 0; // Última linha
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 0; // Penúltima linha
+                Pic_Msg_Fields.Location = Chb_SameOutputFolder.Checked ?  new Point(58, 136) : new Point(58, 176);
+            }
+            else
+            {
+                // Mostra as últimas linhas
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 260; // Última linha
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 260; // Penúltima linha
+            }
+
+            // Opcional: esconder ou mostrar controles dentro das linhas ocultadas, se necessário
+            foreach (Control control in Tlp_Content.Controls)
+            {
+                // Se o controle está na última ou penúltima linha, oculta ou mostra conforme o 'visible'
+                int rowIndex = Tlp_Content.GetRow(control);
+                if (rowIndex == Tlp_Content.RowStyles.Count - 1 || rowIndex == Tlp_Content.RowStyles.Count - 2)
                 {
-                    item.Visible = visible;
+                    control.Visible = visible;
                 }
             }
+
+            // Altera a visibilidade do Pic_Msg_Fields conforme o estado das linhas
             Pic_Msg_Fields.Visible = !visible;
+            Pic_Msg_Fields.BringToFront();
+
         }
 
-        private void Txt_OutputFile_Leave(object sender, EventArgs e)
+        private async void Txt_OutputFile_Leave(object sender, EventArgs e)
         {
 
-            if (IsFileNameValid(Txt_OutputFile.Text))
+            if (Helpers.IsFileNameValid(Txt_OutputFile.Text))
             {
-                var fileNameLog = _context.FileNameOutputLogs
-                    .AsEnumerable()
-                    .FirstOrDefault(x => x.NameFile.Equals(Txt_OutputFile.Text));
-
-                if (fileNameLog != null)
-                    return;
-
-                var newFileNameLog = new FileNameOutputLogs
-                {
-                    NameFile = Txt_OutputFile.Text
-                };
-                _context.FileNameOutputLogs.Add(newFileNameLog);
-                _context.SaveChanges();
+               await UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
             }
         }
 
         private async void Txt_TargetFolder_Leave(object sender, EventArgs e)
         {
+
             if (!Helpers.IsDirectoryValid(Txt_TargetFolder.Text))
             {
                 Txt_TargetFolder.Text = await UtilDb.GetParValueAsync(_context, "target_folder");
                 ShowOrHideImgMsg();
-                return;
+            }
+            else
+            {
+                AddPathFolder(Txt_TargetFolder, "target_folder");
+                ShowOrHideImgMsg();
             }
 
-            AddPathFolder(Txt_TargetFolder, "target_folder");
-
-            ShowOrHideImgMsg();
         }
 
         private async void Cmb_Formatos_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,21 +119,18 @@ namespace GeradorDePacotes
 
             if (Cmb_Formatos.SelectedItem != null)
             {
-                await UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_hour_and_date_to_name", Chb_AddDateHourToName.Checked.ToString()!);
+                await UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", Chb_AddDateHourToName.Checked.ToString()!);
             }
         }
-
-
 
         private async void Chb_SameOutputFolder_CheckedChanged(object sender, EventArgs e)
         {
             ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
+            ShowOrHideImgMsg();
 
             if (_initializing) return;
 
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
-
-
         }
         private void Txt_OutputFolder_Leave(object sender, EventArgs e)
         {
@@ -289,18 +293,7 @@ namespace GeradorDePacotes
 
 
         //Personalized
-        private bool IsFileNameValid(string fileName)
-        {
-            if (string.IsNullOrWhiteSpace(fileName))
-                return false;
-
-            char[] invalidChars = Path.GetInvalidFileNameChars();
-
-            if (fileName.Any(ch => invalidChars.Contains(ch)))
-                return false;
-
-            return true;
-        }
+       
         private void ExpandOrContractPnlsConfig(bool check)
         {
 
@@ -308,7 +301,6 @@ namespace GeradorDePacotes
             {
                 Tlp_Content.RowStyles[0].Height += 45;
                 Tlp_Content.Height += 45;
-                Chb_AddDateHourToName.Location = new Point(13, 90);
                 Cmb_Formatos.Location = new Point(10, 137);
                 Txt_OutputFolder.Visible = true;
                 Btn_ExploreOutputFolder.Visible = true;
@@ -327,7 +319,7 @@ namespace GeradorDePacotes
                 Btn_ExploreOutputFolder.Visible = false;
                 Tlp_Content.Height = 654;
                 Btn_ClearTables.Location = new Point(292, 666);
-                Pnl_ContentConfig.Height = 700;
+                Pnl_ContentConfig.Height = 707;
             }
 
         }
@@ -335,17 +327,24 @@ namespace GeradorDePacotes
         {
             #region["Pnl_OutputFile"]
 
-            var lastFileName = _context.FileNameOutputLogs
-                                    .AsEnumerable()
-                                    .OrderByDescending(x => x.Id)
-                                    .Take(1)
-                                    .Select(x => x.NameFile)
-                                    .FirstOrDefault();
-
+            var lastFileName = await UtilDb.GetLastSelectedFileNameAsync(_context);
+       
             if (!string.IsNullOrWhiteSpace(lastFileName))
                 Txt_OutputFile.Text = lastFileName;
 
-            var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_hour_and_date_to_name");
+            var listLogsFileName = await UtilDb.GetListFileName(_context);
+            if (listLogsFileName != null && listLogsFileName.Length > 0)
+            {
+                AutoCompleteStringCollection source = [.. listLogsFileName];
+
+                Txt_OutputFile.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                Txt_OutputFile.AutoCompleteCustomSource = source;
+                Txt_OutputFile.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            }
+            
+
+
+            var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_date_and_time_to_name");
             if (!string.IsNullOrWhiteSpace(chbAddDateHour))
                 Chb_AddDateHourToName.Checked = Convert.ToBoolean(chbAddDateHour);
 
@@ -471,6 +470,7 @@ namespace GeradorDePacotes
         {
             ShowOrHideImgMsg();
         }
+
 
     }
 }

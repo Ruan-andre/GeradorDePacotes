@@ -167,7 +167,7 @@
             Tlp_Content.Controls.Add(panel4, 0, 1);
             Tlp_Content.Controls.Add(Pnl_TargetFolder, 1, 0);
             Tlp_Content.Controls.Add(Pnl_OutputFile, 0, 0);
-            Tlp_Content.Location = new Point(3, 3);
+            Tlp_Content.Location = new Point(3, 0);
             Tlp_Content.Name = "Tlp_Content";
             Tlp_Content.RowCount = 3;
             Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Absolute, 133F));
@@ -854,6 +854,7 @@
             Btn_ExploreOutputFolder.Size = new Size(29, 30);
             Btn_ExploreOutputFolder.TabIndex = 21;
             Btn_ExploreOutputFolder.TextAlignment = StringAlignment.Center;
+            Btn_ExploreOutputFolder.Click += Btn_ExploreOutputFolder_Click;
             // 
             // Txt_OutputFolder
             // 
@@ -866,6 +867,8 @@
             Txt_OutputFolder.Size = new Size(344, 30);
             Txt_OutputFolder.TabIndex = 20;
             Txt_OutputFolder.WordWrap = false;
+            Txt_OutputFolder.TextChanged += Txt_OutputFolder_TextChanged;
+            Txt_OutputFolder.Leave += Txt_OutputFolder_Leave;
             // 
             // Btn_ExploreTargetFolder
             // 
@@ -885,6 +888,7 @@
             Btn_ExploreTargetFolder.Size = new Size(29, 30);
             Btn_ExploreTargetFolder.TabIndex = 19;
             Btn_ExploreTargetFolder.TextAlignment = StringAlignment.Center;
+            Btn_ExploreTargetFolder.Click += Btn_ExploreTargetFolders_Click;
             // 
             // Txt_TargetFolder
             // 
@@ -897,6 +901,8 @@
             Txt_TargetFolder.Size = new Size(340, 30);
             Txt_TargetFolder.TabIndex = 17;
             Txt_TargetFolder.WordWrap = false;
+            Txt_TargetFolder.TextChanged += Txt_TargetFolder_TextChanged;
+            Txt_TargetFolder.Leave += Txt_TargetFolder_Leave;
             // 
             // Chb_SameOutputFolder
             // 
@@ -963,6 +969,7 @@
             Cmb_Formatos.Size = new Size(74, 28);
             Cmb_Formatos.Sorted = true;
             Cmb_Formatos.TabIndex = 19;
+            Cmb_Formatos.SelectedIndexChanged += Cmb_Formatos_SelectedIndexChanged;
             // 
             // Txt_OutputFile
             // 
@@ -976,6 +983,7 @@
             Txt_OutputFile.Size = new Size(377, 30);
             Txt_OutputFile.TabIndex = 17;
             Txt_OutputFile.WordWrap = false;
+            Txt_OutputFile.Leave += Txt_OutputFile_Leave;
             // 
             // Chb_AddDateHourToName
             // 
@@ -984,12 +992,13 @@
             Chb_AddDateHourToName.Checked = true;
             Chb_AddDateHourToName.CheckState = CheckState.Checked;
             Chb_AddDateHourToName.Font = new Font("Segoe UI", 9F);
-            Chb_AddDateHourToName.Location = new Point(9, 95);
+            Chb_AddDateHourToName.Location = new Point(9, 98);
             Chb_AddDateHourToName.Name = "Chb_AddDateHourToName";
             Chb_AddDateHourToName.Size = new Size(230, 24);
             Chb_AddDateHourToName.TabIndex = 18;
             Chb_AddDateHourToName.Text = "Concatenar data e hora atual?";
             Chb_AddDateHourToName.UseVisualStyleBackColor = true;
+            Chb_AddDateHourToName.CheckedChanged += Chb_AddDateHourToName_CheckedChanged;
             // 
             // pictureBox10
             // 
@@ -1035,7 +1044,7 @@
             // Pic_Msg_Fields
             // 
             Pic_Msg_Fields.Image = Properties.Resources.msg_preencher_campos;
-            Pic_Msg_Fields.Location = new Point(21, 120);
+            Pic_Msg_Fields.Location = new Point(58, 136);
             Pic_Msg_Fields.Name = "Pic_Msg_Fields";
             Pic_Msg_Fields.Size = new Size(743, 336);
             Pic_Msg_Fields.SizeMode = PictureBoxSizeMode.AutoSize;
