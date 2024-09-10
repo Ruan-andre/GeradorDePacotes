@@ -1,6 +1,7 @@
 ﻿using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
-using GeradorDePacotes.Database.Entities;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace GeradorDePacotes
 {
@@ -16,7 +17,7 @@ namespace GeradorDePacotes
 
         private async void Chk_Inicializar_CheckedChanged(object sender, EventArgs e)
         {
-            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "chk_initialize", Chk_Inicializar.Checked.ToString());
+            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "chk_initialize", Chk_AutoInitialize.Checked.ToString());
         }
 
         private void Frm_IndexUC_Load(object sender, EventArgs e)
@@ -32,29 +33,47 @@ namespace GeradorDePacotes
 
             if (!string.IsNullOrEmpty(parValue))
             {
-                Chk_Inicializar.Checked = Convert.ToBoolean(parValue);
+                Chk_AutoInitialize.Checked = Convert.ToBoolean(parValue);
             }
             else
             {
-                Chk_Inicializar.Checked = false;
+                Chk_AutoInitialize.Checked = false;
             }
         }
 
         private async void Btn_GerarPacote_Click(object sender, EventArgs e)
         {
-            Btn_GerarPacote.Visible = false;
+
+            //var configuration = GetConfiguration();
+
+            Stopwatch sw = Stopwatch.StartNew();
+            Btn_Start.Visible = false;
             Btn_Stop.Visible = true;
-            Chk_Inicializar.Visible = false;
+            Chk_AutoInitialize.Visible = false;
             Prg_Bar.Visible = true;
 
             Lbl_Progress.Visible = true;
             Lbl_Progress.Text = "Gerando pacote, aguarde...";
             Lbl_Progress.Refresh();
-            await Task.Run(() => ProcessarPacote());
-            Btn_GerarPacote.Visible = true;
+
+            
+            Package package = new Package();
+            
+
+
+
+            Btn_Start.Visible = true;
             Btn_Stop.Visible = false;
-            Chk_Inicializar.Visible = true;
+            Chk_AutoInitialize.Visible = true;
+            sw.Stop();
+            TimeSpan tempoTotal = sw.Elapsed;
         }
+
+        private async void GetConfiguration()
+        {
+            var NameFile = UtilDb.GetParValueAsync(_context, "");
+        }
+
         private void ProcessarPacote()
         {
             int contador = 0;
@@ -93,7 +112,7 @@ namespace GeradorDePacotes
             else
                 await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
 
-            if (Chk_Inicializar.Checked && firstInitializing)
+            if (Chk_AutoInitialize.Checked && firstInitializing)
                 Btn_GerarPacote_Click(null!, null!);
 
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "false");
