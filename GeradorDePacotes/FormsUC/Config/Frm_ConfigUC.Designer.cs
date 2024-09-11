@@ -963,13 +963,12 @@
             Cmb_Formatos.DisplayMember = "1";
             Cmb_Formatos.DropDownStyle = ComboBoxStyle.DropDownList;
             Cmb_Formatos.FormattingEnabled = true;
-            Cmb_Formatos.Items.AddRange(new object[] { "RAR", "ZIP" });
+            Cmb_Formatos.Items.AddRange(new object[] { "ZIP" });
             Cmb_Formatos.Location = new Point(310, 95);
             Cmb_Formatos.Name = "Cmb_Formatos";
             Cmb_Formatos.Size = new Size(74, 28);
             Cmb_Formatos.Sorted = true;
             Cmb_Formatos.TabIndex = 19;
-            Cmb_Formatos.SelectedIndexChanged += Cmb_Formatos_SelectedIndexChanged;
             // 
             // Txt_OutputFile
             // 

@@ -52,7 +52,7 @@ namespace GeradorDePacotes
                 // Oculta a última e penúltima linha
                 Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 0; // Última linha
                 Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 0; // Penúltima linha
-                Pic_Msg_Fields.Location = Chb_SameOutputFolder.Checked ?  new Point(58, 136) : new Point(58, 176);
+                Pic_Msg_Fields.Location = Chb_SameOutputFolder.Checked ? new Point(58, 136) : new Point(58, 176);
             }
             else
             {
@@ -83,7 +83,7 @@ namespace GeradorDePacotes
 
             if (Helpers.IsFileNameValid(Txt_OutputFile.Text))
             {
-               await UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
+                await UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
             }
         }
 
@@ -103,15 +103,15 @@ namespace GeradorDePacotes
 
         }
 
-        private async void Cmb_Formatos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_initializing) return;
+        //private async void Cmb_Formatos_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (_initializing) return;
 
-            if (Cmb_Formatos.SelectedItem != null)
-            {
-                await UtilDb.AddOrUpdateTableParKeysAsync(_context, "file_format", Cmb_Formatos.SelectedItem.ToString()!);
-            }
-        }
+        //    if (Cmb_Formatos.SelectedItem != null)
+        //    {
+        //        await UtilDb.AddOrUpdateTableParKeysAsync(_context, "file_format", Cmb_Formatos.SelectedItem.ToString()!);
+        //    }
+        //}
 
         private async void Chb_AddDateHourToName_CheckedChanged(object sender, EventArgs e)
         {
@@ -293,7 +293,7 @@ namespace GeradorDePacotes
 
 
         //Personalized
-       
+
         private void ExpandOrContractPnlsConfig(bool check)
         {
 
@@ -328,7 +328,7 @@ namespace GeradorDePacotes
             #region["Pnl_OutputFile"]
 
             var lastFileName = await UtilDb.GetLastSelectedFileNameAsync(_context);
-       
+
             if (!string.IsNullOrWhiteSpace(lastFileName))
                 Txt_OutputFile.Text = lastFileName;
 
@@ -341,16 +341,16 @@ namespace GeradorDePacotes
                 Txt_OutputFile.AutoCompleteCustomSource = source;
                 Txt_OutputFile.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             }
-            
+
 
 
             var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_date_and_time_to_name");
             if (!string.IsNullOrWhiteSpace(chbAddDateHour))
                 Chb_AddDateHourToName.Checked = Convert.ToBoolean(chbAddDateHour);
 
-            var cmbFileFormat = await UtilDb.GetParValueAsync(_context, "file_format");
-            if (!string.IsNullOrWhiteSpace(cmbFileFormat))
-                Cmb_Formatos.SelectedItem = cmbFileFormat;
+            //var cmbFileFormat = await UtilDb.GetParValueAsync(_context, "file_format");
+            //if (!string.IsNullOrWhiteSpace(cmbFileFormat))
+            Cmb_Formatos.SelectedItem = "ZIP";
 
             #endregion
 
