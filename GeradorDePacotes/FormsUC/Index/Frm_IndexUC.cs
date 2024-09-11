@@ -1,13 +1,12 @@
 ﻿using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
-using System.Configuration;
 using System.Diagnostics;
 
 namespace GeradorDePacotes
 {
     public partial class Frm_IndexUC : UserControl
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public Frm_IndexUC(ApplicationDbContext ctx)
         {
@@ -46,60 +45,25 @@ namespace GeradorDePacotes
 
             //var configuration = GetConfiguration();
 
-            Stopwatch sw = Stopwatch.StartNew();
             Btn_Start.Visible = false;
             Btn_Stop.Visible = true;
             Chk_AutoInitialize.Visible = false;
             Prg_Bar.Visible = true;
 
-            Lbl_Progress.Visible = true;
-            Lbl_Progress.Text = "Gerando pacote, aguarde...";
-            Lbl_Progress.Refresh();
+            Lbl_ProgressMsg.Visible = true;
+            Lbl_ProgressMsg.Text = "Gerando pacote, aguarde...";
+            Lbl_ProgressMsg.Refresh();
+            Thread.Sleep(500);
 
-            
-            Package package = new Package();
-            
-
-
+            Package package = new Package(_context, Lbl_ProgressMsg, Prg_Bar);
+            Stopwatch sw = Stopwatch.StartNew();
+            package.GeneratePackage();
 
             Btn_Start.Visible = true;
             Btn_Stop.Visible = false;
             Chk_AutoInitialize.Visible = true;
             sw.Stop();
             TimeSpan tempoTotal = sw.Elapsed;
-        }
-
-        private async void GetConfiguration()
-        {
-            var NameFile = UtilDb.GetParValueAsync(_context, "");
-        }
-
-        private void ProcessarPacote()
-        {
-            int contador = 0;
-            Prg_Bar.Percentage = 0;
-            Lbl_Progress.ForeColor = default;
-            // Simulando o processo com um contador
-            while (contador < 100)
-            {
-                // Atualiza a barra de Progress e faz uma pausa
-                this.Invoke(new Action(() =>
-                {
-                    Prg_Bar.Percentage++;
-                    Prg_Bar.Refresh();
-                }));
-
-                // Simula o tempo de processamento
-                Thread.Sleep(50);
-                contador++;
-            }
-
-            // Quando o processo terminar, atualizar o label na UI thread
-            this.Invoke(new Action(() =>
-            {
-                Lbl_Progress.Text = "Pacote gerado com sucesso!";
-                Lbl_Progress.ForeColor = Color.Green;
-            }));
         }
 
         private async void CheckInitialize()
@@ -116,7 +80,20 @@ namespace GeradorDePacotes
                 Btn_GerarPacote_Click(null!, null!);
 
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "false");
-            
+
+        }
+
+        private void Lbl_ProgressMsg_TextChanged(object sender, EventArgs e)
+        {
+            if (Lbl_ProgressMsg.Equals("Erro"))
+                Lbl_ProgressMsg.ForeColor = Color.Red;
+
+            Lbl_ProgressMsg.Refresh();
+        }
+
+        private void Prg_Bar_PercentageChanged(object sender, EventArgs e)
+        {
+            Prg_Bar.Refresh();
         }
     }
 }

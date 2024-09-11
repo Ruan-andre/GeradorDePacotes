@@ -31,13 +31,15 @@
         {
             Prg_Bar = new ReaLTaiizor.Controls.ParrotCircleProgressBar();
             Pnl_BtnGerar = new Panel();
-            Lbl_Progress = new Label();
             Chk_AutoInitialize = new CheckBox();
             Btn_Start = new ReaLTaiizor.Controls.ForeverButton();
             Btn_Stop = new ReaLTaiizor.Controls.ForeverButton();
+            Lbl_ProgressMsg = new Label();
             Tlp_Content = new TableLayoutPanel();
+            Pnl_ContentUC = new Panel();
             Pnl_BtnGerar.SuspendLayout();
             Tlp_Content.SuspendLayout();
+            Pnl_ContentUC.SuspendLayout();
             SuspendLayout();
             // 
             // Prg_Bar
@@ -55,7 +57,7 @@
             Prg_Bar.Percentage = 0;
             Prg_Bar.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             Prg_Bar.ShowText = true;
-            Prg_Bar.Size = new Size(244, 224);
+            Prg_Bar.Size = new Size(244, 242);
             Prg_Bar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Prg_Bar.TabIndex = 41;
             Prg_Bar.TextColor = Color.Gray;
@@ -63,52 +65,37 @@
             Prg_Bar.TextSize = 25;
             Prg_Bar.UnFilledColor = Color.FromArgb(114, 114, 114);
             Prg_Bar.UnfilledThickness = 25;
+            Prg_Bar.PercentageChanged += Prg_Bar_PercentageChanged;
             // 
             // Pnl_BtnGerar
             // 
-            Pnl_BtnGerar.Controls.Add(Lbl_Progress);
             Pnl_BtnGerar.Controls.Add(Chk_AutoInitialize);
             Pnl_BtnGerar.Controls.Add(Btn_Start);
             Pnl_BtnGerar.Controls.Add(Btn_Stop);
-            Pnl_BtnGerar.Location = new Point(3, 233);
+            Pnl_BtnGerar.Location = new Point(3, 251);
             Pnl_BtnGerar.Name = "Pnl_BtnGerar";
-            Pnl_BtnGerar.Size = new Size(244, 183);
+            Pnl_BtnGerar.Size = new Size(244, 110);
             Pnl_BtnGerar.TabIndex = 40;
             // 
-            // Lbl_Progress
-            // 
-            Lbl_Progress.Anchor = AnchorStyles.Top;
-            Lbl_Progress.AutoEllipsis = true;
-            Lbl_Progress.AutoSize = true;
-            Lbl_Progress.Font = new Font("Segoe UI", 11F);
-            Lbl_Progress.Location = new Point(0, 135);
-            Lbl_Progress.Name = "Lbl_Progress";
-            Lbl_Progress.Size = new Size(146, 25);
-            Lbl_Progress.TabIndex = 42;
-            Lbl_Progress.Text = "Label Progresso";
-            Lbl_Progress.TextAlign = ContentAlignment.MiddleCenter;
-            Lbl_Progress.UseMnemonic = false;
-            Lbl_Progress.Visible = false;
-            // 
-            // Chk_Inicializar
+            // Chk_AutoInitialize
             // 
             Chk_AutoInitialize.Anchor = AnchorStyles.Top;
             Chk_AutoInitialize.AutoSize = true;
             Chk_AutoInitialize.Location = new Point(52, 86);
-            Chk_AutoInitialize.Name = "Chk_Inicializar";
+            Chk_AutoInitialize.Name = "Chk_AutoInitialize";
             Chk_AutoInitialize.Size = new Size(139, 24);
             Chk_AutoInitialize.TabIndex = 36;
             Chk_AutoInitialize.Text = "Gerar ao iniciar?";
             Chk_AutoInitialize.UseVisualStyleBackColor = true;
             Chk_AutoInitialize.CheckedChanged += Chk_Inicializar_CheckedChanged;
             // 
-            // Btn_GerarPacote
+            // Btn_Start
             // 
             Btn_Start.BackColor = Color.Transparent;
             Btn_Start.BaseColor = Color.FromArgb(76, 149, 108);
             Btn_Start.Font = new Font("Segoe UI", 12F);
             Btn_Start.Location = new Point(9, 24);
-            Btn_Start.Name = "Btn_GerarPacote";
+            Btn_Start.Name = "Btn_Start";
             Btn_Start.Rounded = false;
             Btn_Start.Size = new Size(225, 56);
             Btn_Start.TabIndex = 39;
@@ -130,34 +117,59 @@
             Btn_Stop.TextColor = Color.FromArgb(243, 243, 243);
             Btn_Stop.Visible = false;
             // 
+            // Lbl_ProgressMsg
+            // 
+            Lbl_ProgressMsg.Anchor = AnchorStyles.Top;
+            Lbl_ProgressMsg.Font = new Font("Segoe UI", 11F);
+            Lbl_ProgressMsg.Location = new Point(0, 389);
+            Lbl_ProgressMsg.Name = "Lbl_ProgressMsg";
+            Lbl_ProgressMsg.Size = new Size(408, 26);
+            Lbl_ProgressMsg.TabIndex = 42;
+            Lbl_ProgressMsg.Text = "Label Progresso";
+            Lbl_ProgressMsg.TextAlign = ContentAlignment.MiddleCenter;
+            Lbl_ProgressMsg.UseMnemonic = false;
+            Lbl_ProgressMsg.Visible = false;
+            Lbl_ProgressMsg.TextChanged += Lbl_ProgressMsg_TextChanged;
+            // 
             // Tlp_Content
             // 
             Tlp_Content.ColumnCount = 1;
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             Tlp_Content.Controls.Add(Prg_Bar, 0, 0);
             Tlp_Content.Controls.Add(Pnl_BtnGerar, 0, 1);
-            Tlp_Content.Location = new Point(388, 87);
+            Tlp_Content.Location = new Point(84, 22);
             Tlp_Content.Name = "Tlp_Content";
             Tlp_Content.RowCount = 2;
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 53.90244F));
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 46.09756F));
-            Tlp_Content.Size = new Size(250, 427);
+            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 68.31531F));
+            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 31.6847F));
+            Tlp_Content.Size = new Size(250, 364);
             Tlp_Content.TabIndex = 43;
             Tlp_Content.Tag = "main";
+            // 
+            // Pnl_ContentUC
+            // 
+            Pnl_ContentUC.Controls.Add(Tlp_Content);
+            Pnl_ContentUC.Controls.Add(Lbl_ProgressMsg);
+            Pnl_ContentUC.Location = new Point(260, 100);
+            Pnl_ContentUC.Name = "Pnl_ContentUC";
+            Pnl_ContentUC.Size = new Size(411, 423);
+            Pnl_ContentUC.TabIndex = 44;
+            Pnl_ContentUC.Tag = "main";
             // 
             // Frm_IndexUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(227, 213, 202);
-            Controls.Add(Tlp_Content);
+            Controls.Add(Pnl_ContentUC);
             Name = "Frm_IndexUC";
-            Size = new Size(989, 721);
+            Size = new Size(989, 734);
             Tag = "indexUC";
             Load += Frm_IndexUC_Load;
             Pnl_BtnGerar.ResumeLayout(false);
             Pnl_BtnGerar.PerformLayout();
             Tlp_Content.ResumeLayout(false);
+            Pnl_ContentUC.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -168,6 +180,7 @@
         private ReaLTaiizor.Controls.ForeverButton Btn_Start;
         private ReaLTaiizor.Controls.ForeverButton Btn_Stop;
         private TableLayoutPanel Tlp_Content;
-        private Label Lbl_Progress;
+        public Label Lbl_ProgressMsg;
+        private Panel Pnl_ContentUC;
     }
 }
