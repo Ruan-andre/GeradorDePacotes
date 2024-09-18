@@ -37,9 +37,11 @@
             Lbl_ProgressMsg = new Label();
             Tlp_Content = new TableLayoutPanel();
             Pnl_ContentUC = new Panel();
+            Pic_LoadingGIF = new PictureBox();
             Pnl_BtnGerar.SuspendLayout();
             Tlp_Content.SuspendLayout();
             Pnl_ContentUC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Pic_LoadingGIF).BeginInit();
             SuspendLayout();
             // 
             // Prg_Bar
@@ -148,13 +150,25 @@
             // 
             // Pnl_ContentUC
             // 
+            Pnl_ContentUC.Controls.Add(Pic_LoadingGIF);
             Pnl_ContentUC.Controls.Add(Tlp_Content);
             Pnl_ContentUC.Controls.Add(Lbl_ProgressMsg);
             Pnl_ContentUC.Location = new Point(260, 100);
             Pnl_ContentUC.Name = "Pnl_ContentUC";
-            Pnl_ContentUC.Size = new Size(411, 423);
+            Pnl_ContentUC.Size = new Size(411, 472);
             Pnl_ContentUC.TabIndex = 44;
             Pnl_ContentUC.Tag = "main";
+            // 
+            // Pic_LoadingGIF
+            // 
+            Pic_LoadingGIF.Image = Properties.Resources.loading;
+            Pic_LoadingGIF.Location = new Point(139, 418);
+            Pic_LoadingGIF.Name = "Pic_LoadingGIF";
+            Pic_LoadingGIF.Size = new Size(128, 43);
+            Pic_LoadingGIF.SizeMode = PictureBoxSizeMode.AutoSize;
+            Pic_LoadingGIF.TabIndex = 45;
+            Pic_LoadingGIF.TabStop = false;
+            Pic_LoadingGIF.Visible = false;
             // 
             // Frm_IndexUC
             // 
@@ -170,6 +184,8 @@
             Pnl_BtnGerar.PerformLayout();
             Tlp_Content.ResumeLayout(false);
             Pnl_ContentUC.ResumeLayout(false);
+            Pnl_ContentUC.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Pic_LoadingGIF).EndInit();
             ResumeLayout(false);
         }
 
@@ -182,5 +198,6 @@
         private TableLayoutPanel Tlp_Content;
         public Label Lbl_ProgressMsg;
         private Panel Pnl_ContentUC;
+        private PictureBox Pic_LoadingGIF;
     }
 }

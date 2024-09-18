@@ -43,8 +43,6 @@ namespace GeradorDePacotes
         private async void Btn_GerarPacote_Click(object sender, EventArgs e)
         {
 
-            //var configuration = GetConfiguration();
-
             Btn_Start.Visible = false;
             Btn_Stop.Visible = true;
             Chk_AutoInitialize.Visible = false;
@@ -52,18 +50,24 @@ namespace GeradorDePacotes
 
             Lbl_ProgressMsg.Visible = true;
             Lbl_ProgressMsg.Text = "Gerando pacote, aguarde...";
+            Pic_LoadingGIF.Visible = true;
             Lbl_ProgressMsg.Refresh();
             Thread.Sleep(500);
 
             Package package = new Package(_context, Lbl_ProgressMsg, Prg_Bar);
             Stopwatch sw = Stopwatch.StartNew();
-            package.GeneratePackage();
+            
+            await Task.Run(package.GeneratePackage);
+            Lbl_ProgressMsg.ForeColor = Color.DarkGreen;
+            Lbl_ProgressMsg.Text = "Pacote gerado com sucesso!";
 
             Btn_Start.Visible = true;
             Btn_Stop.Visible = false;
+            Pic_LoadingGIF.Visible = false;
             Chk_AutoInitialize.Visible = true;
             sw.Stop();
-            TimeSpan tempoTotal = sw.Elapsed;
+            MessageBox.Show($"Tempo gasto: {sw.ElapsedMilliseconds / 1000}");
+
         }
 
         private async void CheckInitialize()
