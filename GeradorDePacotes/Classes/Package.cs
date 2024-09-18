@@ -29,12 +29,18 @@ namespace GeradorDePacotes.Classes
             ProgressBarCount = progressBar;
             FillOwnFieldsOrProperties();
         }
-        public void GeneratePackage()
+        public async Task GeneratePackage()
         {
-            VerifyFilesAndFolders();
-            DeleteFilesAndFolders();
+            var taskVerify = VerifyFilesAndFoldersAsync();
+            var taskDelete = DeleteFilesAndFoldersAsync();
             var pathZip = Path.Combine(OutputFolder, FileName + ".zip");
-            Zip.CreateZipFile(TargetFolder, pathZip, ProgressBarCount);
+            await Task.WhenAll(taskVerify, taskDelete);
+            LabelStatus.Invoke(() =>
+            {
+                LabelStatus.Text = "Criando arquivo zip, aguarde...";
+            });
+
+            await Zip.CreateZipFileAsync(TargetFolder, pathZip, ProgressBarCount);
         }
 
         private async void FillOwnFieldsOrProperties()
@@ -69,89 +75,98 @@ namespace GeradorDePacotes.Classes
                 OutputFolder = TargetFolder;
             }
         }
-        private void VerifyFilesAndFolders()
+        private async Task VerifyFilesAndFoldersAsync()
         {
-            LabelStatus.Text = "Verificando pastas e arquivos, aguarde...";
-            var foldersToVerify = Context.FoldersToVerify.AsQueryable();
-            var filesToVerify = Context.FilesToVerify.AsQueryable();
-
-            Sb.AppendLine("Pastas não encontradas: ");
-            foreach (var folder in foldersToVerify)
+            await Task.Run(() =>
             {
-                if (folder.Disconsider != true && !Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
-                    Sb.AppendLine(folder.NameFolder);
+                using (var Context = new ApplicationDbContext())
+                {
+                    LabelStatus.Invoke(() => { LabelStatus.Text = "Verificando pastas e arquivos, aguarde..."; });
+                    var foldersToVerify = Context.FoldersToVerify.AsQueryable();
+                    var filesToVerify = Context.FilesToVerify.AsQueryable();
 
-            }
-            ProgressBarCount.Percentage += 10;
+                    Sb.AppendLine("Pastas não encontradas: ");
+                    foreach (var folder in foldersToVerify)
+                    {
+                        if (folder.Disconsider != true && !Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
+                            Sb.AppendLine(folder.NameFolder);
 
-            Sb.AppendLine("\nArquivos não encontrados: ");
-            foreach (var file in filesToVerify)
-            {
-                if (file.Disconsider != true && !File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
-                    Sb.AppendLine(file.NameFile);
-            }
+                    }
 
-            var sbLength = Sb.ToString().Split("\n").Length;
-            if (sbLength > 4)
-            {
-                LabelStatus.Text = "Erro";
-                throw new Exception(Sb.ToString());
-            }
+                    Sb.AppendLine("\nArquivos não encontrados: ");
+                    foreach (var file in filesToVerify)
+                    {
+                        if (file.Disconsider != true && !File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
+                            Sb.AppendLine(file.NameFile);
+                    }
 
-            ProgressBarCount.Percentage += 10;
+                    var sbLength = Sb.ToString().Split("\n").Length;
+                    if (sbLength > 4)
+                    {
+                        LabelStatus.Invoke(() => { LabelStatus.Text = "Erro"; });
+                        throw new Exception(Sb.ToString());
+                    }
+                }
+            });
         }
-        private void DeleteFilesAndFolders()
+        private async Task DeleteFilesAndFoldersAsync()
         {
-            LabelStatus.Text = "Deletando pastas e arquivos, aguarde...";
-
-            var foldersToDelete = Context.FoldersToDelete.AsQueryable();
-            var filesToDelete = Context.FilesToDelete.AsQueryable();
-            var _sb = new StringBuilder();
-
-            foreach (var folder in foldersToDelete)
+            await Task.Run(() =>
             {
-                try
+                using (var Context = new ApplicationDbContext())
                 {
-                    if (folder.Disconsider != true && Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
-                    {
-                        Directory.Delete(Path.Combine(TargetFolder!, folder.NameFolder));
-                        DeletedFolders.Add(folder.NameFolder);
-                    }
-                    else
-                    {
-                        DeletedFolders.Add($"{folder.NameFolder} (não encontrada)");
-                    }
+                    LabelStatus.Invoke(() => { LabelStatus.Text = "Deletando pastas e arquivos, aguarde..."; });
 
-                }
-                catch (Exception)
-                {
-                    DeletedFolders.Add($"{folder.NameFolder} (Erro ao excluir)");
-                }
-            }
-            ProgressBarCount.Percentage += 10;
+                    var foldersToDelete = Context.FoldersToDelete.AsQueryable();
+                    var filesToDelete = Context.FilesToDelete.AsQueryable();
+                    var _sb = new StringBuilder();
 
-
-            foreach (var file in filesToDelete)
-            {
-                try
-                {
-                    if (file.Disconsider != true && Directory.Exists(Path.Combine(TargetFolder!, file.NameFile)))
+                    foreach (var folder in foldersToDelete)
                     {
-                        Directory.Delete(Path.Combine(TargetFolder!, file.NameFile));
-                        DeletedFolders.Add(file.NameFile);
-                    }
-                    else
-                    {
-                        DeletedFolders.Add($"{file.NameFile} (não encontrado)");
-                    }
+                        try
+                        {
+                            if (folder.Disconsider != true && Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
+                            {
+                                Directory.Delete(Path.Combine(TargetFolder!, folder.NameFolder), true);
+                                DeletedFolders.Add(folder.NameFolder);
+                            }
+                            else
+                            {
+                                DeletedFolders.Add($"{folder.NameFolder} (não encontrada)");
+                            }
 
+                        }
+                        catch (Exception)
+                        {
+                            DeletedFolders.Add($"{folder.NameFolder} (Erro ao excluir)");
+                        }
+                    }
+                    ProgressBarCount.Invoke(() => { ProgressBarCount.Percentage += 10; });
+
+
+                    foreach (var file in filesToDelete)
+                    {
+                        try
+                        {
+                            if (file.Disconsider != true && File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
+                            {
+                                File.Delete(Path.Combine(TargetFolder!, file.NameFile));
+                                DeletedFiles.Add(file.NameFile);
+                            }
+                            else
+                            {
+                                DeletedFiles.Add($"{file.NameFile} (não encontrado)");
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+                            DeletedFiles.Add($"{file.NameFile} (Erro ao excluir)");
+                        }
+                    }
+                    ProgressBarCount.Invoke(() => { ProgressBarCount.Percentage += 10; });
                 }
-                catch (Exception)
-                {
-                    DeletedFolders.Add($"{file.NameFile} (Erro ao excluir)");
-                }
-            }
-            ProgressBarCount.Percentage += 10;
+            });
         }
     }
 }
