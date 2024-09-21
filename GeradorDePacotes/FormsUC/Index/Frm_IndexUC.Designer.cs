@@ -67,7 +67,6 @@
             Prg_Bar.TextSize = 25;
             Prg_Bar.UnFilledColor = Color.FromArgb(114, 114, 114);
             Prg_Bar.UnfilledThickness = 25;
-            Prg_Bar.PercentageChanged += Prg_Bar_PercentageChanged;
             // 
             // Pnl_BtnGerar
             // 
@@ -118,6 +117,7 @@
             Btn_Stop.Text = "PARAR";
             Btn_Stop.TextColor = Color.FromArgb(243, 243, 243);
             Btn_Stop.Visible = false;
+            Btn_Stop.Click += Btn_Stop_Click;
             // 
             // Lbl_ProgressMsg
             // 

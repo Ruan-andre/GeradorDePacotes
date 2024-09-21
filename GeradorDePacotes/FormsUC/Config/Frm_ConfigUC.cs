@@ -40,7 +40,6 @@ namespace GeradorDePacotes
 
         private void ShowOrHideImgMsg()
         {
-            // Condição para mostrar ou ocultar as linhas
             var visible = (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
                            && Chb_SameOutputFolder.Checked == true)
                            || (Chb_SameOutputFolder.Checked == false
@@ -49,22 +48,18 @@ namespace GeradorDePacotes
 
             if (!visible)
             {
-                // Oculta a última e penúltima linha
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 0; // Última linha
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 0; // Penúltima linha
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 0;
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 0;
                 Pic_Msg_Fields.Location = Chb_SameOutputFolder.Checked ? new Point(58, 136) : new Point(58, 176);
             }
             else
             {
-                // Mostra as últimas linhas
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 260; // Última linha
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 260; // Penúltima linha
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 260;
+                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 260;
             }
 
-            // Opcional: esconder ou mostrar controles dentro das linhas ocultadas, se necessário
             foreach (Control control in Tlp_Content.Controls)
             {
-                // Se o controle está na última ou penúltima linha, oculta ou mostra conforme o 'visible'
                 int rowIndex = Tlp_Content.GetRow(control);
                 if (rowIndex == Tlp_Content.RowStyles.Count - 1 || rowIndex == Tlp_Content.RowStyles.Count - 2)
                 {
@@ -72,19 +67,14 @@ namespace GeradorDePacotes
                 }
             }
 
-            // Altera a visibilidade do Pic_Msg_Fields conforme o estado das linhas
             Pic_Msg_Fields.Visible = !visible;
             Pic_Msg_Fields.BringToFront();
-
         }
 
         private async void Txt_OutputFile_Leave(object sender, EventArgs e)
         {
-
             if (Helpers.IsFileNameValid(Txt_OutputFile.Text))
-            {
-                await UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
-            }
+                UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
         }
 
         private async void Txt_TargetFolder_Leave(object sender, EventArgs e)
@@ -103,6 +93,8 @@ namespace GeradorDePacotes
 
         }
 
+        // NÃO NECESSÁRIO PARA O MOMENTO, IMPLEMENTAR FUTURAMENTE
+
         //private async void Cmb_Formatos_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    if (_initializing) return;
@@ -113,24 +105,22 @@ namespace GeradorDePacotes
         //    }
         //}
 
-        private async void Chb_AddDateHourToName_CheckedChanged(object sender, EventArgs e)
+        private void Chb_AddDateHourToName_CheckedChanged(object sender, EventArgs e)
         {
             if (_initializing) return;
 
             if (Cmb_Formatos.SelectedItem != null)
-            {
-                await UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", Chb_AddDateHourToName.Checked.ToString()!);
-            }
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", Chb_AddDateHourToName.Checked.ToString());
         }
 
-        private async void Chb_SameOutputFolder_CheckedChanged(object sender, EventArgs e)
+        private void Chb_SameOutputFolder_CheckedChanged(object sender, EventArgs e)
         {
             ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
             ShowOrHideImgMsg();
 
             if (_initializing) return;
 
-            await UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
+            UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
         }
         private void Txt_OutputFolder_Leave(object sender, EventArgs e)
         {
@@ -285,7 +275,7 @@ namespace GeradorDePacotes
 
             if (e.ColumnIndex == dt.Columns[2].Index && e.RowIndex >= 0)
             {
-                await SwitchDtDeleteRows(e, dt);
+                await Task.Run(() => SwitchDtDeleteRows(e, dt));
                 await Helpers.DataBindDataGridsAsync(_context, dt);
             }
         }
@@ -347,10 +337,14 @@ namespace GeradorDePacotes
             var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_date_and_time_to_name");
             if (!string.IsNullOrWhiteSpace(chbAddDateHour))
                 Chb_AddDateHourToName.Checked = Convert.ToBoolean(chbAddDateHour);
+            else
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", "true");
 
+            //IMPLEMENTAR FUTURAMENTE SE NECESSÁRIO
             //var cmbFileFormat = await UtilDb.GetParValueAsync(_context, "file_format");
             //if (!string.IsNullOrWhiteSpace(cmbFileFormat))
-            Cmb_Formatos.SelectedItem = "ZIP";
+
+            Cmb_Formatos.SelectedIndex = default;
 
             #endregion
 
@@ -363,6 +357,8 @@ namespace GeradorDePacotes
             var chbSameFolder = await UtilDb.GetParValueAsync(_context, "same_output_folder");
             if (!string.IsNullOrWhiteSpace(chbSameFolder))
                 Chb_SameOutputFolder.Checked = Convert.ToBoolean(chbSameFolder);
+            else
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", "false");
 
             var txtOutputFolder = await UtilDb.GetParValueAsync(_context, "output_folder");
             if (!string.IsNullOrWhiteSpace(txtOutputFolder))
@@ -370,6 +366,7 @@ namespace GeradorDePacotes
 
             #endregion
 
+            ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
             await Helpers.DataBindDataGridsAsync(_context, ctrl: this);
         }
         private async void AddPathFolder(TextBox ctrl, string parName)
@@ -409,7 +406,7 @@ namespace GeradorDePacotes
                     break;
             }
         }
-        private async Task SwitchDtDeleteRows(DataGridViewCellEventArgs e, DataGridView dt)
+        private async void SwitchDtDeleteRows(DataGridViewCellEventArgs e, DataGridView dt)
         {
             var id = (int)dt.Rows[e.RowIndex].Cells[3].Value;
             switch (dt.Name.Replace("Dt_", ""))

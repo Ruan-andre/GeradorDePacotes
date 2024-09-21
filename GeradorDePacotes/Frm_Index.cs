@@ -29,13 +29,66 @@ namespace GeradorDePacotes
             ShowUserControl(0, new Frm_IndexUC(_context));
         }
 
+        // PERSONALIZED
+
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        // PERSONALIZED
+        [StructLayout(LayoutKind.Sequential)]
+        private struct FLASHWINFO
+        {
+            public uint cbSize;        // Tamanho da estrutura
+            public IntPtr hwnd;        // Handle da janela
+            public uint dwFlags;       // Opções de piscar
+            public uint uCount;        // Número de vezes que piscará
+            public uint dwTimeout;     // Velocidade do piscar (em milissegundos)
+        }
+
+        // Importação da função FlashWindowEx da user32.dll
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        // Flags de controle para o comportamento do FlashWindowEx
+        private const uint FLASHW_STOP = 0;      // Para de piscar
+        private const uint FLASHW_CAPTION = 1;   // Pisca apenas o título da janela
+        private const uint FLASHW_TRAY = 2;      // Pisca apenas a barra de tarefas
+        private const uint FLASHW_ALL = 3;       // Pisca tanto o título quanto a barra de tarefas
+        private const uint FLASHW_TIMER = 4;     // Pisca até que o usuário traga a janela para frente
+        private const uint FLASHW_TIMERNOFG = 12;// Pisca até que a janela receba foco
+
+        // Método para fazer a janela piscar na barra de tarefas
+        public void PiscarNaBarraDeTarefas()
+        {
+            FLASHWINFO fw = new FLASHWINFO();
+
+            fw.cbSize = Convert.ToUInt32(Marshal.SizeOf(fw)); // Tamanho da estrutura
+            fw.hwnd = this.Handle;  // Handle da janela (formulário atual)
+            fw.dwFlags = FLASHW_TRAY | FLASHW_TIMERNOFG; // Piscar na barra de tarefas até que a janela tenha foco
+            fw.uCount = uint.MaxValue; // Piscar indefinidamente
+            fw.dwTimeout = 0; // Padrão de tempo de piscada (usa o padrão do sistema)
+            FlashWindowEx(ref fw);
+        }
+
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            // Parar de piscar quando a janela é ativada
+            FLASHWINFO fw = new FLASHWINFO();
+            fw.cbSize = Convert.ToUInt32(Marshal.SizeOf(fw));
+            fw.hwnd = this.Handle;
+            fw.dwFlags = FLASHW_STOP; // Para o piscar
+            fw.uCount = 0;
+            fw.dwTimeout = 0;
+
+            FlashWindowEx(ref fw);
+        }
+
 
         private static Control? GetMainPanel(Control.ControlCollection controls)
         {

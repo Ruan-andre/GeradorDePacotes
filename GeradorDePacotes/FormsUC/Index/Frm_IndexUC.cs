@@ -1,12 +1,19 @@
 ﻿using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using System.Diagnostics;
+using System.Media;
 
 namespace GeradorDePacotes
 {
     public partial class Frm_IndexUC : UserControl
     {
         private readonly ApplicationDbContext _context;
+
+        private CancellationTokenSource? _cancellationTokenSource;
+
+        private Color _btnStartColor;
+
+        private string _btnStartText;
 
         public Frm_IndexUC(ApplicationDbContext ctx)
         {
@@ -47,27 +54,50 @@ namespace GeradorDePacotes
             Btn_Stop.Visible = true;
             Chk_AutoInitialize.Visible = false;
             Prg_Bar.Visible = true;
-
+            if (!Btn_Start.Text.StartsWith("R"))
+            {
+                _btnStartColor = Btn_Start.BaseColor;
+                _btnStartText = Btn_Start.Text;
+            }
             Lbl_ProgressMsg.Visible = true;
+            Lbl_ProgressMsg.ForeColor = default;
             Lbl_ProgressMsg.Text = "Gerando pacote, aguarde...";
             Pic_LoadingGIF.Visible = true;
             Lbl_ProgressMsg.Refresh();
             Thread.Sleep(500);
 
-            Package package = new Package(_context, Lbl_ProgressMsg, Prg_Bar);
+            _cancellationTokenSource = new CancellationTokenSource();
+            Package package = new Package(Lbl_ProgressMsg, Prg_Bar, _cancellationTokenSource.Token);
             Stopwatch sw = Stopwatch.StartNew();
-            
-            await Task.Run(package.GeneratePackage);
-            Lbl_ProgressMsg.ForeColor = Color.DarkGreen;
-            Lbl_ProgressMsg.Text = "Pacote gerado com sucesso!";
+            try
+            {
+                await Task.Run(package.GeneratePackage);
+                Lbl_ProgressMsg.ForeColor = Color.DarkGreen;
+                Lbl_ProgressMsg.Text = "Pacote gerado com sucesso!";
+            }
+            catch (AggregateException)
+            {
+                Lbl_ProgressMsg.ForeColor = Color.DarkRed;
+                Lbl_ProgressMsg.Text = "Operação cancelada";
+                Btn_Start.Text = "Reiniciar";
+                Btn_Start.BaseColor = Color.Blue;
+                Btn_Start.Visible = true;
+                SystemSounds.Hand.Play();
+                return;
+            }
+
+            Btn_Start.Text = _btnStartText;
+            Btn_Start.BaseColor = _btnStartColor;
 
             Btn_Start.Visible = true;
             Btn_Stop.Visible = false;
             Pic_LoadingGIF.Visible = false;
             Chk_AutoInitialize.Visible = true;
             sw.Stop();
-            MessageBox.Show($"Tempo gasto: {sw.ElapsedMilliseconds / 1000}");
-
+            var timeElapsed = $"Tempo gasto: {sw.ElapsedMilliseconds / 1000}";
+            SystemSounds.Exclamation.Play();
+            var parentFrm = ParentForm as Frm_Index;
+            parentFrm?.PiscarNaBarraDeTarefas();
         }
 
         private async void CheckInitialize()
@@ -95,9 +125,10 @@ namespace GeradorDePacotes
             Lbl_ProgressMsg.Refresh();
         }
 
-        private void Prg_Bar_PercentageChanged(object sender, EventArgs e)
+        private void Btn_Stop_Click(object sender, EventArgs e)
         {
-            Prg_Bar.Refresh();
+            _cancellationTokenSource?.Cancel();
         }
+
     }
 }

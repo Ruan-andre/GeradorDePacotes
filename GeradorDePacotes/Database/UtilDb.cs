@@ -14,9 +14,8 @@ namespace GeradorDePacotes.Database
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentNullException("O nome do arquivo não pode ser vazio");
 
-            var fileNameLog = ctx.FileNameOutputLogs
-                    .AsEnumerable()
-                    .FirstOrDefault(x => x.NameFile.Equals(fileName));
+            var fileNameLog = await ctx.FileNameOutputLogs
+                    .FirstOrDefaultAsync(x => x.NameFile.Equals(fileName));
 
             var lastSelected = await ctx.FileNameOutputLogs.Where(x => x.LastSelected == true).FirstOrDefaultAsync();
 

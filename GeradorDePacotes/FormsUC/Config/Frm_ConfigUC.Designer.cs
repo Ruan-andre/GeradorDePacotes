@@ -908,8 +908,6 @@
             // 
             Chb_SameOutputFolder.AccessibleDescription = "Se esta checkbox for marcada, o nome do arquivo terá o texto digitado mais a data e hora atual no formato ANO-MES-DIA-H-M-S";
             Chb_SameOutputFolder.AutoSize = true;
-            Chb_SameOutputFolder.Checked = true;
-            Chb_SameOutputFolder.CheckState = CheckState.Checked;
             Chb_SameOutputFolder.Font = new Font("Segoe UI", 9F);
             Chb_SameOutputFolder.Location = new Point(8, 98);
             Chb_SameOutputFolder.Name = "Chb_SameOutputFolder";
