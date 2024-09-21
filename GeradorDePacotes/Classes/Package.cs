@@ -1,6 +1,5 @@
 ﻿
 
-using ExcluirArquivosPublicacao.Entities;
 using GeradorDePacotes.Database;
 using ReaLTaiizor.Controls;
 using System.Text;
@@ -16,31 +15,34 @@ namespace GeradorDePacotes.Classes
         private string? OutputFolder { get; set; }
         public List<string> DeletedFolders { get; }
         public List<string> DeletedFiles { get; }
-        public Control LabelStatus { get; }
-        public ParrotCircleProgressBar ProgressBarCount { get; }
+        private Control LabelStatus { get; }
+        private ParrotCircleProgressBar ProgressBarCount { get; }
 
-        public Package(ApplicationDbContext ctx, Control labelStatus, ParrotCircleProgressBar progressBar)
+        private readonly CancellationToken Token;
+
+        public Package(Control labelStatus, ParrotCircleProgressBar progressBar, CancellationToken token)
         {
-            Context = ctx;
+            Context = new ApplicationDbContext();
             DeletedFolders = new List<string>();
             DeletedFiles = new List<string>();
             Sb = new StringBuilder();
             LabelStatus = labelStatus;
             ProgressBarCount = progressBar;
+            Token = token;
             FillOwnFieldsOrProperties();
         }
         public async Task GeneratePackage()
         {
             var taskVerify = VerifyFilesAndFoldersAsync();
             var taskDelete = DeleteFilesAndFoldersAsync();
-            var pathZip = Path.Combine(OutputFolder, FileName + ".zip");
+            var pathZip = Path.Combine(OutputFolder!, FileName + ".zip");
             await Task.WhenAll(taskVerify, taskDelete);
             LabelStatus.Invoke(() =>
             {
                 LabelStatus.Text = "Criando arquivo zip, aguarde...";
             });
 
-            await Zip.CreateZipFileAsync(TargetFolder, pathZip, ProgressBarCount);
+            await Zip.CreateZipFileAsync(TargetFolder!, pathZip, ProgressBarCount, Token);
         }
 
         private async void FillOwnFieldsOrProperties()
@@ -141,7 +143,6 @@ namespace GeradorDePacotes.Classes
                             DeletedFolders.Add($"{folder.NameFolder} (Erro ao excluir)");
                         }
                     }
-                    ProgressBarCount.Invoke(() => { ProgressBarCount.Percentage += 10; });
 
 
                     foreach (var file in filesToDelete)
@@ -164,7 +165,6 @@ namespace GeradorDePacotes.Classes
                             DeletedFiles.Add($"{file.NameFile} (Erro ao excluir)");
                         }
                     }
-                    ProgressBarCount.Invoke(() => { ProgressBarCount.Percentage += 10; });
                 }
             });
         }
