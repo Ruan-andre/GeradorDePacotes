@@ -9,7 +9,7 @@ namespace GeradorDePacotes.Database
     {
         #region["GenericFields AddOrUpdate"]
 
-        public static async Task AddOrUpdateFileName(ApplicationDbContext ctx, string fileName)
+        public static async Task AddOrUpdateOutputFileNameAsync(ApplicationDbContext ctx, string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentNullException("O nome do arquivo não pode ser vazio");
@@ -18,6 +18,9 @@ namespace GeradorDePacotes.Database
                     .FirstOrDefaultAsync(x => x.NameFile.Equals(fileName));
 
             var lastSelected = await ctx.FileNameOutputLogs.Where(x => x.LastSelected == true).FirstOrDefaultAsync();
+
+            if (lastSelected != null)
+                lastSelected.LastSelected = false;
 
             if (fileNameLog != null)
             {
@@ -31,12 +34,11 @@ namespace GeradorDePacotes.Database
                 };
             }
 
-            if (lastSelected != null)
-                lastSelected.LastSelected = false;
+
 
             await ctx.SaveChangesAsync().ConfigureAwait(false);
         }
-     
+
         #endregion
 
         #region["DataGrids AddOrUpdate"]
@@ -146,6 +148,35 @@ namespace GeradorDePacotes.Database
             }
         }
 
+        public async static Task AddToGridDeletedFolders(ApplicationDbContext ctx, Dictionary<string, DateTime> dict)
+        {
+
+            if (dict == null)
+                throw new ArgumentNullException(nameof(dict), "O dicionário de pastas excluídas não pode ser nulo.");
+
+            await ClearTableAsync(ctx, nameof(DeletedFolders));
+
+            var deletedFolders = new List<DeletedFolders>(dict.Count);
+            foreach (var folder in dict)
+                deletedFolders.Add(new DeletedFolders { FolderName = folder.Key, DateTime = folder.Value });
+
+            await ctx.DeletedFolders.AddRangeAsync(deletedFolders);
+            await ctx.SaveChangesAsync();
+        } 
+        public async static Task AddToGridDeletedFiles(ApplicationDbContext ctx, Dictionary<string, DateTime> dict)
+        {
+            if (dict == null)
+                throw new ArgumentNullException(nameof(dict), "O dicionário de pastas excluídas não pode ser nulo.");
+
+            await ClearTableAsync(ctx, nameof(DeletedFiles));
+
+            var deletedFiles = new List<DeletedFiles>(dict.Count);
+            foreach (var folder in dict)
+                deletedFiles.Add(new DeletedFiles { FileName = folder.Key, DateTime = folder.Value });
+
+            await ctx.DeletedFiles.AddRangeAsync(deletedFiles);
+            await ctx.SaveChangesAsync();
+        }
         #endregion
 
         #region["Tables AddOrUpdate"]
@@ -256,7 +287,7 @@ namespace GeradorDePacotes.Database
             }
             await ctx.SaveChangesAsync();
         }
-      
+
         public async static Task AddOrUpdateTableParKeysAsync(ApplicationDbContext ctx, string parName, string parValue)
         {
             var par = await ctx.ParKeys
@@ -280,8 +311,8 @@ namespace GeradorDePacotes.Database
             await ctx.SaveChangesAsync();
         }
 
-       
-       
+
+
         #endregion
 
         #region["Selects"]
@@ -293,7 +324,7 @@ namespace GeradorDePacotes.Database
                                      .FirstOrDefaultAsync();
         }
 
-        public static async Task<string[]> GetListFileName(ApplicationDbContext ctx)
+        public static async Task<string[]> GetListFileNameAsync(ApplicationDbContext ctx)
         {
             return await ctx.FileNameOutputLogs.Select(x => x.NameFile).ToArrayAsync();
         }
@@ -332,9 +363,7 @@ namespace GeradorDePacotes.Database
             await ctx.SaveChangesAsync();
         }
 
-
         #endregion
-
 
     }
 }
