@@ -3,31 +3,195 @@ using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using GeradorDePacotes.Database.Entities;
 using GeradorDePacotes.FormsUC.Config;
-using System.Windows.Forms;
 
 namespace GeradorDePacotes
 {
     public partial class Frm_ConfigUC : UserControl
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         private bool _initializing = true;
 
-        private Frm_Index _parentForm;
+        private readonly Frm_Index _parentForm;
 
         private object? _cachedName;
 
-        public static string PathTargetFolder { get; private set; }
+        public static string? PathTargetFolder { get; private set; }
 
-        public Frm_ConfigUC(ApplicationDbContext ctx, Frm_Index parentForm)
+        public Frm_ConfigUC(Frm_Index parentForm)
         {
             InitializeComponent();
-            _context = ctx;
+            _context = new ApplicationDbContext();
             _parentForm = parentForm;
         }
 
-        //Events
+        //Personalized
+        private void ExpandOrContractPnlsConfig(bool check)
+        {
 
+            if (!check)
+            {
+                Tlp_Content.RowStyles[0].Height += 45;
+                Tlp_Content.Height += 45;
+                Cmb_Formatos.Location = new Point(10, 137);
+                Txt_OutputFolder.Visible = true;
+                Btn_ExploreOutputFolder.Visible = true;
+                Btn_ClearTables.Location = new Point(292, 705);
+                Pnl_ContentConfig.Height = 760;
+            }
+            else
+            {
+                Tlp_Content.RowStyles[0].Height = 133;
+                Tlp_Content.RowStyles[1].Height = 260;
+                Tlp_Content.RowStyles[2].Height = 260;
+
+                Chb_AddDateHourToName.Location = new Point(9, 95);
+                Cmb_Formatos.Location = new Point(310, 95);
+                Txt_OutputFolder.Visible = false;
+                Btn_ExploreOutputFolder.Visible = false;
+                Tlp_Content.Height = 654;
+                Btn_ClearTables.Location = new Point(292, 666);
+                Pnl_ContentConfig.Height = 707;
+            }
+
+        }
+        private async void FillOwnControls()
+        {
+            #region["Pnl_OutputFile"]
+
+            var lastFileName = await UtilDb.GetLastSelectedFileNameAsync(_context);
+
+            if (!string.IsNullOrWhiteSpace(lastFileName))
+                Txt_OutputFile.Text = lastFileName;
+
+            var listLogsFileName = await UtilDb.GetListFileNameAsync(_context);
+            if (listLogsFileName != null && listLogsFileName.Length > 0)
+            {
+                AutoCompleteStringCollection source = [.. listLogsFileName];
+
+                Txt_OutputFile.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                Txt_OutputFile.AutoCompleteCustomSource = source;
+                Txt_OutputFile.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            }
+
+
+
+            var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_date_and_time_to_name");
+            if (!string.IsNullOrWhiteSpace(chbAddDateHour))
+                Chb_AddDateHourToName.Checked = Convert.ToBoolean(chbAddDateHour);
+            else
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", "true");
+
+            //IMPLEMENTAR FUTURAMENTE SE NECESSÁRIO
+            //var cmbFileFormat = await UtilDb.GetParValueAsync(_context, "file_format");
+            //if (!string.IsNullOrWhiteSpace(cmbFileFormat))
+
+            Cmb_Formatos.SelectedIndex = default;
+
+            #endregion
+
+            #region["Pnl_TargetFolder"]
+
+            var txtTargetFolder = await UtilDb.GetParValueAsync(_context, "target_folder");
+            if (!string.IsNullOrWhiteSpace(txtTargetFolder))
+                Txt_TargetFolder.Text = txtTargetFolder;
+
+            var chbSameFolder = await UtilDb.GetParValueAsync(_context, "same_output_folder");
+            if (!string.IsNullOrWhiteSpace(chbSameFolder))
+                Chb_SameOutputFolder.Checked = Convert.ToBoolean(chbSameFolder);
+            else
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", "true");
+
+            var txtOutputFolder = await UtilDb.GetParValueAsync(_context, "output_folder");
+            if (!string.IsNullOrWhiteSpace(txtOutputFolder))
+                Txt_OutputFolder.Text = txtOutputFolder;
+            #endregion
+
+            ShowOrHideImgMsg();
+
+            await Helpers.DataBindDataGridsAsync(_context, ctrl: this);
+        }
+        private async void AddPathFolder(TextBox ctrl, string parName)
+        {
+            if (!Helpers.IsDirectoryValid(ctrl))
+                return;
+
+            await UtilDb.AddOrUpdateTableParKeysAsync(_context, parName, ctrl.Text);
+        }
+
+        private async void SwitchDtCheckBox(DataGridViewCellEventArgs e, DataGridView dt)
+        {
+            var idItem = (int)dt.Rows[e.RowIndex].Cells[3].Value;
+            DataGridViewCell cell = dt[e.ColumnIndex, e.RowIndex];
+            bool currentValue = (bool)cell.Value;
+            cell.Value = !currentValue;
+            var newValue = !currentValue;
+            switch (dt.Name.Replace("Dt_", ""))
+            {
+                case "FoldersToDelete":
+                    await UtilDb.AddOrUpdateTableFoldersToDeleteAsync(_context, disconsider: newValue, id: idItem);
+                    break;
+
+                case "FilesToDelete":
+                    await UtilDb.AddOrUpdateTableFilesToDeleteAsync(_context, disconsider: newValue, id: idItem);
+                    break;
+
+                case "FoldersToVerify":
+                    await UtilDb.AddOrUpdateTableFoldersToVerifyAsync(_context, disconsider: newValue, id: idItem);
+                    break;
+
+                case "FilesToVerify":
+                    await UtilDb.AddOrUpdateTableFilesToVerifyAsync(_context, disconsider: newValue, id: idItem);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private async void SwitchDtDeleteRows(DataGridViewCellEventArgs e, DataGridView dt)
+        {
+            var id = (int)dt.Rows[e.RowIndex].Cells[3].Value;
+            switch (dt.Name.Replace("Dt_", ""))
+            {
+                case "FoldersToDelete":
+                    await UtilDb.DeleteAsync<FoldersToDelete>(_context, "FoldersToDelete", id);
+                    break;
+
+                case "FilesToDelete":
+                    await UtilDb.DeleteAsync<FilesToDelete>(_context, "FilesToDelete", id);
+                    break;
+
+                case "FoldersToVerify":
+                    await UtilDb.DeleteAsync<FoldersToVerify>(_context, "FoldersToVerify", id);
+                    break;
+
+                case "FilesToVerify":
+                    await UtilDb.DeleteAsync<FilesToVerify>(_context, "FilesToVerify", id);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            var dt = (DataGridView)sender;
+            var cellContent = dt[e.ColumnIndex, e.RowIndex].Value;
+            _cachedName = cellContent;
+        }
+
+        private bool VerifyPathTargetFolder()
+        {
+            if (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text))
+            {
+                MessageBox.Show("O caminho da pasta alvo está vázio, por favor, preencha-o", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Txt_TargetFolder.Focus();
+                return false;
+            }
+            return true;
+        }
+
+
+        //Events
         private void Frm_ConfigUC_Load(object sender, EventArgs e)
         {
             FillOwnControls();
@@ -41,8 +205,8 @@ namespace GeradorDePacotes
         private void ShowOrHideImgMsg()
         {
             var visible = (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
-                           && Chb_SameOutputFolder.Checked == true)
-                           || (Chb_SameOutputFolder.Checked == false
+                           && Chb_SameOutputFolder.Checked)
+                           || (!Chb_SameOutputFolder.Checked
                                 && (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
                                     || string.IsNullOrWhiteSpace(Txt_OutputFolder.Text))) ? false : true;
 
@@ -69,12 +233,13 @@ namespace GeradorDePacotes
 
             Pic_Msg_Fields.Visible = !visible;
             Pic_Msg_Fields.BringToFront();
+            Pic_Msg_Fields.Refresh();
         }
 
-        private async void Txt_OutputFile_Leave(object sender, EventArgs e)
+        private void Txt_OutputFile_Leave(object sender, EventArgs e)
         {
             if (Helpers.IsFileNameValid(Txt_OutputFile.Text))
-                UtilDb.AddOrUpdateFileName(_context, Txt_OutputFile.Text);
+                UtilDb.AddOrUpdateOutputFileNameAsync(_context, Txt_OutputFile.Text);
         }
 
         private async void Txt_TargetFolder_Leave(object sender, EventArgs e)
@@ -122,9 +287,13 @@ namespace GeradorDePacotes
 
             UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
         }
-        private void Txt_OutputFolder_Leave(object sender, EventArgs e)
+        private async void Txt_OutputFolder_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Txt_OutputFolder.Text)) return;
+            if (!Helpers.IsDirectoryValid(Txt_OutputFolder.Text))
+            {
+                Txt_OutputFolder.Text = await UtilDb.GetParValueAsync(_context, "output_folder");
+                return;
+            }
             AddPathFolder(Txt_OutputFolder, "output_folder");
         }
         private void Btn_ExploreTargetFolders_Click(object sender, EventArgs e)
@@ -280,175 +449,6 @@ namespace GeradorDePacotes
             }
         }
 
-
-
-        //Personalized
-
-        private void ExpandOrContractPnlsConfig(bool check)
-        {
-
-            if (!check)
-            {
-                Tlp_Content.RowStyles[0].Height += 45;
-                Tlp_Content.Height += 45;
-                Cmb_Formatos.Location = new Point(10, 137);
-                Txt_OutputFolder.Visible = true;
-                Btn_ExploreOutputFolder.Visible = true;
-                Btn_ClearTables.Location = new Point(292, 705);
-                Pnl_ContentConfig.Height = 760;
-            }
-            else
-            {
-                Tlp_Content.RowStyles[0].Height = 133;
-                Tlp_Content.RowStyles[1].Height = 260;
-                Tlp_Content.RowStyles[2].Height = 260;
-
-                Chb_AddDateHourToName.Location = new Point(9, 95);
-                Cmb_Formatos.Location = new Point(310, 95);
-                Txt_OutputFolder.Visible = false;
-                Btn_ExploreOutputFolder.Visible = false;
-                Tlp_Content.Height = 654;
-                Btn_ClearTables.Location = new Point(292, 666);
-                Pnl_ContentConfig.Height = 707;
-            }
-
-        }
-        private async void FillOwnControls()
-        {
-            #region["Pnl_OutputFile"]
-
-            var lastFileName = await UtilDb.GetLastSelectedFileNameAsync(_context);
-
-            if (!string.IsNullOrWhiteSpace(lastFileName))
-                Txt_OutputFile.Text = lastFileName;
-
-            var listLogsFileName = await UtilDb.GetListFileName(_context);
-            if (listLogsFileName != null && listLogsFileName.Length > 0)
-            {
-                AutoCompleteStringCollection source = [.. listLogsFileName];
-
-                Txt_OutputFile.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                Txt_OutputFile.AutoCompleteCustomSource = source;
-                Txt_OutputFile.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            }
-
-
-
-            var chbAddDateHour = await UtilDb.GetParValueAsync(_context, "add_date_and_time_to_name");
-            if (!string.IsNullOrWhiteSpace(chbAddDateHour))
-                Chb_AddDateHourToName.Checked = Convert.ToBoolean(chbAddDateHour);
-            else
-                UtilDb.AddOrUpdateTableParKeysAsync(_context, "add_date_and_time_to_name", "true");
-
-            //IMPLEMENTAR FUTURAMENTE SE NECESSÁRIO
-            //var cmbFileFormat = await UtilDb.GetParValueAsync(_context, "file_format");
-            //if (!string.IsNullOrWhiteSpace(cmbFileFormat))
-
-            Cmb_Formatos.SelectedIndex = default;
-
-            #endregion
-
-            #region["Pnl_TargetFolder"]
-
-            var txtTargetFolder = await UtilDb.GetParValueAsync(_context, "target_folder");
-            if (!string.IsNullOrWhiteSpace(txtTargetFolder))
-                Txt_TargetFolder.Text = txtTargetFolder;
-
-            var chbSameFolder = await UtilDb.GetParValueAsync(_context, "same_output_folder");
-            if (!string.IsNullOrWhiteSpace(chbSameFolder))
-                Chb_SameOutputFolder.Checked = Convert.ToBoolean(chbSameFolder);
-            else
-                UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", "false");
-
-            var txtOutputFolder = await UtilDb.GetParValueAsync(_context, "output_folder");
-            if (!string.IsNullOrWhiteSpace(txtOutputFolder))
-                Txt_OutputFolder.Text = txtOutputFolder;
-
-            #endregion
-
-            ExpandOrContractPnlsConfig(Chb_SameOutputFolder.Checked);
-            await Helpers.DataBindDataGridsAsync(_context, ctrl: this);
-        }
-        private async void AddPathFolder(TextBox ctrl, string parName)
-        {
-            if (!Helpers.IsDirectoryValid(ctrl))
-                return;
-
-            await UtilDb.AddOrUpdateTableParKeysAsync(_context, parName, ctrl.Text);
-            PathTargetFolder = ctrl.Text;
-        }
-
-        private async void SwitchDtCheckBox(DataGridViewCellEventArgs e, DataGridView dt)
-        {
-            var idItem = (int)dt.Rows[e.RowIndex].Cells[3].Value;
-            DataGridViewCell cell = dt[e.ColumnIndex, e.RowIndex];
-            bool currentValue = (bool)cell.Value;
-            cell.Value = !currentValue;
-            var newValue = !currentValue;
-            switch (dt.Name.Replace("Dt_", ""))
-            {
-                case "FoldersToDelete":
-                    await UtilDb.AddOrUpdateTableFoldersToDeleteAsync(_context, disconsider: newValue, id: idItem);
-                    break;
-
-                case "FilesToDelete":
-                    await UtilDb.AddOrUpdateTableFilesToDeleteAsync(_context, disconsider: newValue, id: idItem);
-                    break;
-
-                case "FoldersToVerify":
-                    await UtilDb.AddOrUpdateTableFoldersToVerifyAsync(_context, disconsider: newValue, id: idItem);
-                    break;
-
-                case "FilesToVerify":
-                    await UtilDb.AddOrUpdateTableFilesToVerifyAsync(_context, disconsider: newValue, id: idItem);
-                    break;
-                default:
-                    break;
-            }
-        }
-        private async void SwitchDtDeleteRows(DataGridViewCellEventArgs e, DataGridView dt)
-        {
-            var id = (int)dt.Rows[e.RowIndex].Cells[3].Value;
-            switch (dt.Name.Replace("Dt_", ""))
-            {
-                case "FoldersToDelete":
-                    await UtilDb.DeleteAsync<FoldersToDelete>(_context, "FoldersToDelete", id);
-                    break;
-
-                case "FilesToDelete":
-                    await UtilDb.DeleteAsync<FilesToDelete>(_context, "FilesToDelete", id);
-                    break;
-
-                case "FoldersToVerify":
-                    await UtilDb.DeleteAsync<FoldersToVerify>(_context, "FoldersToVerify", id);
-                    break;
-
-                case "FilesToVerify":
-                    await UtilDb.DeleteAsync<FilesToVerify>(_context, "FilesToVerify", id);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            var dt = (DataGridView)sender;
-            var cellContent = dt[e.ColumnIndex, e.RowIndex].Value;
-            _cachedName = cellContent;
-        }
-
-        private bool VerifyPathTargetFolder()
-        {
-            if (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text))
-            {
-                MessageBox.Show("O caminho da pasta alvo está vázio, por favor, preencha-o", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Txt_TargetFolder.Focus();
-                return false;
-            }
-            return true;
-        }
-
         private void Btn_ClearTables_Click(object sender, EventArgs e)
         {
             var dataGrids = Helpers.GetAllControlsOfType<DataGridView>(Pnl_ContentConfig).ToArray();
@@ -467,6 +467,8 @@ namespace GeradorDePacotes
         {
             ShowOrHideImgMsg();
         }
+
+
 
 
     }

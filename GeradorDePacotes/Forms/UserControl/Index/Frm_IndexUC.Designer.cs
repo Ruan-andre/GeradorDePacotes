@@ -37,6 +37,8 @@
             Lbl_ProgressMsg = new Label();
             Tlp_Content = new TableLayoutPanel();
             Pnl_ContentUC = new Panel();
+            Lkl_OpenFolder = new LinkLabel();
+            Btn_Report = new ReaLTaiizor.Controls.FoxButton();
             Pic_LoadingGIF = new PictureBox();
             Pnl_BtnGerar.SuspendLayout();
             Tlp_Content.SuspendLayout();
@@ -89,6 +91,7 @@
             Chk_AutoInitialize.Text = "Gerar ao iniciar?";
             Chk_AutoInitialize.UseVisualStyleBackColor = true;
             Chk_AutoInitialize.CheckedChanged += Chk_Inicializar_CheckedChanged;
+            Chk_AutoInitialize.Click += Chk_AutoInitialize_Click;
             // 
             // Btn_Start
             // 
@@ -123,7 +126,7 @@
             // 
             Lbl_ProgressMsg.Anchor = AnchorStyles.Top;
             Lbl_ProgressMsg.Font = new Font("Segoe UI", 11F);
-            Lbl_ProgressMsg.Location = new Point(0, 389);
+            Lbl_ProgressMsg.Location = new Point(0, 374);
             Lbl_ProgressMsg.Name = "Lbl_ProgressMsg";
             Lbl_ProgressMsg.Size = new Size(408, 26);
             Lbl_ProgressMsg.TabIndex = 42;
@@ -139,7 +142,7 @@
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             Tlp_Content.Controls.Add(Prg_Bar, 0, 0);
             Tlp_Content.Controls.Add(Pnl_BtnGerar, 0, 1);
-            Tlp_Content.Location = new Point(84, 22);
+            Tlp_Content.Location = new Point(84, 7);
             Tlp_Content.Name = "Tlp_Content";
             Tlp_Content.RowCount = 2;
             Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 68.31531F));
@@ -150,19 +153,55 @@
             // 
             // Pnl_ContentUC
             // 
+            Pnl_ContentUC.Controls.Add(Lkl_OpenFolder);
+            Pnl_ContentUC.Controls.Add(Btn_Report);
             Pnl_ContentUC.Controls.Add(Pic_LoadingGIF);
             Pnl_ContentUC.Controls.Add(Tlp_Content);
             Pnl_ContentUC.Controls.Add(Lbl_ProgressMsg);
-            Pnl_ContentUC.Location = new Point(260, 100);
+            Pnl_ContentUC.Location = new Point(260, 95);
             Pnl_ContentUC.Name = "Pnl_ContentUC";
-            Pnl_ContentUC.Size = new Size(411, 472);
+            Pnl_ContentUC.Size = new Size(411, 448);
             Pnl_ContentUC.TabIndex = 44;
             Pnl_ContentUC.Tag = "main";
+            // 
+            // Lkl_OpenFolder
+            // 
+            Lkl_OpenFolder.AutoSize = true;
+            Lkl_OpenFolder.LinkBehavior = LinkBehavior.NeverUnderline;
+            Lkl_OpenFolder.Location = new Point(164, 409);
+            Lkl_OpenFolder.Name = "Lkl_OpenFolder";
+            Lkl_OpenFolder.Size = new Size(82, 20);
+            Lkl_OpenFolder.TabIndex = 45;
+            Lkl_OpenFolder.TabStop = true;
+            Lkl_OpenFolder.Text = "Abrir pasta";
+            Lkl_OpenFolder.Visible = false;
+            Lkl_OpenFolder.LinkClicked += Lkl_OpenFolder_LinkClicked;
+            // 
+            // Btn_Report
+            // 
+            Btn_Report.BackColor = Color.Transparent;
+            Btn_Report.BaseColor = Color.FromArgb(2, 123, 186);
+            Btn_Report.BorderColor = Color.FromArgb(193, 193, 193);
+            Btn_Report.DisabledBaseColor = Color.FromArgb(249, 249, 249);
+            Btn_Report.DisabledBorderColor = Color.FromArgb(209, 209, 209);
+            Btn_Report.DisabledTextColor = Color.FromArgb(166, 178, 190);
+            Btn_Report.DownColor = Color.FromArgb(2, 123, 186);
+            Btn_Report.EnabledCalc = true;
+            Btn_Report.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Btn_Report.ForeColor = Color.White;
+            Btn_Report.Location = new Point(96, 448);
+            Btn_Report.Name = "Btn_Report";
+            Btn_Report.OverColor = Color.FromArgb(31, 135, 188);
+            Btn_Report.Size = new Size(225, 50);
+            Btn_Report.TabIndex = 42;
+            Btn_Report.Text = "Relatório";
+            Btn_Report.Visible = false;
+            Btn_Report.Click += Btn_Report_Click;
             // 
             // Pic_LoadingGIF
             // 
             Pic_LoadingGIF.Image = Properties.Resources.loading;
-            Pic_LoadingGIF.Location = new Point(139, 418);
+            Pic_LoadingGIF.Location = new Point(139, 403);
             Pic_LoadingGIF.Name = "Pic_LoadingGIF";
             Pic_LoadingGIF.Size = new Size(128, 43);
             Pic_LoadingGIF.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -199,5 +238,7 @@
         public Label Lbl_ProgressMsg;
         private Panel Pnl_ContentUC;
         private PictureBox Pic_LoadingGIF;
+        private ReaLTaiizor.Controls.FoxButton Btn_Report;
+        private LinkLabel Lkl_OpenFolder;
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeradorDePacotes
 {
@@ -26,7 +26,16 @@ namespace GeradorDePacotes
         {
             InitializeComponent();
             _context = new ApplicationDbContext();
-            ShowUserControl(0, new Frm_IndexUC(_context));
+            try
+            {
+                _context.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao aplicar migrações: {ex.Message}");
+
+            }
+            ShowUserControl(0, new Frm_IndexUC());
         }
 
         // PERSONALIZED
@@ -73,7 +82,6 @@ namespace GeradorDePacotes
             FlashWindowEx(ref fw);
         }
 
-
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
@@ -88,7 +96,6 @@ namespace GeradorDePacotes
 
             FlashWindowEx(ref fw);
         }
-
 
         private static Control? GetMainPanel(Control.ControlCollection controls)
         {
@@ -200,7 +207,6 @@ namespace GeradorDePacotes
             var controls = Pnl_Principal.Controls[_currentUserControl].Controls;
             Control? content = GetMainPanel(controls);
 
-
             if (sideBarExpanded)
             {
 
@@ -249,7 +255,7 @@ namespace GeradorDePacotes
 
         private void Btn_inicio_Click(object sender, EventArgs e)
         {
-            ShowUserControl(0, new Frm_IndexUC(_context));
+            ShowUserControl(0, new Frm_IndexUC());
             _currentUserControl = 0;
         }
 
@@ -260,7 +266,7 @@ namespace GeradorDePacotes
 
         private void Btn_Configuracoes_Click(object sender, EventArgs e)
         {
-            ShowUserControl(1, new Frm_ConfigUC(_context, this));
+            ShowUserControl(1, new Frm_ConfigUC(this));
             _currentUserControl = 1;
         }
 
@@ -284,6 +290,5 @@ namespace GeradorDePacotes
         {
             await UtilDb.AddOrUpdateTableParKeysAsync(_context, "first_initializing", "true");
         }
-
     }
 }

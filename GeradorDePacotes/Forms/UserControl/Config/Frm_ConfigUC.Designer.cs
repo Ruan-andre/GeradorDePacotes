@@ -314,7 +314,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox2.Image = Properties.Resources.arquivo;
+            pictureBox2.Image = Properties.Resources.verificar_arquivo;
             pictureBox2.Location = new Point(3, 12);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(30, 30);
@@ -477,7 +477,7 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox4.Image = Properties.Resources.arquivo;
+            pictureBox4.Image = Properties.Resources.verificar_pasta;
             pictureBox4.Location = new Point(3, 12);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(30, 30);
@@ -636,7 +636,7 @@
             // pictureBox6
             // 
             pictureBox6.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox6.Image = Properties.Resources.arquivo;
+            pictureBox6.Image = Properties.Resources.excluir_arquivo;
             pictureBox6.Location = new Point(3, 12);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(30, 30);
@@ -799,7 +799,7 @@
             // pictureBox8
             // 
             pictureBox8.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox8.Image = Properties.Resources.arquivo;
+            pictureBox8.Image = Properties.Resources.excluir_pasta;
             pictureBox8.Location = new Point(3, 12);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(30, 30);
@@ -908,6 +908,8 @@
             // 
             Chb_SameOutputFolder.AccessibleDescription = "Se esta checkbox for marcada, o nome do arquivo terá o texto digitado mais a data e hora atual no formato ANO-MES-DIA-H-M-S";
             Chb_SameOutputFolder.AutoSize = true;
+            Chb_SameOutputFolder.Checked = true;
+            Chb_SameOutputFolder.CheckState = CheckState.Checked;
             Chb_SameOutputFolder.Font = new Font("Segoe UI", 9F);
             Chb_SameOutputFolder.Location = new Point(8, 98);
             Chb_SameOutputFolder.Name = "Chb_SameOutputFolder";
