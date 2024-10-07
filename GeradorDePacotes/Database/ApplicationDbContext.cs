@@ -10,6 +10,8 @@ namespace GeradorDePacotes.Database
         public DbSet<FilesToDelete> FilesToDelete { get; set; }
         public DbSet<FoldersToDelete> FoldersToDelete { get; set; }
         public DbSet<FileNameOutputLogs> FileNameOutputLogs { get; set; }
+        public DbSet<DeletedFolders> DeletedFolders { get; set; }
+        public DbSet<DeletedFiles> DeletedFiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
