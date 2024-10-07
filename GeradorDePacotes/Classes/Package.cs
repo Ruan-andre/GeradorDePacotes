@@ -1,6 +1,4 @@
-﻿
-
-using GeradorDePacotes.Database;
+﻿using GeradorDePacotes.Database;
 using ReaLTaiizor.Controls;
 using System.Text;
 
@@ -13,18 +11,18 @@ namespace GeradorDePacotes.Classes
         private string? FileName { get; set; }
         private string? TargetFolder { get; set; }
         private string? OutputFolder { get; set; }
-        public List<string> DeletedFolders { get; }
-        public List<string> DeletedFiles { get; }
+        public static Dictionary<string, DateTime> DeletedFoldersReport { get; private set; }
+        public static Dictionary<string, DateTime> DeletedFilesReport { get; private set; }
+        public static int DeletedItemsCount { get; private set; }
         private Control LabelStatus { get; }
         private ParrotCircleProgressBar ProgressBarCount { get; }
 
         private readonly CancellationToken Token;
-
         public Package(Control labelStatus, ParrotCircleProgressBar progressBar, CancellationToken token)
         {
             Context = new ApplicationDbContext();
-            DeletedFolders = new List<string>();
-            DeletedFiles = new List<string>();
+            DeletedFoldersReport = new Dictionary<string, DateTime>();
+            DeletedFilesReport = new Dictionary<string, DateTime>();
             Sb = new StringBuilder();
             LabelStatus = labelStatus;
             ProgressBarCount = progressBar;
@@ -130,17 +128,18 @@ namespace GeradorDePacotes.Classes
                             if (folder.Disconsider != true && Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
                             {
                                 Directory.Delete(Path.Combine(TargetFolder!, folder.NameFolder), true);
-                                DeletedFolders.Add(folder.NameFolder);
+                                DeletedFoldersReport.Add(folder.NameFolder, DateTime.Now);
+                                DeletedItemsCount++;
                             }
                             else
                             {
-                                DeletedFolders.Add($"{folder.NameFolder} (não encontrada)");
+                                DeletedFoldersReport.Add($"{folder.NameFolder} (não encontrada)", DateTime.Now);
                             }
 
                         }
                         catch (Exception)
                         {
-                            DeletedFolders.Add($"{folder.NameFolder} (Erro ao excluir)");
+                            DeletedFoldersReport.Add($"{folder.NameFolder} (Erro ao excluir)", DateTime.Now);
                         }
                     }
 
@@ -152,21 +151,36 @@ namespace GeradorDePacotes.Classes
                             if (file.Disconsider != true && File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
                             {
                                 File.Delete(Path.Combine(TargetFolder!, file.NameFile));
-                                DeletedFiles.Add(file.NameFile);
+                                DeletedFilesReport.Add(file.NameFile, DateTime.Now);
+                                DeletedItemsCount++;
+                            }
+                            else if (file.Disconsider != true && file.NameFile.StartsWith('*')) // Para arquivos com padrão de nome
+                            {
+                                var filesWithPattern = Directory.GetFiles(TargetFolder!, file.NameFile);
+
+                                foreach (var fileWithPattern in filesWithPattern)
+                                {
+                                    File.Delete(fileWithPattern);
+                                    DeletedFilesReport.Add(file.NameFile, DateTime.Now);
+                                    DeletedItemsCount++;
+                                }
                             }
                             else
                             {
-                                DeletedFiles.Add($"{file.NameFile} (não encontrado)");
+                                DeletedFilesReport.Add($"{file.NameFile} (não encontrado)", DateTime.Now);
                             }
 
                         }
                         catch (Exception)
                         {
-                            DeletedFiles.Add($"{file.NameFile} (Erro ao excluir)");
+                            DeletedFilesReport.Add($"{file.NameFile} (Erro ao excluir)", DateTime.Now);
                         }
                     }
+
                 }
             });
+            await UtilDb.AddToGridDeletedFolders(Context, DeletedFoldersReport);
+            await UtilDb.AddToGridDeletedFiles(Context, DeletedFilesReport);
         }
     }
 }
