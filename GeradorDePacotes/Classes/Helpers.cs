@@ -21,11 +21,27 @@ namespace GeradorDePacotes.Classes
 
             ctrlContent.Location = new Point(x, y);
         }
-        public static void CenterPanel(Control ctrlParent, Control ctrlChild)
+        public static void CenterPanel(Control ctrlParent, Control ctrlChild, char? point = null)
         {
-            int x = (ctrlParent.ClientSize.Width - ctrlChild.ClientSize.Width) / 2;
-            int y = (ctrlParent.ClientSize.Height - ctrlChild.ClientSize.Height) / 2;
+            int x = ctrlChild.Location.X;
+            int y = ctrlChild.Location.Y;
+            if (point == null)
+            {
+                x = (ctrlParent.ClientSize.Width - ctrlChild.ClientSize.Width) / 2;
+                y = (ctrlParent.ClientSize.Height - ctrlChild.ClientSize.Height) / 2;
+            }
+            else if (point.ToString()!.ToLower() == "y")
+            {
+                y = (ctrlParent.ClientSize.Height - ctrlChild.ClientSize.Height) / 2;
+            }
+            else if (point.ToString()!.ToLower() == "x")
+            {
+                x = (ctrlParent.ClientSize.Width - ctrlChild.ClientSize.Width) / 2;
+            }
+
+
             ctrlChild.Location = new Point(x, y);
+
         }
 
         public static bool IsDirectoryValid(TextBox ctrl)
