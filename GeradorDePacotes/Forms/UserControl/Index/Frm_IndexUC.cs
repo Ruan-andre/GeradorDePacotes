@@ -87,17 +87,23 @@ namespace GeradorDePacotes
             }
             catch (AggregateException ex)
             {
-                if (ex.InnerExceptions.OfType<OperationCanceledException>().Any())
-                    Lbl_ProgressMsg.Text = "Operação cancelada pelo usuário.";
-                else
-                    Lbl_ProgressMsg.Text = "Ocorreu um erro durante a operação.";
-
                 Lbl_ProgressMsg.ForeColor = Color.DarkRed;
                 Btn_Start.Text = "Reiniciar";
                 Btn_Start.BaseColor = Color.Blue;
                 Btn_Start.Visible = true;
-                SystemSounds.Hand.Play();
-                return;
+
+                if (ex.InnerExceptions.OfType<OperationCanceledException>().Any())
+                {
+                    Lbl_ProgressMsg.Text = "Operação cancelada pelo usuário.";
+                    SystemSounds.Hand.Play();
+                    return;
+                }
+                else
+                {
+                    Lbl_ProgressMsg.Text = "Ocorreu um erro durante a operação.";
+                    MessageBox.Show(ex.Message, "ERRO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             Btn_Start.Text = _btnStartText;

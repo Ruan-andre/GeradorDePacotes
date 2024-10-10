@@ -6,7 +6,6 @@ namespace GeradorDePacotes.Classes
 {
     internal class Package
     {
-        private ApplicationDbContext Context { get; set; }
         private StringBuilder Sb { get; set; }
         private string? FileName { get; set; }
         private string? TargetFolder { get; set; }
@@ -16,171 +15,230 @@ namespace GeradorDePacotes.Classes
         public static int DeletedItemsCount { get; private set; }
         private Control LabelStatus { get; }
         private ParrotCircleProgressBar ProgressBarCount { get; }
-
         private readonly CancellationToken Token;
+        public static string? LogError { get; private set; } // Novo log de erros
+
         public Package(Control labelStatus, ParrotCircleProgressBar progressBar, CancellationToken token)
         {
-            Context = new ApplicationDbContext();
             DeletedFoldersReport = new Dictionary<string, DateTime>();
             DeletedFilesReport = new Dictionary<string, DateTime>();
             Sb = new StringBuilder();
             LabelStatus = labelStatus;
             ProgressBarCount = progressBar;
             Token = token;
-            FillOwnFieldsOrProperties();
+            FillOwnFieldsOrProperties().ConfigureAwait(false);
         }
+
         public async Task GeneratePackage()
         {
-            var taskVerify = VerifyFilesAndFoldersAsync();
-            var taskDelete = DeleteFilesAndFoldersAsync();
-            var pathZip = Path.Combine(OutputFolder!, FileName + ".zip");
-            await Task.WhenAll(taskVerify, taskDelete);
-            LabelStatus.Invoke(() =>
+            try
             {
-                LabelStatus.Text = "Criando arquivo zip, aguarde...";
-            });
+                var msgError = await VerifyFilesAndFoldersAsync();
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
 
-            await Zip.CreateZipFileAsync(TargetFolder!, pathZip, ProgressBarCount, Token);
+                await DeleteFilesAndFoldersAsync();
+                var pathZip = Path.Combine(OutputFolder!, FileName + ".zip");
+                UpdateStatus("Criando arquivo zip, aguarde...");
+                await Zip.CreateZipFileAsync(TargetFolder!, pathZip, ProgressBarCount, Token);
+            }
+            catch (OperationCanceledException)
+            {
+                LogError = "Operação cancelada pelo usuário.";
+            }
+            catch (Exception ex)
+            {
+                LogError = $"Erro durante a geração do pacote: {ex.Message}";
+                throw; 
+            }
         }
 
-        private async void FillOwnFieldsOrProperties()
+
+        private async Task FillOwnFieldsOrProperties()
         {
-            var name = await UtilDb.GetLastSelectedFileNameAsync(Context);
-            var parValueAddDateTime = await UtilDb.GetParValueAsync(Context, "add_date_and_time_to_name");
-            var addDateAndTime = !string.IsNullOrWhiteSpace(parValueAddDateTime) ? Convert.ToBoolean(parValueAddDateTime) : false;
-            var date = addDateAndTime ? DateTime.Now.ToString("yyyyMMddHHmm") : string.Empty;
-            var parValueSameFolder = await UtilDb.GetParValueAsync(Context, "same_output_folder");
-            var sameOutputFolder = !string.IsNullOrWhiteSpace(parValueSameFolder) ? Convert.ToBoolean(parValueSameFolder) : false;
-
-
-            if (!string.IsNullOrWhiteSpace(name))
-                FileName = name + date;
-            else
-                FileName = "Package" + DateTime.Now.ToString("yyyyMMddHHmm");
-
-            var directory = await UtilDb.GetParValueAsync(Context, "target_folder");
-
-            if (!string.IsNullOrWhiteSpace(directory))
-                TargetFolder = directory;
-            else
-                throw new Exception("Não foi possível localizar a pasta alvo, acesse CONFIGURAÇÕES e preencha o CAMINHO DA PASTA ALVO. ");
-
-            if (!sameOutputFolder)
+            try
             {
-                var parValueOutputFolder = await UtilDb.GetParValueAsync(Context, "output_folder");
-                OutputFolder = !string.IsNullOrWhiteSpace(parValueOutputFolder) ? parValueOutputFolder : TargetFolder;
+                using (var context = new ApplicationDbContext())
+                {
+                    var name = await UtilDb.GetLastSelectedFileNameAsync(context);
+                    var parValueAddDateTime = await UtilDb.GetParValueAsync(context, "add_date_and_time_to_name");
+                    var addDateAndTime = !string.IsNullOrWhiteSpace(parValueAddDateTime) && Convert.ToBoolean(parValueAddDateTime);
+                    var date = addDateAndTime ? DateTime.Now.ToString("yyyyMMddHHmm") : string.Empty;
+                    var parValueSameFolder = await UtilDb.GetParValueAsync(context, "same_output_folder");
+                    var sameOutputFolder = !string.IsNullOrWhiteSpace(parValueSameFolder) && Convert.ToBoolean(parValueSameFolder);
+
+                    FileName = !string.IsNullOrWhiteSpace(name) ? name + date : "Package" + DateTime.Now.ToString("yyyyMMddHHmm");
+                    TargetFolder = await GetTargetFolderAsync(context);
+                    OutputFolder = sameOutputFolder ? TargetFolder : await UtilDb.GetParValueAsync(context, "output_folder") ?? TargetFolder;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                OutputFolder = TargetFolder;
+                LogError = $"Erro ao preencher propriedades: {ex.Message}";
+                throw;
             }
         }
-        private async Task VerifyFilesAndFoldersAsync()
+
+        private async Task<string> GetTargetFolderAsync(ApplicationDbContext context)
+        {
+            var directory = await UtilDb.GetParValueAsync(context, "target_folder");
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                throw new Exception("Não foi possível localizar a pasta alvo. Acesse CONFIGURAÇÕES e preencha o CAMINHO DA PASTA ALVO.");
+            }
+            return directory;
+        }
+
+        private async Task<string> VerifyFilesAndFoldersAsync()
         {
             await Task.Run(() =>
             {
-                using (var Context = new ApplicationDbContext())
+                try
                 {
-                    LabelStatus.Invoke(() => { LabelStatus.Text = "Verificando pastas e arquivos, aguarde..."; });
-                    var foldersToVerify = Context.FoldersToVerify.AsQueryable();
-                    var filesToVerify = Context.FilesToVerify.AsQueryable();
+                    UpdateStatus("Verificando pastas e arquivos, aguarde...");
 
-                    Sb.AppendLine("Pastas não encontradas: ");
-                    foreach (var folder in foldersToVerify)
+                    using (var context = new ApplicationDbContext())
                     {
-                        if (folder.Disconsider != true && !Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
-                            Sb.AppendLine(folder.NameFolder);
+                        var foldersToVerify = context.FoldersToVerify.ToList();
+                        var filesToVerify = context.FilesToVerify.ToList();
 
-                    }
+                        Sb.AppendLine("Pastas não encontradas:");
+                        foreach (var folder in foldersToVerify)
+                        {
+                            Token.ThrowIfCancellationRequested();
+                            if (!folder.Disconsider && !Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
+                            {
+                                Sb.AppendLine(folder.NameFolder);
+                            }
+                        }
 
-                    Sb.AppendLine("\nArquivos não encontrados: ");
-                    foreach (var file in filesToVerify)
-                    {
-                        if (file.Disconsider != true && !File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
-                            Sb.AppendLine(file.NameFile);
-                    }
+                        Sb.AppendLine("\nArquivos não encontrados:");
+                        foreach (var file in filesToVerify)
+                        {
+                            Token.ThrowIfCancellationRequested();
+                            if (!file.Disconsider && !File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
+                            {
+                                Sb.AppendLine(file.NameFile);
+                            }
+                        }
 
-                    var sbLength = Sb.ToString().Split("\n").Length;
-                    if (sbLength > 4)
-                    {
-                        LabelStatus.Invoke(() => { LabelStatus.Text = "Erro"; });
-                        throw new Exception(Sb.ToString());
                     }
                 }
+                catch (Exception ex)
+                {
+                    LogError = $"Erro ao verificar arquivos e pastas: {ex.Message}";
+                    throw;
+                }
             });
+
+            var linhas = Sb.ToString().Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            if (linhas.Length > 2)
+            {
+                return Sb.ToString();
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
+
         private async Task DeleteFilesAndFoldersAsync()
         {
             await Task.Run(() =>
             {
-                using (var Context = new ApplicationDbContext())
+                try
                 {
-                    LabelStatus.Invoke(() => { LabelStatus.Text = "Deletando pastas e arquivos, aguarde..."; });
+                    UpdateStatus("Deletando pastas e arquivos, aguarde...");
 
-                    var foldersToDelete = Context.FoldersToDelete.AsQueryable();
-                    var filesToDelete = Context.FilesToDelete.AsQueryable();
-                    var _sb = new StringBuilder();
-
-                    foreach (var folder in foldersToDelete)
+                    using (var context = new ApplicationDbContext())
                     {
-                        try
-                        {
-                            if (folder.Disconsider != true && Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
-                            {
-                                Directory.Delete(Path.Combine(TargetFolder!, folder.NameFolder), true);
-                                DeletedFoldersReport.Add(folder.NameFolder, DateTime.Now);
-                                DeletedItemsCount++;
-                            }
-                            else
-                            {
-                                DeletedFoldersReport.Add($"{folder.NameFolder} (não encontrada)", DateTime.Now);
-                            }
+                        var foldersToDelete = context.FoldersToDelete.ToList();
+                        var filesToDelete = context.FilesToDelete.ToList();
 
-                        }
-                        catch (Exception)
+                        foreach (var folder in foldersToDelete)
                         {
-                            DeletedFoldersReport.Add($"{folder.NameFolder} (Erro ao excluir)", DateTime.Now);
+                            Token.ThrowIfCancellationRequested();
+                            DeleteFolder(folder.NameFolder);
+                        }
+
+                        foreach (var file in filesToDelete)
+                        {
+                            Token.ThrowIfCancellationRequested();
+                            DeleteFile(file.NameFile);
                         }
                     }
-
-
-                    foreach (var file in filesToDelete)
-                    {
-                        try
-                        {
-                            if (file.Disconsider != true && File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
-                            {
-                                File.Delete(Path.Combine(TargetFolder!, file.NameFile));
-                                DeletedFilesReport.Add(file.NameFile, DateTime.Now);
-                                DeletedItemsCount++;
-                            }
-                            else if (file.Disconsider != true && file.NameFile.StartsWith('*')) // Para arquivos com padrão de nome
-                            {
-                                var filesWithPattern = Directory.GetFiles(TargetFolder!, file.NameFile);
-
-                                foreach (var fileWithPattern in filesWithPattern)
-                                {
-                                    File.Delete(fileWithPattern);
-                                    DeletedFilesReport.Add(file.NameFile, DateTime.Now);
-                                    DeletedItemsCount++;
-                                }
-                            }
-                            else
-                            {
-                                DeletedFilesReport.Add($"{file.NameFile} (não encontrado)", DateTime.Now);
-                            }
-
-                        }
-                        catch (Exception)
-                        {
-                            DeletedFilesReport.Add($"{file.NameFile} (Erro ao excluir)", DateTime.Now);
-                        }
-                    }
-
+                }
+                catch (Exception ex)
+                {
+                    LogError = $"Erro ao deletar arquivos e pastas: {ex.Message}";
+                    throw;
                 }
             });
-            await UtilDb.AddToGridDeletedFolders(Context, DeletedFoldersReport);
-            await UtilDb.AddToGridDeletedFiles(Context, DeletedFilesReport);
+
+            using (var context = new ApplicationDbContext())
+            {
+                await UtilDb.AddToGridDeletedFolders(context, DeletedFoldersReport);
+                await UtilDb.AddToGridDeletedFiles(context, DeletedFilesReport);
+            }
+        }
+
+        private void DeleteFolder(string folderName)
+        {
+            try
+            {
+                var path = Path.Combine(TargetFolder!, folderName);
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                    DeletedFoldersReport.Add(folderName, DateTime.Now);
+                    DeletedItemsCount++;
+                }
+                else
+                {
+                    DeletedFoldersReport.Add($"{folderName} (não encontrada)", DateTime.Now);
+                }
+            }
+            catch (Exception ex)
+            {
+                DeletedFoldersReport.Add($"{folderName} (Erro ao excluir: {ex.Message})", DateTime.Now);
+            }
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            try
+            {
+                var path = Path.Combine(TargetFolder!, fileName);
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    DeletedFilesReport.Add(fileName, DateTime.Now);
+                    DeletedItemsCount++;
+                }
+                else if (fileName.StartsWith('*'))
+                {
+                    var filesWithPattern = Directory.GetFiles(TargetFolder!, fileName);
+                    foreach (var file in filesWithPattern)
+                    {
+                        File.Delete(file);
+                        DeletedFilesReport.Add(fileName, DateTime.Now);
+                        DeletedItemsCount++;
+                    }
+                }
+                else
+                {
+                    DeletedFilesReport.Add($"{fileName} (não encontrado)", DateTime.Now);
+                }
+            }
+            catch (Exception ex)
+            {
+                DeletedFilesReport.Add($"{fileName} (Erro ao excluir: {ex.Message})", DateTime.Now);
+            }
+        }
+
+        private void UpdateStatus(string message)
+        {
+            LabelStatus.Invoke(() => { LabelStatus.Text = message; });
         }
     }
 }
