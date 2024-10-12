@@ -232,6 +232,7 @@ namespace GeradorDePacotes
             }
 
             Pic_Msg_Fields.Visible = !visible;
+            Btn_ClearTables.Visible = visible;
             Pic_Msg_Fields.BringToFront();
             Pic_Msg_Fields.Refresh();
         }
@@ -253,6 +254,8 @@ namespace GeradorDePacotes
             else
             {
                 AddPathFolder(Txt_TargetFolder, "target_folder");
+                if (Chb_SameOutputFolder.Checked)
+                    AddPathFolder(Txt_TargetFolder, "output_folder");
                 ShowOrHideImgMsg();
             }
 
@@ -286,6 +289,10 @@ namespace GeradorDePacotes
             if (_initializing) return;
 
             UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
+            if (Chb_SameOutputFolder.Checked)
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_TargetFolder.Text);
+            else
+                UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_OutputFolder.Text);
         }
         private async void Txt_OutputFolder_Leave(object sender, EventArgs e)
         {
@@ -307,6 +314,8 @@ namespace GeradorDePacotes
 
             Txt_TargetFolder.Text = Fbd_ConfigUC.SelectedPath;
             AddPathFolder(Txt_TargetFolder, "target_folder");
+            if (Chb_SameOutputFolder.Checked)
+                AddPathFolder(Txt_TargetFolder, "output_folder");
             ShowOrHideImgMsg();
         }
         private void Btn_ExploreOutputFolder_Click(object sender, EventArgs e)

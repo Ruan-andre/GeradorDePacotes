@@ -1038,6 +1038,7 @@
             Btn_ClearTables.TabIndex = 21;
             Btn_ClearTables.Text = "Deseja as limpar tabelas?";
             Btn_ClearTables.UseVisualStyleBackColor = false;
+            Btn_ClearTables.Visible = false;
             Btn_ClearTables.Click += Btn_ClearTables_Click;
             // 
             // Pic_Msg_Fields
