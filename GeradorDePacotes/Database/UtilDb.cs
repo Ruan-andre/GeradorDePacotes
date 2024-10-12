@@ -30,11 +30,11 @@ namespace GeradorDePacotes.Database
             {
                 var newFileNameOutput = new FileNameOutputLogs
                 {
-                    NameFile = fileName
+                    NameFile = fileName,
+                    LastSelected = true
                 };
+                ctx.Add(newFileNameOutput);
             }
-
-
 
             await ctx.SaveChangesAsync().ConfigureAwait(false);
         }
