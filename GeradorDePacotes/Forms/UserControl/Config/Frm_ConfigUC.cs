@@ -3,6 +3,7 @@ using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using GeradorDePacotes.Database.Entities;
 using GeradorDePacotes.FormsUC.Config;
+using System.Collections.Generic;
 
 namespace GeradorDePacotes
 {
@@ -341,8 +342,34 @@ namespace GeradorDePacotes
             Fbd_ConfigUC.InitialDirectory = Txt_TargetFolder.Text;
             if (Fbd_ConfigUC.ShowDialog() == DialogResult.Cancel) return;
 
-            await UtilDb.AddOrUpdateToGridFoldersToDeleteAsync(_context, Fbd_ConfigUC.SelectedPath, Txt_TargetFolder.Text);
+            var dr = MessageBox.Show("Você deseja adicionar as subpastas à lista?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            var list = new List<string>();
+            if (dr == DialogResult.Yes)
+                list.AddRange(Directory.GetDirectories(Fbd_ConfigUC.SelectedPath));
+            else
+                list.Add(Fbd_ConfigUC.SelectedPath);
+
+            AddFolders(list, Dt_FoldersToDelete.Name);
             await Helpers.DataBindDataGridsAsync(_context, Dt_FoldersToDelete);
+        }
+
+        private async void AddFolders(List<string> list, string DataTableName)
+        {
+            switch (DataTableName)
+            {
+                case "Dt_FoldersToDelete":
+                    foreach (var path in list)
+                        await UtilDb.AddOrUpdateToGridFoldersToDeleteAsync(_context, path);
+                    break;
+
+                case "Dt_FoldersToVerify":
+                    foreach (var path in list)
+                        await UtilDb.AddOrUpdateToGridFoldersToVerifyAsync(_context, path);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private async void Pic_AddFileToDelete_Click(object sender, EventArgs e)
@@ -367,7 +394,15 @@ namespace GeradorDePacotes
             Fbd_ConfigUC.Description = "Selecione a pasta que será adicionada à lista de verificação";
             if (Fbd_ConfigUC.ShowDialog() == DialogResult.Cancel) return;
 
-            await UtilDb.AddOrUpdateToGridFoldersToVerifyAsync(_context, Fbd_ConfigUC.SelectedPath);
+            var dr = MessageBox.Show("Você deseja adicionar as subpastas à lista?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            var list = new List<string>();
+            if (dr == DialogResult.Yes)
+                list.AddRange(Directory.GetDirectories(Fbd_ConfigUC.SelectedPath));
+            else
+                list.Add(Fbd_ConfigUC.SelectedPath);
+
+            AddFolders(list, Dt_FoldersToVerify.Name);
             await Helpers.DataBindDataGridsAsync(_context, Dt_FoldersToVerify);
         }
 

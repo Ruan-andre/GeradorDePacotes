@@ -1054,6 +1054,7 @@
             // 
             // Fbd_ConfigUC
             // 
+            Fbd_ConfigUC.ShowHiddenFiles = true;
             Fbd_ConfigUC.UseDescriptionForTitle = true;
             // 
             // Fd_ConfigUC
