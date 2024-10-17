@@ -43,9 +43,9 @@ namespace GeradorDePacotes.Database
 
         #region["DataGrids AddOrUpdate"]
 
-        public async static Task AddOrUpdateToGridFoldersToDeleteAsync(ApplicationDbContext ctx, string pathFolder, string pathTargetFolder, bool disconsider = false)
+        public async static Task AddOrUpdateToGridFoldersToDeleteAsync(ApplicationDbContext ctx, string pathFolder, bool disconsider = false)
         {
-            var nameFolder = Helpers.GetNameWithoutPathForTargetFolder(pathFolder, Frm_ConfigUC.PathTargetFolder);
+            var nameFolder = Helpers.GetNameWithoutPathForTargetFolder(pathFolder, Frm_ConfigUC.PathTargetFolder!);
 
             var folderInDb = await ctx.FoldersToDelete
                 .AsQueryable()
