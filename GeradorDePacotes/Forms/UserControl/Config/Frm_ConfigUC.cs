@@ -246,6 +246,8 @@ namespace GeradorDePacotes
 
         private async void Txt_TargetFolder_Leave(object sender, EventArgs e)
         {
+            if (sender == null)
+                return;
 
             if (!Helpers.IsDirectoryValid(Txt_TargetFolder.Text))
             {
@@ -257,6 +259,8 @@ namespace GeradorDePacotes
                 AddPathFolder(Txt_TargetFolder, "target_folder");
                 if (Chb_SameOutputFolder.Checked)
                     AddPathFolder(Txt_TargetFolder, "output_folder");
+
+                PathTargetFolder = Txt_TargetFolder.Text;
                 ShowOrHideImgMsg();
             }
 
@@ -504,7 +508,7 @@ namespace GeradorDePacotes
 
         private void Txt_TargetFolder_TextChanged(object sender, EventArgs e)
         {
-            ShowOrHideImgMsg();
+            Txt_TargetFolder_Leave(null, null);
         }
 
         private void Txt_OutputFolder_TextChanged(object sender, EventArgs e)
