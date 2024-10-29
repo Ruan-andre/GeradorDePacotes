@@ -63,11 +63,11 @@ namespace GeradorDePacotes.Classes
                     var name = await UtilDb.GetLastSelectedFileNameAsync(context);
                     var parValueAddDateTime = await UtilDb.GetParValueAsync(context, "add_date_and_time_to_name");
                     var addDateAndTime = !string.IsNullOrWhiteSpace(parValueAddDateTime) && Convert.ToBoolean(parValueAddDateTime);
-                    var date = addDateAndTime ? DateTime.Now.ToString("yyyyMMddHHmm") : string.Empty;
+                    var date = addDateAndTime ? DateTime.Now.ToString("yyyyMMddHHmmss") : string.Empty;
                     var parValueSameFolder = await UtilDb.GetParValueAsync(context, "same_output_folder");
                     var sameOutputFolder = !string.IsNullOrWhiteSpace(parValueSameFolder) && Convert.ToBoolean(parValueSameFolder);
 
-                    FileName = !string.IsNullOrWhiteSpace(name) ? name + date : "Package" + DateTime.Now.ToString("yyyyMMddHHmm");
+                    FileName = !string.IsNullOrWhiteSpace(name) ? $"{name}({date})" : $"Package({DateTime.Now.ToString("yyyyMMddHHmmss")})";
                     TargetFolder = await GetTargetFolderAsync(context);
                     OutputFolder = sameOutputFolder ? TargetFolder : await UtilDb.GetParValueAsync(context, "output_folder") ?? TargetFolder;
                 }
