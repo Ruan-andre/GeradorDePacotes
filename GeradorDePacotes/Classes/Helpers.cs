@@ -8,7 +8,7 @@ namespace GeradorDePacotes.Classes
         public static void CenterPanelSideBar(Control frmParent, Control sideBar, Control panelTop, Control ctrlContent, bool expandedBar)
         {
             int x;
-            int y = (frmParent.ClientSize.Height - panelTop.ClientSize.Height - ctrlContent.ClientSize.Height) / 2 + panelTop.Height;
+            int y = (frmParent.ClientSize.Height - panelTop.ClientSize.Height - ctrlContent.ClientSize.Height) / 2 + panelTop.ClientSize.Height;
 
             if (expandedBar)
             {

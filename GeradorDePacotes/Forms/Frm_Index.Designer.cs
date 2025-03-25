@@ -63,8 +63,9 @@
             Pnl_Top.ForeColor = SystemColors.ButtonHighlight;
             Pnl_Top.ImeMode = ImeMode.NoControl;
             Pnl_Top.Location = new Point(0, 0);
+            Pnl_Top.Margin = new Padding(3, 2, 3, 2);
             Pnl_Top.Name = "Pnl_Top";
-            Pnl_Top.Size = new Size(1024, 32);
+            Pnl_Top.Size = new Size(896, 24);
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
             // 
@@ -75,10 +76,11 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 15F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(970, -10);
+            button1.Location = new Point(849, -8);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Padding = new Padding(0, 0, 0, 5);
-            button1.Size = new Size(56, 42);
+            button1.Padding = new Padding(0, 0, 0, 4);
+            button1.Size = new Size(49, 32);
             button1.TabIndex = 6;
             button1.Text = "x";
             button1.TextAlign = ContentAlignment.BottomCenter;
@@ -92,10 +94,11 @@
             Btn_MinimizeApplication.FlatStyle = FlatStyle.Flat;
             Btn_MinimizeApplication.Font = new Font("Segoe UI", 20F);
             Btn_MinimizeApplication.ForeColor = Color.White;
-            Btn_MinimizeApplication.Location = new Point(914, -25);
+            Btn_MinimizeApplication.Location = new Point(800, -19);
+            Btn_MinimizeApplication.Margin = new Padding(3, 2, 3, 2);
             Btn_MinimizeApplication.Name = "Btn_MinimizeApplication";
-            Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 5);
-            Btn_MinimizeApplication.Size = new Size(56, 57);
+            Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 4);
+            Btn_MinimizeApplication.Size = new Size(49, 43);
             Btn_MinimizeApplication.TabIndex = 5;
             Btn_MinimizeApplication.Text = "_";
             Btn_MinimizeApplication.TextAlign = ContentAlignment.TopCenter;
@@ -107,9 +110,9 @@
             Lbl_TituloPrograma.AutoSize = true;
             Lbl_TituloPrograma.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Lbl_TituloPrograma.ForeColor = SystemColors.ActiveCaptionText;
-            Lbl_TituloPrograma.Location = new Point(50, 0);
+            Lbl_TituloPrograma.Location = new Point(44, 0);
             Lbl_TituloPrograma.Name = "Lbl_TituloPrograma";
-            Lbl_TituloPrograma.Size = new Size(182, 28);
+            Lbl_TituloPrograma.Size = new Size(144, 21);
             Lbl_TituloPrograma.TabIndex = 1;
             Lbl_TituloPrograma.Text = "Gerador de Pacotes";
             Lbl_TituloPrograma.MouseDown += Pnl_Top_MouseDown;
@@ -122,9 +125,10 @@
             Pic_ExpandirMenu.BackColor = Color.FromArgb(198, 172, 143);
             Pic_ExpandirMenu.Cursor = Cursors.Hand;
             Pic_ExpandirMenu.Image = Properties.Resources.seta;
-            Pic_ExpandirMenu.Location = new Point(0, 4);
+            Pic_ExpandirMenu.Location = new Point(0, 3);
+            Pic_ExpandirMenu.Margin = new Padding(3, 2, 3, 2);
             Pic_ExpandirMenu.Name = "Pic_ExpandirMenu";
-            Pic_ExpandirMenu.Size = new Size(44, 24);
+            Pic_ExpandirMenu.Size = new Size(38, 18);
             Pic_ExpandirMenu.SizeMode = PictureBoxSizeMode.Zoom;
             Pic_ExpandirMenu.TabIndex = 0;
             Pic_ExpandirMenu.TabStop = false;
@@ -144,18 +148,20 @@
             Flp_Sidebar.Controls.Add(Btn_inicio);
             Flp_Sidebar.Controls.Add(Btn_Configuracoes);
             Flp_Sidebar.Controls.Add(Btn_Sobre);
-            Flp_Sidebar.Location = new Point(0, 31);
+            Flp_Sidebar.Location = new Point(0, 23);
+            Flp_Sidebar.Margin = new Padding(3, 2, 3, 2);
             Flp_Sidebar.Name = "Flp_Sidebar";
-            Flp_Sidebar.Size = new Size(190, 627);
+            Flp_Sidebar.Size = new Size(166, 470);
             Flp_Sidebar.TabIndex = 2;
             // 
             // Pic_Logo
             // 
             Pic_Logo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             Pic_Logo.Image = Properties.Resources.LOGO_PRINCIPAL;
-            Pic_Logo.Location = new Point(3, 3);
+            Pic_Logo.Location = new Point(3, 2);
+            Pic_Logo.Margin = new Padding(3, 2, 3, 2);
             Pic_Logo.Name = "Pic_Logo";
-            Pic_Logo.Size = new Size(187, 140);
+            Pic_Logo.Size = new Size(164, 105);
             Pic_Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Pic_Logo.TabIndex = 1;
             Pic_Logo.TabStop = false;
@@ -172,10 +178,10 @@
             Btn_inicio.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_inicio.Image = Properties.Resources.botao_de_inicio;
             Btn_inicio.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_inicio.Location = new Point(3, 186);
-            Btn_inicio.Margin = new Padding(3, 40, 3, 3);
+            Btn_inicio.Location = new Point(3, 139);
+            Btn_inicio.Margin = new Padding(3, 30, 3, 2);
             Btn_inicio.Name = "Btn_inicio";
-            Btn_inicio.Size = new Size(187, 67);
+            Btn_inicio.Size = new Size(164, 50);
             Btn_inicio.TabIndex = 3;
             Btn_inicio.Tag = "temp";
             Btn_inicio.Text = "INÍCIO";
@@ -195,9 +201,10 @@
             Btn_Configuracoes.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Configuracoes.Image = Properties.Resources.configuracao;
             Btn_Configuracoes.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_Configuracoes.Location = new Point(3, 259);
+            Btn_Configuracoes.Location = new Point(3, 193);
+            Btn_Configuracoes.Margin = new Padding(3, 2, 3, 2);
             Btn_Configuracoes.Name = "Btn_Configuracoes";
-            Btn_Configuracoes.Size = new Size(187, 67);
+            Btn_Configuracoes.Size = new Size(164, 50);
             Btn_Configuracoes.TabIndex = 4;
             Btn_Configuracoes.Tag = "temp";
             Btn_Configuracoes.Text = "CONFIGURAÇÕES";
@@ -217,9 +224,10 @@
             Btn_Sobre.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Sobre.Image = Properties.Resources.sobre;
             Btn_Sobre.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_Sobre.Location = new Point(3, 332);
+            Btn_Sobre.Location = new Point(3, 247);
+            Btn_Sobre.Margin = new Padding(3, 2, 3, 2);
             Btn_Sobre.Name = "Btn_Sobre";
-            Btn_Sobre.Size = new Size(187, 67);
+            Btn_Sobre.Size = new Size(164, 50);
             Btn_Sobre.TabIndex = 6;
             Btn_Sobre.Tag = "temp";
             Btn_Sobre.Text = "SOBRE";
@@ -233,8 +241,9 @@
             Pnl_Principal.Dock = DockStyle.Fill;
             Pnl_Principal.ImeMode = ImeMode.NoControl;
             Pnl_Principal.Location = new Point(0, 0);
+            Pnl_Principal.Margin = new Padding(3, 2, 3, 2);
             Pnl_Principal.Name = "Pnl_Principal";
-            Pnl_Principal.Size = new Size(1024, 866);
+            Pnl_Principal.Size = new Size(896, 650);
             Pnl_Principal.TabIndex = 3;
             // 
             // Pnl_Exit
@@ -242,9 +251,10 @@
             Pnl_Exit.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Pnl_Exit.BackColor = Color.FromArgb(198, 172, 143);
             Pnl_Exit.Controls.Add(Btn_Exit);
-            Pnl_Exit.Location = new Point(0, 657);
+            Pnl_Exit.Location = new Point(0, 493);
+            Pnl_Exit.Margin = new Padding(3, 2, 3, 2);
             Pnl_Exit.Name = "Pnl_Exit";
-            Pnl_Exit.Size = new Size(190, 208);
+            Pnl_Exit.Size = new Size(166, 156);
             Pnl_Exit.TabIndex = 4;
             // 
             // Btn_Exit
@@ -259,9 +269,10 @@
             Btn_Exit.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Exit.Image = Properties.Resources.sair;
             Btn_Exit.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_Exit.Location = new Point(0, 129);
+            Btn_Exit.Location = new Point(0, 97);
+            Btn_Exit.Margin = new Padding(3, 2, 3, 2);
             Btn_Exit.Name = "Btn_Exit";
-            Btn_Exit.Size = new Size(232, 79);
+            Btn_Exit.Size = new Size(203, 59);
             Btn_Exit.TabIndex = 8;
             Btn_Exit.Tag = "temp";
             Btn_Exit.Text = "SAIR";
@@ -271,15 +282,16 @@
             // 
             // Frm_Index
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1024, 866);
+            ClientSize = new Size(896, 650);
             Controls.Add(Pnl_Exit);
             Controls.Add(Flp_Sidebar);
             Controls.Add(Pnl_Top);
             Controls.Add(Pnl_Principal);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Frm_Index";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gerador de Pacotes";
