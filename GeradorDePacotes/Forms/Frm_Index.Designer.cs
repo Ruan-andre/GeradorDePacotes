@@ -31,8 +31,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Index));
             Pnl_Top = new Panel();
-            button1 = new Button();
             Btn_MinimizeApplication = new Button();
+            button1 = new Button();
             Lbl_TituloPrograma = new Label();
             Pic_ExpandirMenu = new PictureBox();
             SidebarTransition = new System.Windows.Forms.Timer(components);
@@ -55,8 +55,8 @@
             // 
             Pnl_Top.AllowDrop = true;
             Pnl_Top.BackColor = Color.FromArgb(198, 172, 143);
-            Pnl_Top.Controls.Add(button1);
             Pnl_Top.Controls.Add(Btn_MinimizeApplication);
+            Pnl_Top.Controls.Add(button1);
             Pnl_Top.Controls.Add(Lbl_TituloPrograma);
             Pnl_Top.Controls.Add(Pic_ExpandirMenu);
             Pnl_Top.Dock = DockStyle.Top;
@@ -65,9 +65,27 @@
             Pnl_Top.Location = new Point(0, 0);
             Pnl_Top.Margin = new Padding(3, 2, 3, 2);
             Pnl_Top.Name = "Pnl_Top";
-            Pnl_Top.Size = new Size(896, 24);
+            Pnl_Top.Size = new Size(896, 29);
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
+            // 
+            // Btn_MinimizeApplication
+            // 
+            Btn_MinimizeApplication.BackColor = Color.FromArgb(198, 172, 143);
+            Btn_MinimizeApplication.FlatAppearance.BorderSize = 0;
+            Btn_MinimizeApplication.FlatStyle = FlatStyle.Flat;
+            Btn_MinimizeApplication.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Btn_MinimizeApplication.ForeColor = Color.White;
+            Btn_MinimizeApplication.Location = new Point(793, 0);
+            Btn_MinimizeApplication.Margin = new Padding(3, 2, 3, 2);
+            Btn_MinimizeApplication.Name = "Btn_MinimizeApplication";
+            Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 4);
+            Btn_MinimizeApplication.Size = new Size(49, 29);
+            Btn_MinimizeApplication.TabIndex = 5;
+            Btn_MinimizeApplication.Text = "-";
+            Btn_MinimizeApplication.UseCompatibleTextRendering = true;
+            Btn_MinimizeApplication.UseVisualStyleBackColor = false;
+            Btn_MinimizeApplication.Click += Btn_MinimizeApplication_Click;
             // 
             // button1
             // 
@@ -76,34 +94,16 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 15F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(849, -8);
+            button1.Location = new Point(847, 0);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Padding = new Padding(0, 0, 0, 4);
-            button1.Size = new Size(49, 32);
+            button1.Size = new Size(49, 29);
             button1.TabIndex = 6;
             button1.Text = "x";
-            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.UseCompatibleTextRendering = true;
             button1.UseVisualStyleBackColor = false;
             button1.Click += Btn_CloseApplication_Click;
-            // 
-            // Btn_MinimizeApplication
-            // 
-            Btn_MinimizeApplication.BackColor = Color.FromArgb(198, 172, 143);
-            Btn_MinimizeApplication.FlatAppearance.BorderSize = 0;
-            Btn_MinimizeApplication.FlatStyle = FlatStyle.Flat;
-            Btn_MinimizeApplication.Font = new Font("Segoe UI", 20F);
-            Btn_MinimizeApplication.ForeColor = Color.White;
-            Btn_MinimizeApplication.Location = new Point(800, -19);
-            Btn_MinimizeApplication.Margin = new Padding(3, 2, 3, 2);
-            Btn_MinimizeApplication.Name = "Btn_MinimizeApplication";
-            Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 4);
-            Btn_MinimizeApplication.Size = new Size(49, 43);
-            Btn_MinimizeApplication.TabIndex = 5;
-            Btn_MinimizeApplication.Text = "_";
-            Btn_MinimizeApplication.TextAlign = ContentAlignment.TopCenter;
-            Btn_MinimizeApplication.UseVisualStyleBackColor = false;
-            Btn_MinimizeApplication.Click += Btn_MinimizeApplication_Click;
             // 
             // Lbl_TituloPrograma
             // 

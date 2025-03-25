@@ -210,17 +210,13 @@ namespace GeradorDePacotes
             if (sideBarExpanded)
             {
 
-                if (Flp_Sidebar.Width == 50)
-                {
-                    Flp_Sidebar.Width -= 6;
-                    Pnl_Exit.Width -= 6;
-                }
-                else
+                if (Flp_Sidebar.Width >= 56)
                 {
                     Flp_Sidebar.Width -= 10;
                     Pnl_Exit.Width -= 10;
                 }
-                if (Flp_Sidebar.Width <= 44)
+               
+                if (Flp_Sidebar.Width <= 46)
                 {
                     Helpers.CenterPanelSideBar(this, Flp_Sidebar, Pnl_Top, content, expandedBar: false);
                     Pic_Logo.Visible = false;
