@@ -57,13 +57,15 @@ namespace GeradorDePacotes
             if (!CheckConfig())
                 return;
 
-            if (Pnl_ContentUC.Height > 448)
-                Pnl_ContentUC.Height -= 55;
+            if (Pnl_ContentUC.Height >= 383)
+                Pnl_ContentUC.Height -= 100;
+            else if(Pnl_ContentUC.Height < 352)
+                Pnl_ContentUC.Height += 69;
 
             Btn_Start.Visible = false;
             Btn_Stop.Visible = true;
             Chk_AutoInitialize.Visible = false;
-            Prg_Bar.Visible = true;
+            Btn_Report.Visible = false;
             if (!Btn_Start.Text.StartsWith("R"))
             {
                 _btnStartColor = Btn_Start.BaseColor;
@@ -116,7 +118,7 @@ namespace GeradorDePacotes
             Chk_AutoInitialize.Visible = true;
             sw.Stop();
             Btn_Report.Visible = true;
-            Pnl_ContentUC.Height += 55;
+            Pnl_ContentUC.Height += 100;
 
             ElapsedTime = $"{sw.Elapsed.TotalMinutes.ToString("F2", CultureInfo.InvariantCulture)} minutos";
             SystemSounds.Exclamation.Play();

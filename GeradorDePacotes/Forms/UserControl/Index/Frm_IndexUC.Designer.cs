@@ -56,12 +56,13 @@
             Prg_Bar.FilledThickness = 25;
             Prg_Bar.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
             Prg_Bar.IsAnimated = false;
-            Prg_Bar.Location = new Point(3, 3);
+            Prg_Bar.Location = new Point(3, 2);
+            Prg_Bar.Margin = new Padding(3, 2, 3, 2);
             Prg_Bar.Name = "Prg_Bar";
             Prg_Bar.Percentage = 0;
             Prg_Bar.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             Prg_Bar.ShowText = true;
-            Prg_Bar.Size = new Size(244, 242);
+            Prg_Bar.Size = new Size(213, 201);
             Prg_Bar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Prg_Bar.TabIndex = 41;
             Prg_Bar.TextColor = Color.Gray;
@@ -75,18 +76,20 @@
             Pnl_BtnGerar.Controls.Add(Chk_AutoInitialize);
             Pnl_BtnGerar.Controls.Add(Btn_Start);
             Pnl_BtnGerar.Controls.Add(Btn_Stop);
-            Pnl_BtnGerar.Location = new Point(3, 251);
+            Pnl_BtnGerar.Location = new Point(3, 207);
+            Pnl_BtnGerar.Margin = new Padding(3, 2, 3, 2);
             Pnl_BtnGerar.Name = "Pnl_BtnGerar";
-            Pnl_BtnGerar.Size = new Size(244, 110);
+            Pnl_BtnGerar.Size = new Size(213, 64);
             Pnl_BtnGerar.TabIndex = 40;
             // 
             // Chk_AutoInitialize
             // 
             Chk_AutoInitialize.Anchor = AnchorStyles.Top;
             Chk_AutoInitialize.AutoSize = true;
-            Chk_AutoInitialize.Location = new Point(52, 86);
+            Chk_AutoInitialize.Location = new Point(45, 48);
+            Chk_AutoInitialize.Margin = new Padding(3, 2, 3, 2);
             Chk_AutoInitialize.Name = "Chk_AutoInitialize";
-            Chk_AutoInitialize.Size = new Size(139, 24);
+            Chk_AutoInitialize.Size = new Size(110, 19);
             Chk_AutoInitialize.TabIndex = 36;
             Chk_AutoInitialize.Text = "Gerar ao iniciar?";
             Chk_AutoInitialize.UseVisualStyleBackColor = true;
@@ -98,10 +101,11 @@
             Btn_Start.BackColor = Color.Transparent;
             Btn_Start.BaseColor = Color.FromArgb(76, 149, 108);
             Btn_Start.Font = new Font("Segoe UI", 12F);
-            Btn_Start.Location = new Point(9, 24);
+            Btn_Start.Location = new Point(8, 2);
+            Btn_Start.Margin = new Padding(3, 2, 3, 2);
             Btn_Start.Name = "Btn_Start";
             Btn_Start.Rounded = false;
-            Btn_Start.Size = new Size(225, 56);
+            Btn_Start.Size = new Size(197, 42);
             Btn_Start.TabIndex = 39;
             Btn_Start.Text = "Gerar Pacote";
             Btn_Start.TextColor = Color.FromArgb(243, 243, 243);
@@ -112,10 +116,11 @@
             Btn_Stop.BackColor = Color.Transparent;
             Btn_Stop.BaseColor = Color.FromArgb(170, 0, 0);
             Btn_Stop.Font = new Font("Segoe UI", 12F);
-            Btn_Stop.Location = new Point(9, 24);
+            Btn_Stop.Location = new Point(8, 2);
+            Btn_Stop.Margin = new Padding(3, 2, 3, 2);
             Btn_Stop.Name = "Btn_Stop";
             Btn_Stop.Rounded = false;
-            Btn_Stop.Size = new Size(225, 56);
+            Btn_Stop.Size = new Size(197, 42);
             Btn_Stop.TabIndex = 40;
             Btn_Stop.Text = "PARAR";
             Btn_Stop.TextColor = Color.FromArgb(243, 243, 243);
@@ -126,9 +131,9 @@
             // 
             Lbl_ProgressMsg.Anchor = AnchorStyles.Top;
             Lbl_ProgressMsg.Font = new Font("Segoe UI", 11F);
-            Lbl_ProgressMsg.Location = new Point(0, 374);
+            Lbl_ProgressMsg.Location = new Point(0, 284);
             Lbl_ProgressMsg.Name = "Lbl_ProgressMsg";
-            Lbl_ProgressMsg.Size = new Size(408, 26);
+            Lbl_ProgressMsg.Size = new Size(357, 20);
             Lbl_ProgressMsg.TabIndex = 42;
             Lbl_ProgressMsg.Text = "Label Progresso";
             Lbl_ProgressMsg.TextAlign = ContentAlignment.MiddleCenter;
@@ -142,12 +147,13 @@
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             Tlp_Content.Controls.Add(Prg_Bar, 0, 0);
             Tlp_Content.Controls.Add(Pnl_BtnGerar, 0, 1);
-            Tlp_Content.Location = new Point(84, 7);
+            Tlp_Content.Location = new Point(74, 5);
+            Tlp_Content.Margin = new Padding(3, 2, 3, 2);
             Tlp_Content.Name = "Tlp_Content";
             Tlp_Content.RowCount = 2;
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 68.31531F));
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 31.6847F));
-            Tlp_Content.Size = new Size(250, 364);
+            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 75.17007F));
+            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 24.8299313F));
+            Tlp_Content.Size = new Size(219, 273);
             Tlp_Content.TabIndex = 43;
             Tlp_Content.Tag = "main";
             // 
@@ -158,9 +164,10 @@
             Pnl_ContentUC.Controls.Add(Pic_LoadingGIF);
             Pnl_ContentUC.Controls.Add(Tlp_Content);
             Pnl_ContentUC.Controls.Add(Lbl_ProgressMsg);
-            Pnl_ContentUC.Location = new Point(260, 95);
+            Pnl_ContentUC.Location = new Point(228, 71);
+            Pnl_ContentUC.Margin = new Padding(3, 2, 3, 2);
             Pnl_ContentUC.Name = "Pnl_ContentUC";
-            Pnl_ContentUC.Size = new Size(411, 448);
+            Pnl_ContentUC.Size = new Size(360, 352);
             Pnl_ContentUC.TabIndex = 44;
             Pnl_ContentUC.Tag = "main";
             // 
@@ -168,9 +175,9 @@
             // 
             Lkl_OpenFolder.AutoSize = true;
             Lkl_OpenFolder.LinkBehavior = LinkBehavior.NeverUnderline;
-            Lkl_OpenFolder.Location = new Point(164, 409);
+            Lkl_OpenFolder.Location = new Point(144, 311);
             Lkl_OpenFolder.Name = "Lkl_OpenFolder";
-            Lkl_OpenFolder.Size = new Size(82, 20);
+            Lkl_OpenFolder.Size = new Size(64, 15);
             Lkl_OpenFolder.TabIndex = 45;
             Lkl_OpenFolder.TabStop = true;
             Lkl_OpenFolder.Text = "Abrir pasta";
@@ -189,10 +196,11 @@
             Btn_Report.EnabledCalc = true;
             Btn_Report.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Btn_Report.ForeColor = Color.White;
-            Btn_Report.Location = new Point(96, 448);
+            Btn_Report.Location = new Point(84, 340);
+            Btn_Report.Margin = new Padding(3, 2, 3, 2);
             Btn_Report.Name = "Btn_Report";
             Btn_Report.OverColor = Color.FromArgb(31, 135, 188);
-            Btn_Report.Size = new Size(225, 50);
+            Btn_Report.Size = new Size(197, 38);
             Btn_Report.TabIndex = 42;
             Btn_Report.Text = "Relatório";
             Btn_Report.Visible = false;
@@ -201,7 +209,8 @@
             // Pic_LoadingGIF
             // 
             Pic_LoadingGIF.Image = Properties.Resources.loading;
-            Pic_LoadingGIF.Location = new Point(139, 403);
+            Pic_LoadingGIF.Location = new Point(122, 306);
+            Pic_LoadingGIF.Margin = new Padding(3, 2, 3, 2);
             Pic_LoadingGIF.Name = "Pic_LoadingGIF";
             Pic_LoadingGIF.Size = new Size(128, 43);
             Pic_LoadingGIF.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -211,12 +220,13 @@
             // 
             // Frm_IndexUC
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(227, 213, 202);
             Controls.Add(Pnl_ContentUC);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Frm_IndexUC";
-            Size = new Size(989, 734);
+            Size = new Size(865, 550);
             Tag = "indexUC";
             Load += Frm_IndexUC_Load;
             Pnl_BtnGerar.ResumeLayout(false);
