@@ -35,7 +35,6 @@
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_ConfigUC));
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
@@ -59,53 +58,58 @@
             Pnl_ContentConfig = new Panel();
             Tlp_Content = new TableLayoutPanel();
             Pnl_FilesToVerify = new Panel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            pictureBox2 = new PictureBox();
+            Pic_AddFileToVerify = new PictureBox();
+            Lbl_FilesToVerify = new Label();
             Dt_FilesToVerify = new DataGridView();
             Col_NameFileToVerify = new DataGridViewTextBoxColumn();
             Col_Chk_FileToVerify = new DataGridViewCheckBoxColumn();
             Col_Btn_FileToVerify = new DataGridViewImageColumn();
             Col_idFileToVerify = new DataGridViewTextBoxColumn();
             filesToVerifyBindingSource = new BindingSource(components);
-            Pic_AddFileToVerify = new PictureBox();
-            pictureBox2 = new PictureBox();
-            Lbl_FilesToVerify = new Label();
+            Pnl_TargetFolder = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            Txt_TargetFolder = new TextBox();
+            Btn_ExploreTargetFolder = new ReaLTaiizor.Controls.ChatButtonLeft();
+            Btn_ExploreOutputFolder = new ReaLTaiizor.Controls.ChatButtonLeft();
+            Txt_OutputFolder = new TextBox();
+            Chb_SameOutputFolder = new CheckBox();
+            pictureBox9 = new PictureBox();
+            Lbl_TargetFolder = new Label();
             panel2 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            pictureBox4 = new PictureBox();
+            Pic_AddFolderToVerify = new PictureBox();
+            Lbl_FoldersToVerify = new Label();
             Dt_FoldersToVerify = new DataGridView();
             Col_NameFolderToVerify = new DataGridViewTextBoxColumn();
             Col_Chk_FolderToVerify = new DataGridViewCheckBoxColumn();
             Col_Btn_FolderToVerify = new DataGridViewImageColumn();
             Col_IdFolderToVerify = new DataGridViewTextBoxColumn();
             foldersToVerifyBindingSource = new BindingSource(components);
-            Pic_AddFolderToVerify = new PictureBox();
-            pictureBox4 = new PictureBox();
-            Lbl_FoldersToVerify = new Label();
             panel3 = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            Lbl_FilesToDelete = new Label();
+            Pic_AddFileToDelete = new PictureBox();
+            pictureBox6 = new PictureBox();
             Dt_FilesToDelete = new DataGridView();
             Col_NameFileToDelete = new DataGridViewTextBoxColumn();
             Col_Chk_FileToDelete = new DataGridViewCheckBoxColumn();
             Col_Btn_FileToDelete = new DataGridViewImageColumn();
             Col_IdFileToDelete = new DataGridViewTextBoxColumn();
             filesToDeleteBindingSource = new BindingSource(components);
-            Pic_AddFileToDelete = new PictureBox();
-            pictureBox6 = new PictureBox();
-            Lbl_FilesToDelete = new Label();
             panel4 = new Panel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            pictureBox8 = new PictureBox();
+            Lbl_FoldersToDelete = new Label();
+            Pic_AddFolderToDelete = new PictureBox();
             Dt_FoldersToDelete = new DataGridView();
             Col_FolderName = new DataGridViewTextBoxColumn();
             Col_Chk_FolderToDelete = new DataGridViewCheckBoxColumn();
             Col_Btn_FolderToDelete = new DataGridViewImageColumn();
             Col_IdFolderToDelete = new DataGridViewTextBoxColumn();
             foldersToDeleteBindingSource = new BindingSource(components);
-            Pic_AddFolderToDelete = new PictureBox();
-            pictureBox8 = new PictureBox();
-            Lbl_FoldersToDelete = new Label();
-            Pnl_TargetFolder = new Panel();
-            Btn_ExploreOutputFolder = new ReaLTaiizor.Controls.ChatButtonLeft();
-            Txt_OutputFolder = new TextBox();
-            Btn_ExploreTargetFolder = new ReaLTaiizor.Controls.ChatButtonLeft();
-            Txt_TargetFolder = new TextBox();
-            Chb_SameOutputFolder = new CheckBox();
-            pictureBox9 = new PictureBox();
-            Lbl_TargetFolder = new Label();
             Pnl_OutputFile = new Panel();
             Cmb_Formatos = new ComboBox();
             Txt_OutputFile = new TextBox();
@@ -119,27 +123,32 @@
             Pnl_ContentConfig.SuspendLayout();
             Tlp_Content.SuspendLayout();
             Pnl_FilesToVerify.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Dt_FilesToVerify).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filesToVerifyBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            Pnl_TargetFolder.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             panel2.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToVerify).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Dt_FoldersToVerify).BeginInit();
             ((System.ComponentModel.ISupportInitialize)foldersToVerifyBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToVerify).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Dt_FilesToDelete).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)filesToDeleteBindingSource).BeginInit();
+            tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Pic_AddFileToDelete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Dt_FilesToDelete).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)filesToDeleteBindingSource).BeginInit();
             panel4.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToDelete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Dt_FoldersToDelete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)foldersToDeleteBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToDelete).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            Pnl_TargetFolder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             Pnl_OutputFile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pic_Msg_Fields).BeginInit();
@@ -150,9 +159,10 @@
             Pnl_ContentConfig.Controls.Add(Tlp_Content);
             Pnl_ContentConfig.Controls.Add(Btn_ClearTables);
             Pnl_ContentConfig.Controls.Add(Pic_Msg_Fields);
-            Pnl_ContentConfig.Location = new Point(193, 95);
+            Pnl_ContentConfig.Location = new Point(3, 35);
+            Pnl_ContentConfig.Margin = new Padding(3, 2, 3, 2);
             Pnl_ContentConfig.Name = "Pnl_ContentConfig";
-            Pnl_ContentConfig.Size = new Size(804, 707);
+            Pnl_ContentConfig.Size = new Size(811, 675);
             Pnl_ContentConfig.TabIndex = 13;
             Pnl_ContentConfig.Tag = "main";
             // 
@@ -162,32 +172,90 @@
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             Tlp_Content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             Tlp_Content.Controls.Add(Pnl_FilesToVerify, 1, 2);
+            Tlp_Content.Controls.Add(Pnl_TargetFolder, 1, 0);
             Tlp_Content.Controls.Add(panel2, 0, 2);
             Tlp_Content.Controls.Add(panel3, 1, 1);
             Tlp_Content.Controls.Add(panel4, 0, 1);
-            Tlp_Content.Controls.Add(Pnl_TargetFolder, 1, 0);
             Tlp_Content.Controls.Add(Pnl_OutputFile, 0, 0);
             Tlp_Content.Location = new Point(3, 0);
+            Tlp_Content.Margin = new Padding(3, 2, 3, 2);
             Tlp_Content.Name = "Tlp_Content";
             Tlp_Content.RowCount = 3;
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Absolute, 133F));
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Absolute, 260F));
-            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Absolute, 260F));
-            Tlp_Content.Size = new Size(798, 654);
+            Tlp_Content.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            Tlp_Content.RowStyles.Add(new RowStyle());
+            Tlp_Content.RowStyles.Add(new RowStyle());
+            Tlp_Content.Size = new Size(805, 603);
             Tlp_Content.TabIndex = 0;
             // 
             // Pnl_FilesToVerify
             // 
             Pnl_FilesToVerify.BorderStyle = BorderStyle.FixedSingle;
+            Pnl_FilesToVerify.Controls.Add(tableLayoutPanel4);
             Pnl_FilesToVerify.Controls.Add(Dt_FilesToVerify);
-            Pnl_FilesToVerify.Controls.Add(Pic_AddFileToVerify);
-            Pnl_FilesToVerify.Controls.Add(pictureBox2);
-            Pnl_FilesToVerify.Controls.Add(Lbl_FilesToVerify);
             Pnl_FilesToVerify.Dock = DockStyle.Fill;
-            Pnl_FilesToVerify.Location = new Point(402, 396);
+            Pnl_FilesToVerify.Location = new Point(405, 353);
+            Pnl_FilesToVerify.Margin = new Padding(3, 2, 3, 2);
             Pnl_FilesToVerify.Name = "Pnl_FilesToVerify";
-            Pnl_FilesToVerify.Size = new Size(393, 255);
+            Pnl_FilesToVerify.Size = new Size(397, 248);
             Pnl_FilesToVerify.TabIndex = 20;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.BackColor = Color.FromArgb(198, 172, 143);
+            tableLayoutPanel4.ColumnCount = 3;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel4.Controls.Add(pictureBox2, 0, 0);
+            tableLayoutPanel4.Controls.Add(Pic_AddFileToVerify, 2, 0);
+            tableLayoutPanel4.Controls.Add(Lbl_FilesToVerify, 1, 0);
+            tableLayoutPanel4.Dock = DockStyle.Top;
+            tableLayoutPanel4.Location = new Point(0, 0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle());
+            tableLayoutPanel4.Size = new Size(395, 36);
+            tableLayoutPanel4.TabIndex = 16;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.FromArgb(198, 172, 143);
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Image = Properties.Resources.verificar_arquivo;
+            pictureBox2.Location = new Point(3, 2);
+            pictureBox2.Margin = new Padding(3, 2, 3, 2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(26, 34);
+            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox2.TabIndex = 16;
+            pictureBox2.TabStop = false;
+            // 
+            // Pic_AddFileToVerify
+            // 
+            Pic_AddFileToVerify.BackColor = Color.FromArgb(198, 172, 143);
+            Pic_AddFileToVerify.Cursor = Cursors.Hand;
+            Pic_AddFileToVerify.Dock = DockStyle.Fill;
+            Pic_AddFileToVerify.Image = Properties.Resources.add;
+            Pic_AddFileToVerify.Location = new Point(356, 2);
+            Pic_AddFileToVerify.Margin = new Padding(3, 2, 3, 2);
+            Pic_AddFileToVerify.Name = "Pic_AddFileToVerify";
+            Pic_AddFileToVerify.Size = new Size(36, 34);
+            Pic_AddFileToVerify.SizeMode = PictureBoxSizeMode.StretchImage;
+            Pic_AddFileToVerify.TabIndex = 23;
+            Pic_AddFileToVerify.TabStop = false;
+            Pic_AddFileToVerify.Click += Pic_AddFileToVerify_Click;
+            // 
+            // Lbl_FilesToVerify
+            // 
+            Lbl_FilesToVerify.BackColor = Color.FromArgb(198, 172, 143);
+            Lbl_FilesToVerify.Dock = DockStyle.Fill;
+            Lbl_FilesToVerify.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Lbl_FilesToVerify.Location = new Point(35, 0);
+            Lbl_FilesToVerify.Name = "Lbl_FilesToVerify";
+            Lbl_FilesToVerify.Size = new Size(315, 38);
+            Lbl_FilesToVerify.TabIndex = 14;
+            Lbl_FilesToVerify.Text = "ARQUIVOS PARA VERIFICAR";
+            Lbl_FilesToVerify.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Dt_FilesToVerify
             // 
@@ -197,6 +265,7 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(233, 235, 251);
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             Dt_FilesToVerify.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            Dt_FilesToVerify.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Dt_FilesToVerify.AutoGenerateColumns = false;
             Dt_FilesToVerify.BackgroundColor = SystemColors.Control;
             Dt_FilesToVerify.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -222,7 +291,8 @@
             Dt_FilesToVerify.EnableHeadersVisualStyles = false;
             Dt_FilesToVerify.GridColor = Color.Black;
             Dt_FilesToVerify.ImeMode = ImeMode.Off;
-            Dt_FilesToVerify.Location = new Point(-1, 50);
+            Dt_FilesToVerify.Location = new Point(0, 36);
+            Dt_FilesToVerify.Margin = new Padding(3, 2, 3, 2);
             Dt_FilesToVerify.Name = "Dt_FilesToVerify";
             Dt_FilesToVerify.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle6.BackColor = SystemColors.ControlDarkDark;
@@ -238,7 +308,7 @@
             Dt_FilesToVerify.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             Dt_FilesToVerify.ScrollBars = ScrollBars.Vertical;
             Dt_FilesToVerify.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            Dt_FilesToVerify.Size = new Size(393, 204);
+            Dt_FilesToVerify.Size = new Size(395, 210);
             Dt_FilesToVerify.TabIndex = 43;
             Dt_FilesToVerify.Tag = "ARQUIVOS PARA VERIFICAR";
             Dt_FilesToVerify.CellBeginEdit += CellBeginEdit;
@@ -275,7 +345,7 @@
             Col_Btn_FileToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.White;
-            dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
+            dataGridViewCellStyle4.NullValue = null;
             dataGridViewCellStyle4.SelectionBackColor = Color.White;
             Col_Btn_FileToVerify.DefaultCellStyle = dataGridViewCellStyle4;
             Col_Btn_FileToVerify.HeaderText = "";
@@ -298,55 +368,220 @@
             // 
             filesToVerifyBindingSource.DataSource = typeof(Database.Entities.FilesToVerify);
             // 
-            // Pic_AddFileToVerify
+            // Pnl_TargetFolder
             // 
-            Pic_AddFileToVerify.BackColor = Color.FromArgb(198, 172, 143);
-            Pic_AddFileToVerify.Cursor = Cursors.Hand;
-            Pic_AddFileToVerify.Image = Properties.Resources.add;
-            Pic_AddFileToVerify.Location = new Point(347, 3);
-            Pic_AddFileToVerify.Name = "Pic_AddFileToVerify";
-            Pic_AddFileToVerify.Size = new Size(41, 41);
-            Pic_AddFileToVerify.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pic_AddFileToVerify.TabIndex = 23;
-            Pic_AddFileToVerify.TabStop = false;
-            Pic_AddFileToVerify.Click += Pic_AddFileToVerify_Click;
+            Pnl_TargetFolder.BorderStyle = BorderStyle.FixedSingle;
+            Pnl_TargetFolder.Controls.Add(tableLayoutPanel5);
+            Pnl_TargetFolder.Controls.Add(Btn_ExploreOutputFolder);
+            Pnl_TargetFolder.Controls.Add(Txt_OutputFolder);
+            Pnl_TargetFolder.Controls.Add(Chb_SameOutputFolder);
+            Pnl_TargetFolder.Controls.Add(pictureBox9);
+            Pnl_TargetFolder.Controls.Add(Lbl_TargetFolder);
+            Pnl_TargetFolder.Dock = DockStyle.Fill;
+            Pnl_TargetFolder.Location = new Point(405, 2);
+            Pnl_TargetFolder.Margin = new Padding(3, 2, 3, 2);
+            Pnl_TargetFolder.Name = "Pnl_TargetFolder";
+            Pnl_TargetFolder.Size = new Size(397, 96);
+            Pnl_TargetFolder.TabIndex = 16;
             // 
-            // pictureBox2
+            // tableLayoutPanel5
             // 
-            pictureBox2.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox2.Image = Properties.Resources.verificar_arquivo;
-            pictureBox2.Location = new Point(3, 12);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(30, 30);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 16;
-            pictureBox2.TabStop = false;
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel5.Controls.Add(Txt_TargetFolder, 0, 0);
+            tableLayoutPanel5.Controls.Add(Btn_ExploreTargetFolder, 1, 0);
+            tableLayoutPanel5.Dock = DockStyle.Top;
+            tableLayoutPanel5.Location = new Point(0, 39);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle());
+            tableLayoutPanel5.Size = new Size(395, 32);
+            tableLayoutPanel5.TabIndex = 21;
             // 
-            // Lbl_FilesToVerify
+            // Txt_TargetFolder
             // 
-            Lbl_FilesToVerify.BackColor = Color.FromArgb(198, 172, 143);
-            Lbl_FilesToVerify.BorderStyle = BorderStyle.FixedSingle;
-            Lbl_FilesToVerify.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Lbl_FilesToVerify.Location = new Point(-1, 0);
-            Lbl_FilesToVerify.Name = "Lbl_FilesToVerify";
-            Lbl_FilesToVerify.Padding = new Padding(0, 0, 70, 0);
-            Lbl_FilesToVerify.Size = new Size(396, 51);
-            Lbl_FilesToVerify.TabIndex = 14;
-            Lbl_FilesToVerify.Text = "ARQUIVOS PARA VERIFICAR";
-            Lbl_FilesToVerify.TextAlign = ContentAlignment.MiddleCenter;
+            Txt_TargetFolder.Dock = DockStyle.Fill;
+            Txt_TargetFolder.Font = new Font("Segoe UI", 10F);
+            Txt_TargetFolder.Location = new Point(3, 2);
+            Txt_TargetFolder.Margin = new Padding(3, 2, 3, 2);
+            Txt_TargetFolder.MaxLength = 255;
+            Txt_TargetFolder.Name = "Txt_TargetFolder";
+            Txt_TargetFolder.PlaceholderText = "Caminho da pasta ALVO";
+            Txt_TargetFolder.Size = new Size(347, 25);
+            Txt_TargetFolder.TabIndex = 17;
+            Txt_TargetFolder.WordWrap = false;
+            Txt_TargetFolder.TextChanged += Txt_TargetFolder_TextChanged;
+            Txt_TargetFolder.Leave += Txt_TargetFolder_Leave;
+            // 
+            // Btn_ExploreTargetFolder
+            // 
+            Btn_ExploreTargetFolder.BackColor = Color.Transparent;
+            Btn_ExploreTargetFolder.Font = new Font("Segoe UI", 12F);
+            Btn_ExploreTargetFolder.Image = Properties.Resources.abrir_pasta;
+            Btn_ExploreTargetFolder.ImageAlign = ContentAlignment.MiddleCenter;
+            Btn_ExploreTargetFolder.ImeMode = ImeMode.Off;
+            Btn_ExploreTargetFolder.InactiveColorA = Color.FromArgb(251, 251, 251);
+            Btn_ExploreTargetFolder.InactiveColorB = Color.FromArgb(225, 225, 225);
+            Btn_ExploreTargetFolder.Location = new Point(356, 2);
+            Btn_ExploreTargetFolder.Margin = new Padding(3, 2, 3, 2);
+            Btn_ExploreTargetFolder.Name = "Btn_ExploreTargetFolder";
+            Btn_ExploreTargetFolder.PressedColorA = Color.FromArgb(235, 235, 235);
+            Btn_ExploreTargetFolder.PressedColorB = Color.FromArgb(223, 223, 223);
+            Btn_ExploreTargetFolder.PressedContourColorA = Color.FromArgb(167, 167, 167);
+            Btn_ExploreTargetFolder.PressedContourColorB = Color.FromArgb(167, 167, 167);
+            Btn_ExploreTargetFolder.Size = new Size(36, 30);
+            Btn_ExploreTargetFolder.TabIndex = 19;
+            Btn_ExploreTargetFolder.TextAlignment = StringAlignment.Center;
+            Btn_ExploreTargetFolder.Click += Btn_ExploreTargetFolders_Click;
+            // 
+            // Btn_ExploreOutputFolder
+            // 
+            Btn_ExploreOutputFolder.BackColor = Color.Transparent;
+            Btn_ExploreOutputFolder.Font = new Font("Segoe UI", 12F);
+            Btn_ExploreOutputFolder.Image = Properties.Resources.abrir_pasta;
+            Btn_ExploreOutputFolder.ImageAlign = ContentAlignment.MiddleCenter;
+            Btn_ExploreOutputFolder.ImeMode = ImeMode.Off;
+            Btn_ExploreOutputFolder.InactiveColorA = Color.FromArgb(251, 251, 251);
+            Btn_ExploreOutputFolder.InactiveColorB = Color.FromArgb(225, 225, 225);
+            Btn_ExploreOutputFolder.Location = new Point(360, 98);
+            Btn_ExploreOutputFolder.Margin = new Padding(3, 2, 3, 2);
+            Btn_ExploreOutputFolder.Name = "Btn_ExploreOutputFolder";
+            Btn_ExploreOutputFolder.PressedColorA = Color.FromArgb(235, 235, 235);
+            Btn_ExploreOutputFolder.PressedColorB = Color.FromArgb(223, 223, 223);
+            Btn_ExploreOutputFolder.PressedContourColorA = Color.FromArgb(167, 167, 167);
+            Btn_ExploreOutputFolder.PressedContourColorB = Color.FromArgb(167, 167, 167);
+            Btn_ExploreOutputFolder.Size = new Size(36, 30);
+            Btn_ExploreOutputFolder.TabIndex = 21;
+            Btn_ExploreOutputFolder.TextAlignment = StringAlignment.Center;
+            Btn_ExploreOutputFolder.Click += Btn_ExploreOutputFolder_Click;
+            // 
+            // Txt_OutputFolder
+            // 
+            Txt_OutputFolder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            Txt_OutputFolder.Font = new Font("Segoe UI", 10F);
+            Txt_OutputFolder.Location = new Point(4, 103);
+            Txt_OutputFolder.Margin = new Padding(3, 2, 3, 2);
+            Txt_OutputFolder.MaxLength = 255;
+            Txt_OutputFolder.Name = "Txt_OutputFolder";
+            Txt_OutputFolder.PlaceholderText = "Caminho da pasta de SAÍDA";
+            Txt_OutputFolder.Size = new Size(355, 25);
+            Txt_OutputFolder.TabIndex = 20;
+            Txt_OutputFolder.WordWrap = false;
+            Txt_OutputFolder.TextChanged += Txt_OutputFolder_TextChanged;
+            Txt_OutputFolder.Leave += Txt_OutputFolder_Leave;
+            // 
+            // Chb_SameOutputFolder
+            // 
+            Chb_SameOutputFolder.AccessibleDescription = "Se esta checkbox for marcada, o nome do arquivo terá o texto digitado mais a data e hora atual no formato ANO-MES-DIA-H-M-S";
+            Chb_SameOutputFolder.AutoSize = true;
+            Chb_SameOutputFolder.Checked = true;
+            Chb_SameOutputFolder.CheckState = CheckState.Checked;
+            Chb_SameOutputFolder.Font = new Font("Segoe UI", 9F);
+            Chb_SameOutputFolder.Location = new Point(4, 73);
+            Chb_SameOutputFolder.Margin = new Padding(3, 2, 3, 2);
+            Chb_SameOutputFolder.Name = "Chb_SameOutputFolder";
+            Chb_SameOutputFolder.Size = new Size(148, 19);
+            Chb_SameOutputFolder.TabIndex = 18;
+            Chb_SameOutputFolder.Text = "Mesma pasta de Saída?";
+            Chb_SameOutputFolder.UseVisualStyleBackColor = true;
+            Chb_SameOutputFolder.CheckedChanged += Chb_SameOutputFolder_CheckedChanged;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.BackColor = Color.FromArgb(198, 172, 143);
+            pictureBox9.Image = Properties.Resources.pasta;
+            pictureBox9.Location = new Point(3, 9);
+            pictureBox9.Margin = new Padding(3, 2, 3, 2);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(26, 22);
+            pictureBox9.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox9.TabIndex = 15;
+            pictureBox9.TabStop = false;
+            // 
+            // Lbl_TargetFolder
+            // 
+            Lbl_TargetFolder.BackColor = Color.FromArgb(198, 172, 143);
+            Lbl_TargetFolder.BorderStyle = BorderStyle.FixedSingle;
+            Lbl_TargetFolder.Dock = DockStyle.Top;
+            Lbl_TargetFolder.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Lbl_TargetFolder.Location = new Point(0, 0);
+            Lbl_TargetFolder.Name = "Lbl_TargetFolder";
+            Lbl_TargetFolder.Padding = new Padding(0, 0, 88, 0);
+            Lbl_TargetFolder.Size = new Size(395, 39);
+            Lbl_TargetFolder.TabIndex = 1;
+            Lbl_TargetFolder.Text = "NOME DA PASTA ALVO";
+            Lbl_TargetFolder.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(tableLayoutPanel1);
             panel2.Controls.Add(Dt_FoldersToVerify);
-            panel2.Controls.Add(Pic_AddFolderToVerify);
-            panel2.Controls.Add(pictureBox4);
-            panel2.Controls.Add(Lbl_FoldersToVerify);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(3, 396);
+            panel2.Location = new Point(3, 353);
+            panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(393, 255);
+            panel2.Size = new Size(396, 248);
             panel2.TabIndex = 19;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(198, 172, 143);
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.Controls.Add(pictureBox4, 0, 0);
+            tableLayoutPanel1.Controls.Add(Pic_AddFolderToVerify, 2, 0);
+            tableLayoutPanel1.Controls.Add(Lbl_FoldersToVerify, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(394, 36);
+            tableLayoutPanel1.TabIndex = 16;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.FromArgb(198, 172, 143);
+            pictureBox4.Dock = DockStyle.Left;
+            pictureBox4.Image = Properties.Resources.verificar_pasta;
+            pictureBox4.Location = new Point(3, 2);
+            pictureBox4.Margin = new Padding(3, 2, 3, 2);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(32, 32);
+            pictureBox4.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox4.TabIndex = 16;
+            pictureBox4.TabStop = false;
+            // 
+            // Pic_AddFolderToVerify
+            // 
+            Pic_AddFolderToVerify.BackColor = Color.FromArgb(198, 172, 143);
+            Pic_AddFolderToVerify.Cursor = Cursors.Hand;
+            Pic_AddFolderToVerify.Dock = DockStyle.Right;
+            Pic_AddFolderToVerify.Image = Properties.Resources.add;
+            Pic_AddFolderToVerify.Location = new Point(355, 2);
+            Pic_AddFolderToVerify.Margin = new Padding(3, 2, 3, 2);
+            Pic_AddFolderToVerify.Name = "Pic_AddFolderToVerify";
+            Pic_AddFolderToVerify.Size = new Size(36, 32);
+            Pic_AddFolderToVerify.SizeMode = PictureBoxSizeMode.CenterImage;
+            Pic_AddFolderToVerify.TabIndex = 22;
+            Pic_AddFolderToVerify.TabStop = false;
+            Pic_AddFolderToVerify.Click += Pic_AddFolderToVerify_Click;
+            // 
+            // Lbl_FoldersToVerify
+            // 
+            Lbl_FoldersToVerify.BackColor = Color.FromArgb(198, 172, 143);
+            Lbl_FoldersToVerify.Dock = DockStyle.Fill;
+            Lbl_FoldersToVerify.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Lbl_FoldersToVerify.Location = new Point(41, 0);
+            Lbl_FoldersToVerify.Name = "Lbl_FoldersToVerify";
+            Lbl_FoldersToVerify.Size = new Size(260, 36);
+            Lbl_FoldersToVerify.TabIndex = 0;
+            Lbl_FoldersToVerify.Text = "PASTAS PARA VERIFICAR";
+            Lbl_FoldersToVerify.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Dt_FoldersToVerify
             // 
@@ -356,6 +591,7 @@
             dataGridViewCellStyle7.BackColor = Color.FromArgb(233, 235, 251);
             dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToVerify.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            Dt_FoldersToVerify.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Dt_FoldersToVerify.AutoGenerateColumns = false;
             Dt_FoldersToVerify.BackgroundColor = SystemColors.Control;
             Dt_FoldersToVerify.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -381,7 +617,8 @@
             Dt_FoldersToVerify.EnableHeadersVisualStyles = false;
             Dt_FoldersToVerify.GridColor = Color.Black;
             Dt_FoldersToVerify.ImeMode = ImeMode.Off;
-            Dt_FoldersToVerify.Location = new Point(-1, 50);
+            Dt_FoldersToVerify.Location = new Point(0, 36);
+            Dt_FoldersToVerify.Margin = new Padding(3, 2, 3, 2);
             Dt_FoldersToVerify.Name = "Dt_FoldersToVerify";
             Dt_FoldersToVerify.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle13.BackColor = SystemColors.ControlDarkDark;
@@ -397,7 +634,7 @@
             Dt_FoldersToVerify.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToVerify.ScrollBars = ScrollBars.Vertical;
             Dt_FoldersToVerify.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            Dt_FoldersToVerify.Size = new Size(393, 204);
+            Dt_FoldersToVerify.Size = new Size(394, 210);
             Dt_FoldersToVerify.TabIndex = 44;
             Dt_FoldersToVerify.Tag = "PASTAS PARA VERIFICAR";
             Dt_FoldersToVerify.CellBeginEdit += CellBeginEdit;
@@ -438,7 +675,7 @@
             Col_Btn_FolderToVerify.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle11.BackColor = Color.White;
-            dataGridViewCellStyle11.NullValue = resources.GetObject("dataGridViewCellStyle11.NullValue");
+            dataGridViewCellStyle11.NullValue = null;
             dataGridViewCellStyle11.SelectionBackColor = Color.White;
             Col_Btn_FolderToVerify.DefaultCellStyle = dataGridViewCellStyle11;
             Col_Btn_FolderToVerify.HeaderText = "";
@@ -461,55 +698,77 @@
             // 
             foldersToVerifyBindingSource.DataSource = typeof(Database.Entities.FoldersToVerify);
             // 
-            // Pic_AddFolderToVerify
-            // 
-            Pic_AddFolderToVerify.BackColor = Color.FromArgb(198, 172, 143);
-            Pic_AddFolderToVerify.Cursor = Cursors.Hand;
-            Pic_AddFolderToVerify.Image = Properties.Resources.add;
-            Pic_AddFolderToVerify.Location = new Point(347, 3);
-            Pic_AddFolderToVerify.Name = "Pic_AddFolderToVerify";
-            Pic_AddFolderToVerify.Size = new Size(41, 41);
-            Pic_AddFolderToVerify.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pic_AddFolderToVerify.TabIndex = 22;
-            Pic_AddFolderToVerify.TabStop = false;
-            Pic_AddFolderToVerify.Click += Pic_AddFolderToVerify_Click;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox4.Image = Properties.Resources.verificar_pasta;
-            pictureBox4.Location = new Point(3, 12);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(30, 30);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 16;
-            pictureBox4.TabStop = false;
-            // 
-            // Lbl_FoldersToVerify
-            // 
-            Lbl_FoldersToVerify.BackColor = Color.FromArgb(198, 172, 143);
-            Lbl_FoldersToVerify.BorderStyle = BorderStyle.FixedSingle;
-            Lbl_FoldersToVerify.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Lbl_FoldersToVerify.Location = new Point(0, 0);
-            Lbl_FoldersToVerify.Name = "Lbl_FoldersToVerify";
-            Lbl_FoldersToVerify.Padding = new Padding(0, 0, 95, 0);
-            Lbl_FoldersToVerify.Size = new Size(396, 51);
-            Lbl_FoldersToVerify.TabIndex = 0;
-            Lbl_FoldersToVerify.Text = "PASTAS PARA VERIFICAR";
-            Lbl_FoldersToVerify.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(tableLayoutPanel2);
             panel3.Controls.Add(Dt_FilesToDelete);
-            panel3.Controls.Add(Pic_AddFileToDelete);
-            panel3.Controls.Add(pictureBox6);
-            panel3.Controls.Add(Lbl_FilesToDelete);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(402, 136);
+            panel3.Location = new Point(405, 102);
+            panel3.Margin = new Padding(3, 2, 3, 2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(393, 254);
+            panel3.Size = new Size(397, 247);
             panel3.TabIndex = 18;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.BackColor = Color.FromArgb(198, 172, 143);
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel2.Controls.Add(Lbl_FilesToDelete, 1, 0);
+            tableLayoutPanel2.Controls.Add(Pic_AddFileToDelete, 2, 0);
+            tableLayoutPanel2.Controls.Add(pictureBox6, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Top;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tableLayoutPanel2.Size = new Size(395, 36);
+            tableLayoutPanel2.TabIndex = 14;
+            // 
+            // Lbl_FilesToDelete
+            // 
+            Lbl_FilesToDelete.BackColor = Color.FromArgb(198, 172, 143);
+            Lbl_FilesToDelete.Dock = DockStyle.Fill;
+            Lbl_FilesToDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Lbl_FilesToDelete.Location = new Point(29, 0);
+            Lbl_FilesToDelete.Name = "Lbl_FilesToDelete";
+            Lbl_FilesToDelete.Size = new Size(321, 41);
+            Lbl_FilesToDelete.TabIndex = 0;
+            Lbl_FilesToDelete.Text = "ARQUIVOS PARA DELETAR";
+            Lbl_FilesToDelete.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // Pic_AddFileToDelete
+            // 
+            Pic_AddFileToDelete.BackColor = Color.FromArgb(198, 172, 143);
+            Pic_AddFileToDelete.Cursor = Cursors.Hand;
+            Pic_AddFileToDelete.Dock = DockStyle.Fill;
+            Pic_AddFileToDelete.Image = Properties.Resources.add;
+            Pic_AddFileToDelete.Location = new Point(356, 2);
+            Pic_AddFileToDelete.Margin = new Padding(3, 2, 3, 2);
+            Pic_AddFileToDelete.Name = "Pic_AddFileToDelete";
+            Pic_AddFileToDelete.Size = new Size(36, 37);
+            Pic_AddFileToDelete.SizeMode = PictureBoxSizeMode.CenterImage;
+            Pic_AddFileToDelete.TabIndex = 21;
+            Pic_AddFileToDelete.TabStop = false;
+            Pic_AddFileToDelete.Click += Pic_AddFileToDelete_Click;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.FromArgb(198, 172, 143);
+            pictureBox6.Dock = DockStyle.Fill;
+            pictureBox6.Image = Properties.Resources.excluir_arquivo;
+            pictureBox6.Location = new Point(0, 0);
+            pictureBox6.Margin = new Padding(0);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(26, 41);
+            pictureBox6.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox6.TabIndex = 16;
+            pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // Dt_FilesToDelete
             // 
@@ -519,6 +778,7 @@
             dataGridViewCellStyle14.BackColor = Color.FromArgb(233, 235, 251);
             dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
             Dt_FilesToDelete.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
+            Dt_FilesToDelete.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Dt_FilesToDelete.AutoGenerateColumns = false;
             Dt_FilesToDelete.BackgroundColor = SystemColors.Control;
             Dt_FilesToDelete.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -544,7 +804,8 @@
             Dt_FilesToDelete.EnableHeadersVisualStyles = false;
             Dt_FilesToDelete.GridColor = Color.Black;
             Dt_FilesToDelete.ImeMode = ImeMode.Off;
-            Dt_FilesToDelete.Location = new Point(0, 52);
+            Dt_FilesToDelete.Location = new Point(0, 35);
+            Dt_FilesToDelete.Margin = new Padding(3, 2, 3, 2);
             Dt_FilesToDelete.Name = "Dt_FilesToDelete";
             Dt_FilesToDelete.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle19.BackColor = SystemColors.ControlDarkDark;
@@ -560,7 +821,7 @@
             Dt_FilesToDelete.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             Dt_FilesToDelete.ScrollBars = ScrollBars.Vertical;
             Dt_FilesToDelete.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            Dt_FilesToDelete.Size = new Size(393, 204);
+            Dt_FilesToDelete.Size = new Size(395, 210);
             Dt_FilesToDelete.TabIndex = 43;
             Dt_FilesToDelete.Tag = "ARQUIVOS PARA VERIFICAR";
             Dt_FilesToDelete.CellBeginEdit += CellBeginEdit;
@@ -597,7 +858,7 @@
             Col_Btn_FileToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle17.BackColor = Color.White;
-            dataGridViewCellStyle17.NullValue = resources.GetObject("dataGridViewCellStyle17.NullValue");
+            dataGridViewCellStyle17.NullValue = null;
             dataGridViewCellStyle17.SelectionBackColor = Color.White;
             Col_Btn_FileToDelete.DefaultCellStyle = dataGridViewCellStyle17;
             Col_Btn_FileToDelete.HeaderText = "";
@@ -620,55 +881,74 @@
             // 
             filesToDeleteBindingSource.DataSource = typeof(Database.Entities.FilesToDelete);
             // 
-            // Pic_AddFileToDelete
-            // 
-            Pic_AddFileToDelete.BackColor = Color.FromArgb(198, 172, 143);
-            Pic_AddFileToDelete.Cursor = Cursors.Hand;
-            Pic_AddFileToDelete.Image = Properties.Resources.add;
-            Pic_AddFileToDelete.Location = new Point(347, 6);
-            Pic_AddFileToDelete.Name = "Pic_AddFileToDelete";
-            Pic_AddFileToDelete.Size = new Size(41, 41);
-            Pic_AddFileToDelete.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pic_AddFileToDelete.TabIndex = 21;
-            Pic_AddFileToDelete.TabStop = false;
-            Pic_AddFileToDelete.Click += Pic_AddFileToDelete_Click;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox6.Image = Properties.Resources.excluir_arquivo;
-            pictureBox6.Location = new Point(3, 12);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(30, 30);
-            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox6.TabIndex = 16;
-            pictureBox6.TabStop = false;
-            // 
-            // Lbl_FilesToDelete
-            // 
-            Lbl_FilesToDelete.BackColor = Color.FromArgb(198, 172, 143);
-            Lbl_FilesToDelete.BorderStyle = BorderStyle.FixedSingle;
-            Lbl_FilesToDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Lbl_FilesToDelete.Location = new Point(0, 0);
-            Lbl_FilesToDelete.Name = "Lbl_FilesToDelete";
-            Lbl_FilesToDelete.Padding = new Padding(0, 0, 80, 0);
-            Lbl_FilesToDelete.Size = new Size(396, 51);
-            Lbl_FilesToDelete.TabIndex = 0;
-            Lbl_FilesToDelete.Text = "ARQUIVOS PARA DELETAR";
-            Lbl_FilesToDelete.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // panel4
             // 
             panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(tableLayoutPanel3);
             panel4.Controls.Add(Dt_FoldersToDelete);
-            panel4.Controls.Add(Pic_AddFolderToDelete);
-            panel4.Controls.Add(pictureBox8);
-            panel4.Controls.Add(Lbl_FoldersToDelete);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(3, 136);
+            panel4.Location = new Point(3, 102);
+            panel4.Margin = new Padding(3, 2, 3, 2);
             panel4.Name = "panel4";
-            panel4.Size = new Size(393, 254);
+            panel4.Size = new Size(396, 247);
             panel4.TabIndex = 17;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.BackColor = Color.FromArgb(198, 172, 143);
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(pictureBox8, 0, 0);
+            tableLayoutPanel3.Controls.Add(Lbl_FoldersToDelete, 1, 0);
+            tableLayoutPanel3.Controls.Add(Pic_AddFolderToDelete, 2, 0);
+            tableLayoutPanel3.Dock = DockStyle.Top;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(394, 36);
+            tableLayoutPanel3.TabIndex = 21;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = Color.FromArgb(198, 172, 143);
+            pictureBox8.Image = Properties.Resources.excluir_pasta;
+            pictureBox8.Location = new Point(3, 2);
+            pictureBox8.Margin = new Padding(3, 2, 3, 2);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(36, 32);
+            pictureBox8.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox8.TabIndex = 16;
+            pictureBox8.TabStop = false;
+            // 
+            // Lbl_FoldersToDelete
+            // 
+            Lbl_FoldersToDelete.BackColor = Color.FromArgb(198, 172, 143);
+            Lbl_FoldersToDelete.Dock = DockStyle.Fill;
+            Lbl_FoldersToDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Lbl_FoldersToDelete.Location = new Point(45, 0);
+            Lbl_FoldersToDelete.Name = "Lbl_FoldersToDelete";
+            Lbl_FoldersToDelete.Size = new Size(245, 36);
+            Lbl_FoldersToDelete.TabIndex = 0;
+            Lbl_FoldersToDelete.Text = "PASTAS PARA DELETAR";
+            Lbl_FoldersToDelete.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // Pic_AddFolderToDelete
+            // 
+            Pic_AddFolderToDelete.BackColor = Color.FromArgb(198, 172, 143);
+            Pic_AddFolderToDelete.Cursor = Cursors.Hand;
+            Pic_AddFolderToDelete.Dock = DockStyle.Right;
+            Pic_AddFolderToDelete.Image = Properties.Resources.add;
+            Pic_AddFolderToDelete.Location = new Point(350, 2);
+            Pic_AddFolderToDelete.Margin = new Padding(3, 2, 3, 2);
+            Pic_AddFolderToDelete.Name = "Pic_AddFolderToDelete";
+            Pic_AddFolderToDelete.Size = new Size(41, 32);
+            Pic_AddFolderToDelete.SizeMode = PictureBoxSizeMode.CenterImage;
+            Pic_AddFolderToDelete.TabIndex = 20;
+            Pic_AddFolderToDelete.TabStop = false;
+            Pic_AddFolderToDelete.Click += Pic_AddFolderToDelete_Click;
             // 
             // Dt_FoldersToDelete
             // 
@@ -678,6 +958,7 @@
             dataGridViewCellStyle20.BackColor = Color.FromArgb(233, 235, 251);
             dataGridViewCellStyle20.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToDelete.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle20;
+            Dt_FoldersToDelete.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             Dt_FoldersToDelete.AutoGenerateColumns = false;
             Dt_FoldersToDelete.BackgroundColor = SystemColors.Control;
             Dt_FoldersToDelete.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -703,7 +984,8 @@
             Dt_FoldersToDelete.EnableHeadersVisualStyles = false;
             Dt_FoldersToDelete.GridColor = Color.Black;
             Dt_FoldersToDelete.ImeMode = ImeMode.Off;
-            Dt_FoldersToDelete.Location = new Point(-1, 52);
+            Dt_FoldersToDelete.Location = new Point(0, 35);
+            Dt_FoldersToDelete.Margin = new Padding(3, 2, 3, 2);
             Dt_FoldersToDelete.Name = "Dt_FoldersToDelete";
             Dt_FoldersToDelete.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle26.BackColor = SystemColors.ControlDarkDark;
@@ -719,7 +1001,7 @@
             Dt_FoldersToDelete.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             Dt_FoldersToDelete.ScrollBars = ScrollBars.Vertical;
             Dt_FoldersToDelete.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            Dt_FoldersToDelete.Size = new Size(393, 204);
+            Dt_FoldersToDelete.Size = new Size(394, 210);
             Dt_FoldersToDelete.TabIndex = 42;
             Dt_FoldersToDelete.Tag = "PASTAS PARA DELETAR";
             Dt_FoldersToDelete.CellBeginEdit += CellBeginEdit;
@@ -760,7 +1042,7 @@
             Col_Btn_FolderToDelete.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle24.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle24.BackColor = Color.White;
-            dataGridViewCellStyle24.NullValue = resources.GetObject("dataGridViewCellStyle24.NullValue");
+            dataGridViewCellStyle24.NullValue = null;
             dataGridViewCellStyle24.SelectionBackColor = Color.White;
             Col_Btn_FolderToDelete.DefaultCellStyle = dataGridViewCellStyle24;
             Col_Btn_FolderToDelete.HeaderText = "";
@@ -783,166 +1065,6 @@
             // 
             foldersToDeleteBindingSource.DataSource = typeof(Database.Entities.FoldersToDelete);
             // 
-            // Pic_AddFolderToDelete
-            // 
-            Pic_AddFolderToDelete.BackColor = Color.FromArgb(198, 172, 143);
-            Pic_AddFolderToDelete.Cursor = Cursors.Hand;
-            Pic_AddFolderToDelete.Image = Properties.Resources.add;
-            Pic_AddFolderToDelete.Location = new Point(347, 6);
-            Pic_AddFolderToDelete.Name = "Pic_AddFolderToDelete";
-            Pic_AddFolderToDelete.Size = new Size(41, 41);
-            Pic_AddFolderToDelete.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pic_AddFolderToDelete.TabIndex = 20;
-            Pic_AddFolderToDelete.TabStop = false;
-            Pic_AddFolderToDelete.Click += Pic_AddFolderToDelete_Click;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox8.Image = Properties.Resources.excluir_pasta;
-            pictureBox8.Location = new Point(3, 12);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(30, 30);
-            pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox8.TabIndex = 16;
-            pictureBox8.TabStop = false;
-            // 
-            // Lbl_FoldersToDelete
-            // 
-            Lbl_FoldersToDelete.BackColor = Color.FromArgb(198, 172, 143);
-            Lbl_FoldersToDelete.BorderStyle = BorderStyle.FixedSingle;
-            Lbl_FoldersToDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Lbl_FoldersToDelete.Location = new Point(0, 0);
-            Lbl_FoldersToDelete.Name = "Lbl_FoldersToDelete";
-            Lbl_FoldersToDelete.Padding = new Padding(0, 0, 110, 0);
-            Lbl_FoldersToDelete.Size = new Size(396, 51);
-            Lbl_FoldersToDelete.TabIndex = 0;
-            Lbl_FoldersToDelete.Text = "PASTAS PARA DELETAR";
-            Lbl_FoldersToDelete.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // Pnl_TargetFolder
-            // 
-            Pnl_TargetFolder.BorderStyle = BorderStyle.FixedSingle;
-            Pnl_TargetFolder.Controls.Add(Btn_ExploreOutputFolder);
-            Pnl_TargetFolder.Controls.Add(Txt_OutputFolder);
-            Pnl_TargetFolder.Controls.Add(Btn_ExploreTargetFolder);
-            Pnl_TargetFolder.Controls.Add(Txt_TargetFolder);
-            Pnl_TargetFolder.Controls.Add(Chb_SameOutputFolder);
-            Pnl_TargetFolder.Controls.Add(pictureBox9);
-            Pnl_TargetFolder.Controls.Add(Lbl_TargetFolder);
-            Pnl_TargetFolder.Dock = DockStyle.Fill;
-            Pnl_TargetFolder.Location = new Point(402, 3);
-            Pnl_TargetFolder.Name = "Pnl_TargetFolder";
-            Pnl_TargetFolder.Size = new Size(393, 127);
-            Pnl_TargetFolder.TabIndex = 16;
-            // 
-            // Btn_ExploreOutputFolder
-            // 
-            Btn_ExploreOutputFolder.BackColor = Color.Transparent;
-            Btn_ExploreOutputFolder.Font = new Font("Segoe UI", 12F);
-            Btn_ExploreOutputFolder.Image = Properties.Resources.abrir_pasta;
-            Btn_ExploreOutputFolder.ImageAlign = ContentAlignment.MiddleCenter;
-            Btn_ExploreOutputFolder.ImeMode = ImeMode.Off;
-            Btn_ExploreOutputFolder.InactiveColorA = Color.FromArgb(251, 251, 251);
-            Btn_ExploreOutputFolder.InactiveColorB = Color.FromArgb(225, 225, 225);
-            Btn_ExploreOutputFolder.Location = new Point(351, 137);
-            Btn_ExploreOutputFolder.Name = "Btn_ExploreOutputFolder";
-            Btn_ExploreOutputFolder.PressedColorA = Color.FromArgb(235, 235, 235);
-            Btn_ExploreOutputFolder.PressedColorB = Color.FromArgb(223, 223, 223);
-            Btn_ExploreOutputFolder.PressedContourColorA = Color.FromArgb(167, 167, 167);
-            Btn_ExploreOutputFolder.PressedContourColorB = Color.FromArgb(167, 167, 167);
-            Btn_ExploreOutputFolder.Size = new Size(29, 30);
-            Btn_ExploreOutputFolder.TabIndex = 21;
-            Btn_ExploreOutputFolder.TextAlignment = StringAlignment.Center;
-            Btn_ExploreOutputFolder.Click += Btn_ExploreOutputFolder_Click;
-            // 
-            // Txt_OutputFolder
-            // 
-            Txt_OutputFolder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Txt_OutputFolder.Font = new Font("Segoe UI", 10F);
-            Txt_OutputFolder.Location = new Point(4, 137);
-            Txt_OutputFolder.MaxLength = 255;
-            Txt_OutputFolder.Name = "Txt_OutputFolder";
-            Txt_OutputFolder.PlaceholderText = "Caminho da pasta de SAÍDA";
-            Txt_OutputFolder.Size = new Size(344, 30);
-            Txt_OutputFolder.TabIndex = 20;
-            Txt_OutputFolder.WordWrap = false;
-            Txt_OutputFolder.TextChanged += Txt_OutputFolder_TextChanged;
-            Txt_OutputFolder.Leave += Txt_OutputFolder_Leave;
-            // 
-            // Btn_ExploreTargetFolder
-            // 
-            Btn_ExploreTargetFolder.BackColor = Color.Transparent;
-            Btn_ExploreTargetFolder.Font = new Font("Segoe UI", 12F);
-            Btn_ExploreTargetFolder.Image = Properties.Resources.abrir_pasta;
-            Btn_ExploreTargetFolder.ImageAlign = ContentAlignment.MiddleCenter;
-            Btn_ExploreTargetFolder.ImeMode = ImeMode.Off;
-            Btn_ExploreTargetFolder.InactiveColorA = Color.FromArgb(251, 251, 251);
-            Btn_ExploreTargetFolder.InactiveColorB = Color.FromArgb(225, 225, 225);
-            Btn_ExploreTargetFolder.Location = new Point(351, 60);
-            Btn_ExploreTargetFolder.Name = "Btn_ExploreTargetFolder";
-            Btn_ExploreTargetFolder.PressedColorA = Color.FromArgb(235, 235, 235);
-            Btn_ExploreTargetFolder.PressedColorB = Color.FromArgb(223, 223, 223);
-            Btn_ExploreTargetFolder.PressedContourColorA = Color.FromArgb(167, 167, 167);
-            Btn_ExploreTargetFolder.PressedContourColorB = Color.FromArgb(167, 167, 167);
-            Btn_ExploreTargetFolder.Size = new Size(29, 30);
-            Btn_ExploreTargetFolder.TabIndex = 19;
-            Btn_ExploreTargetFolder.TextAlignment = StringAlignment.Center;
-            Btn_ExploreTargetFolder.Click += Btn_ExploreTargetFolders_Click;
-            // 
-            // Txt_TargetFolder
-            // 
-            Txt_TargetFolder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Txt_TargetFolder.Font = new Font("Segoe UI", 10F);
-            Txt_TargetFolder.Location = new Point(8, 62);
-            Txt_TargetFolder.MaxLength = 255;
-            Txt_TargetFolder.Name = "Txt_TargetFolder";
-            Txt_TargetFolder.PlaceholderText = "Caminho da pasta ALVO";
-            Txt_TargetFolder.Size = new Size(340, 30);
-            Txt_TargetFolder.TabIndex = 17;
-            Txt_TargetFolder.WordWrap = false;
-            Txt_TargetFolder.TextChanged += Txt_TargetFolder_TextChanged;
-            Txt_TargetFolder.Leave += Txt_TargetFolder_Leave;
-            // 
-            // Chb_SameOutputFolder
-            // 
-            Chb_SameOutputFolder.AccessibleDescription = "Se esta checkbox for marcada, o nome do arquivo terá o texto digitado mais a data e hora atual no formato ANO-MES-DIA-H-M-S";
-            Chb_SameOutputFolder.AutoSize = true;
-            Chb_SameOutputFolder.Checked = true;
-            Chb_SameOutputFolder.CheckState = CheckState.Checked;
-            Chb_SameOutputFolder.Font = new Font("Segoe UI", 9F);
-            Chb_SameOutputFolder.Location = new Point(8, 98);
-            Chb_SameOutputFolder.Name = "Chb_SameOutputFolder";
-            Chb_SameOutputFolder.Size = new Size(188, 24);
-            Chb_SameOutputFolder.TabIndex = 18;
-            Chb_SameOutputFolder.Text = "Mesma pasta de Saída?";
-            Chb_SameOutputFolder.UseVisualStyleBackColor = true;
-            Chb_SameOutputFolder.CheckedChanged += Chb_SameOutputFolder_CheckedChanged;
-            // 
-            // pictureBox9
-            // 
-            pictureBox9.BackColor = Color.FromArgb(198, 172, 143);
-            pictureBox9.Image = Properties.Resources.pasta;
-            pictureBox9.Location = new Point(3, 12);
-            pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(30, 30);
-            pictureBox9.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox9.TabIndex = 15;
-            pictureBox9.TabStop = false;
-            // 
-            // Lbl_TargetFolder
-            // 
-            Lbl_TargetFolder.BackColor = Color.FromArgb(198, 172, 143);
-            Lbl_TargetFolder.BorderStyle = BorderStyle.FixedSingle;
-            Lbl_TargetFolder.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Lbl_TargetFolder.Location = new Point(-3, 0);
-            Lbl_TargetFolder.Name = "Lbl_TargetFolder";
-            Lbl_TargetFolder.Padding = new Padding(0, 0, 100, 0);
-            Lbl_TargetFolder.Size = new Size(396, 51);
-            Lbl_TargetFolder.TabIndex = 1;
-            Lbl_TargetFolder.Text = "NOME DA PASTA ALVO";
-            Lbl_TargetFolder.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // Pnl_OutputFile
             // 
             Pnl_OutputFile.BorderStyle = BorderStyle.FixedSingle;
@@ -952,9 +1074,10 @@
             Pnl_OutputFile.Controls.Add(pictureBox10);
             Pnl_OutputFile.Controls.Add(Lbl_OutputFile);
             Pnl_OutputFile.Dock = DockStyle.Fill;
-            Pnl_OutputFile.Location = new Point(3, 3);
+            Pnl_OutputFile.Location = new Point(3, 2);
+            Pnl_OutputFile.Margin = new Padding(3, 2, 3, 2);
             Pnl_OutputFile.Name = "Pnl_OutputFile";
-            Pnl_OutputFile.Size = new Size(393, 127);
+            Pnl_OutputFile.Size = new Size(396, 96);
             Pnl_OutputFile.TabIndex = 0;
             // 
             // Cmb_Formatos
@@ -964,22 +1087,25 @@
             Cmb_Formatos.DropDownStyle = ComboBoxStyle.DropDownList;
             Cmb_Formatos.FormattingEnabled = true;
             Cmb_Formatos.Items.AddRange(new object[] { "ZIP" });
-            Cmb_Formatos.Location = new Point(310, 95);
+            Cmb_Formatos.Location = new Point(323, 71);
+            Cmb_Formatos.Margin = new Padding(3, 2, 3, 2);
             Cmb_Formatos.Name = "Cmb_Formatos";
-            Cmb_Formatos.Size = new Size(74, 28);
+            Cmb_Formatos.Size = new Size(65, 23);
             Cmb_Formatos.Sorted = true;
             Cmb_Formatos.TabIndex = 19;
             // 
             // Txt_OutputFile
             // 
             Txt_OutputFile.AutoCompleteMode = AutoCompleteMode.Suggest;
+            Txt_OutputFile.Dock = DockStyle.Top;
             Txt_OutputFile.Font = new Font("Segoe UI", 10F);
             Txt_OutputFile.ImeMode = ImeMode.Off;
-            Txt_OutputFile.Location = new Point(9, 60);
+            Txt_OutputFile.Location = new Point(0, 39);
+            Txt_OutputFile.Margin = new Padding(3, 2, 3, 2);
             Txt_OutputFile.MaxLength = 100;
             Txt_OutputFile.Name = "Txt_OutputFile";
             Txt_OutputFile.PlaceholderText = "Nome Do Seu Arquivo";
-            Txt_OutputFile.Size = new Size(377, 30);
+            Txt_OutputFile.Size = new Size(394, 25);
             Txt_OutputFile.TabIndex = 17;
             Txt_OutputFile.WordWrap = false;
             Txt_OutputFile.Leave += Txt_OutputFile_Leave;
@@ -991,9 +1117,10 @@
             Chb_AddDateHourToName.Checked = true;
             Chb_AddDateHourToName.CheckState = CheckState.Checked;
             Chb_AddDateHourToName.Font = new Font("Segoe UI", 9F);
-            Chb_AddDateHourToName.Location = new Point(9, 98);
+            Chb_AddDateHourToName.Location = new Point(8, 74);
+            Chb_AddDateHourToName.Margin = new Padding(3, 2, 3, 2);
             Chb_AddDateHourToName.Name = "Chb_AddDateHourToName";
-            Chb_AddDateHourToName.Size = new Size(230, 24);
+            Chb_AddDateHourToName.Size = new Size(183, 19);
             Chb_AddDateHourToName.TabIndex = 18;
             Chb_AddDateHourToName.Text = "Concatenar data e hora atual?";
             Chb_AddDateHourToName.UseVisualStyleBackColor = true;
@@ -1003,9 +1130,10 @@
             // 
             pictureBox10.BackColor = Color.FromArgb(198, 172, 143);
             pictureBox10.Image = Properties.Resources.arquivo;
-            pictureBox10.Location = new Point(3, 12);
+            pictureBox10.Location = new Point(3, 9);
+            pictureBox10.Margin = new Padding(3, 2, 3, 2);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(30, 30);
+            pictureBox10.Size = new Size(26, 22);
             pictureBox10.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox10.TabIndex = 16;
             pictureBox10.TabStop = false;
@@ -1014,11 +1142,12 @@
             // 
             Lbl_OutputFile.BackColor = Color.FromArgb(198, 172, 143);
             Lbl_OutputFile.BorderStyle = BorderStyle.FixedSingle;
+            Lbl_OutputFile.Dock = DockStyle.Top;
             Lbl_OutputFile.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             Lbl_OutputFile.Location = new Point(0, 0);
             Lbl_OutputFile.Name = "Lbl_OutputFile";
-            Lbl_OutputFile.Padding = new Padding(0, 0, 50, 0);
-            Lbl_OutputFile.Size = new Size(396, 51);
+            Lbl_OutputFile.Padding = new Padding(0, 0, 44, 0);
+            Lbl_OutputFile.Size = new Size(394, 39);
             Lbl_OutputFile.TabIndex = 0;
             Lbl_OutputFile.Text = "NOME DO ARQUIVO DE SAÍDA";
             Lbl_OutputFile.TextAlign = ContentAlignment.MiddleCenter;
@@ -1026,17 +1155,18 @@
             // Btn_ClearTables
             // 
             Btn_ClearTables.Anchor = AnchorStyles.Top;
-            Btn_ClearTables.BackColor = SystemColors.Highlight;
+            Btn_ClearTables.BackColor = Color.DarkRed;
             Btn_ClearTables.Cursor = Cursors.Hand;
             Btn_ClearTables.FlatAppearance.BorderSize = 0;
             Btn_ClearTables.FlatStyle = FlatStyle.Flat;
             Btn_ClearTables.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             Btn_ClearTables.ForeColor = Color.White;
-            Btn_ClearTables.Location = new Point(292, 666);
+            Btn_ClearTables.Location = new Point(304, 608);
+            Btn_ClearTables.Margin = new Padding(3, 2, 3, 2);
             Btn_ClearTables.Name = "Btn_ClearTables";
-            Btn_ClearTables.Size = new Size(220, 34);
+            Btn_ClearTables.Size = new Size(192, 26);
             Btn_ClearTables.TabIndex = 21;
-            Btn_ClearTables.Text = "Deseja as limpar tabelas?";
+            Btn_ClearTables.Text = "Limpar todas as tabelas";
             Btn_ClearTables.UseVisualStyleBackColor = false;
             Btn_ClearTables.Visible = false;
             Btn_ClearTables.Click += Btn_ClearTables_Click;
@@ -1044,7 +1174,8 @@
             // Pic_Msg_Fields
             // 
             Pic_Msg_Fields.Image = Properties.Resources.msg_preencher_campos;
-            Pic_Msg_Fields.Location = new Point(58, 136);
+            Pic_Msg_Fields.Location = new Point(51, 105);
+            Pic_Msg_Fields.Margin = new Padding(3, 2, 3, 2);
             Pic_Msg_Fields.Name = "Pic_Msg_Fields";
             Pic_Msg_Fields.Size = new Size(743, 336);
             Pic_Msg_Fields.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -1066,39 +1197,46 @@
             // Frm_ConfigUC
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(227, 213, 202);
             Controls.Add(Pnl_ContentConfig);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Frm_ConfigUC";
-            Size = new Size(1024, 866);
+            Size = new Size(1060, 764);
             Load += Frm_ConfigUC_Load;
             Pnl_ContentConfig.ResumeLayout(false);
             Pnl_ContentConfig.PerformLayout();
             Tlp_Content.ResumeLayout(false);
             Pnl_FilesToVerify.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).EndInit();
             ((System.ComponentModel.ISupportInitialize)Dt_FilesToVerify).EndInit();
             ((System.ComponentModel.ISupportInitialize)filesToVerifyBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToVerify).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)Dt_FoldersToVerify).EndInit();
-            ((System.ComponentModel.ISupportInitialize)foldersToVerifyBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToVerify).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)Dt_FilesToDelete).EndInit();
-            ((System.ComponentModel.ISupportInitialize)filesToDeleteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToDelete).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)Dt_FoldersToDelete).EndInit();
-            ((System.ComponentModel.ISupportInitialize)foldersToDeleteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToDelete).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             Pnl_TargetFolder.ResumeLayout(false);
             Pnl_TargetFolder.PerformLayout();
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            panel2.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToVerify).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Dt_FoldersToVerify).EndInit();
+            ((System.ComponentModel.ISupportInitialize)foldersToVerifyBindingSource).EndInit();
+            panel3.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFileToDelete).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Dt_FilesToDelete).EndInit();
+            ((System.ComponentModel.ISupportInitialize)filesToDeleteBindingSource).EndInit();
+            panel4.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Pic_AddFolderToDelete).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Dt_FoldersToDelete).EndInit();
+            ((System.ComponentModel.ISupportInitialize)foldersToDeleteBindingSource).EndInit();
             Pnl_OutputFile.ResumeLayout(false);
             Pnl_OutputFile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
@@ -1162,6 +1300,11 @@
         private DataGridViewCheckBoxColumn Col_Chk_FolderToDelete;
         private DataGridViewImageColumn Col_Btn_FolderToDelete;
         private DataGridViewTextBoxColumn Col_IdFolderToDelete;
+        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel4;
+        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutPanel5;
         private DataGridViewTextBoxColumn Col_NameFileToVerify;
         private DataGridViewCheckBoxColumn Col_Chk_FileToVerify;
         private DataGridViewImageColumn Col_Btn_FileToVerify;

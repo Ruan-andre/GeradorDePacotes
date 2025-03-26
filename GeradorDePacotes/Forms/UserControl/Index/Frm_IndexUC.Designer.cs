@@ -164,10 +164,10 @@
             Pnl_ContentUC.Controls.Add(Pic_LoadingGIF);
             Pnl_ContentUC.Controls.Add(Tlp_Content);
             Pnl_ContentUC.Controls.Add(Lbl_ProgressMsg);
-            Pnl_ContentUC.Location = new Point(228, 71);
+            Pnl_ContentUC.Location = new Point(228, 110);
             Pnl_ContentUC.Margin = new Padding(3, 2, 3, 2);
             Pnl_ContentUC.Name = "Pnl_ContentUC";
-            Pnl_ContentUC.Size = new Size(360, 352);
+            Pnl_ContentUC.Size = new Size(360, 283);
             Pnl_ContentUC.TabIndex = 44;
             Pnl_ContentUC.Tag = "main";
             // 
@@ -226,7 +226,7 @@
             Controls.Add(Pnl_ContentUC);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Frm_IndexUC";
-            Size = new Size(865, 550);
+            Size = new Size(848, 625);
             Tag = "indexUC";
             Load += Frm_IndexUC_Load;
             Pnl_BtnGerar.ResumeLayout(false);

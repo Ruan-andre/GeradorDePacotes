@@ -2,8 +2,7 @@
 using GeradorDePacotes.Classes;
 using GeradorDePacotes.Database;
 using GeradorDePacotes.Database.Entities;
-using GeradorDePacotes.FormsUC.Config;
-using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace GeradorDePacotes
 {
@@ -17,6 +16,15 @@ namespace GeradorDePacotes
 
         private object? _cachedName;
 
+        private Point BtnClearTablesInitialPosition { get; set; }
+
+        private List<float> TlpContentRowStylesHeight { get; set; } = [];
+        private int TlpContentHeight { get; set; }
+        private int PnlContentConfigHeight { get; set; }
+        private int PicMsgFieldsPointY { get; set; }
+        private DataGridView[] DataGrids { get; set; }
+
+
         public static string? PathTargetFolder { get; private set; }
 
         public Frm_ConfigUC(Frm_Index parentForm)
@@ -24,35 +32,47 @@ namespace GeradorDePacotes
             InitializeComponent();
             _context = new ApplicationDbContext();
             _parentForm = parentForm;
+            BtnClearTablesInitialPosition = Btn_ClearTables.Location;
+            TlpContentHeight = Tlp_Content.Height;
+            PnlContentConfigHeight = Pnl_ContentConfig.Height;
+            PicMsgFieldsPointY = Pic_Msg_Fields.Location.Y;
+
+            DataGrids = Helpers.GetAllControlsOfType<DataGridView>(Pnl_ContentConfig).ToArray();
+
+            foreach (RowStyle item in Tlp_Content.RowStyles)
+            {
+                TlpContentRowStylesHeight.Add(item.Height);
+            }
         }
 
         //Personalized
         private void ExpandOrContractPnlsConfig(bool check)
         {
-
             if (!check)
             {
-                Tlp_Content.RowStyles[0].Height += 45;
-                Tlp_Content.Height += 45;
-                Cmb_Formatos.Location = new Point(10, 137);
+                Tlp_Content.RowStyles[0].Height += 100;
+                Tlp_Content.Height += 40;
                 Txt_OutputFolder.Visible = true;
                 Btn_ExploreOutputFolder.Visible = true;
-                Btn_ClearTables.Location = new Point(292, 705);
-                Pnl_ContentConfig.Height = 760;
+                Btn_ClearTables.Top += 40;
+                Pnl_ContentConfig.Height += 40;
             }
             else
             {
-                Tlp_Content.RowStyles[0].Height = 133;
-                Tlp_Content.RowStyles[1].Height = 260;
-                Tlp_Content.RowStyles[2].Height = 260;
+                foreach (RowStyle item in Tlp_Content.RowStyles)
+                {
+                    foreach (var originalHeight in TlpContentRowStylesHeight)
+                    {
+                        item.Height = originalHeight;
+                        break;
+                    }
+                }
 
-                Chb_AddDateHourToName.Location = new Point(9, 95);
-                Cmb_Formatos.Location = new Point(310, 95);
                 Txt_OutputFolder.Visible = false;
                 Btn_ExploreOutputFolder.Visible = false;
-                Tlp_Content.Height = 654;
-                Btn_ClearTables.Location = new Point(292, 666);
-                Pnl_ContentConfig.Height = 707;
+                Tlp_Content.Height = TlpContentHeight;
+                Btn_ClearTables.Location = BtnClearTablesInitialPosition;
+                Pnl_ContentConfig.Height = PnlContentConfigHeight;
             }
 
         }
@@ -101,7 +121,7 @@ namespace GeradorDePacotes
             if (!string.IsNullOrWhiteSpace(chbSameFolder))
                 Chb_SameOutputFolder.Checked = Convert.ToBoolean(chbSameFolder);
             else
-                UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", "true");
+                _ = UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", "true");
 
             var txtOutputFolder = await UtilDb.GetParValueAsync(_context, "output_folder");
             if (!string.IsNullOrWhiteSpace(txtOutputFolder))
@@ -195,6 +215,7 @@ namespace GeradorDePacotes
         //Events
         private void Frm_ConfigUC_Load(object sender, EventArgs e)
         {
+
             FillOwnControls();
             _initializing = false;
             if (_parentForm != null && Frm_Index.sideBarExpanded)
@@ -209,18 +230,20 @@ namespace GeradorDePacotes
                            && Chb_SameOutputFolder.Checked)
                            || (!Chb_SameOutputFolder.Checked
                                 && (string.IsNullOrWhiteSpace(Txt_TargetFolder.Text)
-                                    || string.IsNullOrWhiteSpace(Txt_OutputFolder.Text))) ? false : true;
+                                    || string.IsNullOrWhiteSpace(Txt_OutputFolder.Text))) ? true : false;
 
-            if (!visible)
+            if (visible)
             {
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 0;
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 0;
-                Pic_Msg_Fields.Location = Chb_SameOutputFolder.Checked ? new Point(58, 136) : new Point(58, 176);
+                Tlp_Content.RowStyles[1].Height = 0;
+                Tlp_Content.RowStyles[2].Height = 0;
+                Tlp_Content.Height = Chb_SameOutputFolder.Checked ? (int)TlpContentRowStylesHeight[0] : (int)TlpContentRowStylesHeight[0] + 50;
+                Pic_Msg_Fields.Top = Chb_SameOutputFolder.Checked ? PicMsgFieldsPointY : Pic_Msg_Fields.Top + 80;
             }
             else
             {
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 1].Height = 260;
-                Tlp_Content.RowStyles[Tlp_Content.RowStyles.Count - 2].Height = 260;
+                Tlp_Content.RowStyles[1].Height = TlpContentRowStylesHeight[1];
+                Tlp_Content.RowStyles[2].Height = TlpContentRowStylesHeight[2];
+                Tlp_Content.Height = Chb_SameOutputFolder.Checked ? TlpContentHeight : TlpContentHeight + 40;
             }
 
             foreach (Control control in Tlp_Content.Controls)
@@ -228,14 +251,18 @@ namespace GeradorDePacotes
                 int rowIndex = Tlp_Content.GetRow(control);
                 if (rowIndex == Tlp_Content.RowStyles.Count - 1 || rowIndex == Tlp_Content.RowStyles.Count - 2)
                 {
-                    control.Visible = visible;
+                    control.Visible = !visible;
                 }
             }
 
-            Pic_Msg_Fields.Visible = !visible;
-            Btn_ClearTables.Visible = visible;
-            Pic_Msg_Fields.BringToFront();
-            Pic_Msg_Fields.Refresh();
+            Pic_Msg_Fields.Visible = visible;
+            Btn_ClearTables.Visible = !visible;
+            if (Pic_Msg_Fields.Visible)
+            {
+                Pic_Msg_Fields.BringToFront();
+                Pic_Msg_Fields.Refresh();
+            }
+
         }
 
         private void Txt_OutputFile_Leave(object sender, EventArgs e)
@@ -292,12 +319,11 @@ namespace GeradorDePacotes
             ShowOrHideImgMsg();
 
             if (_initializing) return;
-
-            UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
+                _ = UtilDb.AddOrUpdateTableParKeysAsync(_context, "same_output_folder", Chb_SameOutputFolder.Checked.ToString());
             if (Chb_SameOutputFolder.Checked)
-                UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_TargetFolder.Text);
+                _ = UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_TargetFolder.Text);
             else
-                UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_OutputFolder.Text);
+                _ = UtilDb.AddOrUpdateTableParKeysAsync(_context, "output_folder", Txt_OutputFolder.Text);
         }
         private async void Txt_OutputFolder_Leave(object sender, EventArgs e)
         {
@@ -497,18 +523,26 @@ namespace GeradorDePacotes
             }
         }
 
-        private void Btn_ClearTables_Click(object sender, EventArgs e)
+        private async void Btn_ClearTables_Click(object sender, EventArgs e)
         {
-            var dataGrids = Helpers.GetAllControlsOfType<DataGridView>(Pnl_ContentConfig).ToArray();
-            Array.Reverse(dataGrids);
-            var dialogBox = new Frm_DialogBoxClearDataGrids(_context, dataGrids);
-            dialogBox.ShowDialog();
 
+
+
+            if (DataGrids.Any(dt => dt.Rows.Count > 0))
+            {
+                var dr = MessageBox.Show("Tem certeza que deseja limpar todas as tabelas? Esta ação não é reversível!", "CUIDADO!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                foreach (var item in DataGrids)
+                {
+                    await UtilDb.ClearTableAsync(_context, item.Name.Replace("Dt_", ""));
+                    await Helpers.DataBindDataGridsAsync(_context, item);
+                }
+                MessageBox.Show("Todas as tabelas foram limpas com sucesso!", "Sucesso");
+            }
         }
 
         private void Txt_TargetFolder_TextChanged(object sender, EventArgs e)
         {
-            Txt_TargetFolder_Leave(null, null);
+            ShowOrHideImgMsg();
         }
 
         private void Txt_OutputFolder_TextChanged(object sender, EventArgs e)
@@ -516,8 +550,14 @@ namespace GeradorDePacotes
             ShowOrHideImgMsg();
         }
 
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
 
+        }
 
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

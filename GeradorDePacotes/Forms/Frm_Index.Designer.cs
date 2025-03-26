@@ -65,7 +65,7 @@
             Pnl_Top.Location = new Point(0, 0);
             Pnl_Top.Margin = new Padding(3, 2, 3, 2);
             Pnl_Top.Name = "Pnl_Top";
-            Pnl_Top.Size = new Size(896, 29);
+            Pnl_Top.Size = new Size(1024, 29);
             Pnl_Top.TabIndex = 0;
             Pnl_Top.MouseDown += Pnl_Top_MouseDown;
             // 
@@ -76,7 +76,7 @@
             Btn_MinimizeApplication.FlatStyle = FlatStyle.Flat;
             Btn_MinimizeApplication.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Btn_MinimizeApplication.ForeColor = Color.White;
-            Btn_MinimizeApplication.Location = new Point(793, 0);
+            Btn_MinimizeApplication.Location = new Point(919, 0);
             Btn_MinimizeApplication.Margin = new Padding(3, 2, 3, 2);
             Btn_MinimizeApplication.Name = "Btn_MinimizeApplication";
             Btn_MinimizeApplication.Padding = new Padding(0, 0, 0, 4);
@@ -94,7 +94,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 15F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(847, 0);
+            button1.Location = new Point(973, 0);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Padding = new Padding(0, 0, 0, 4);
@@ -243,7 +243,7 @@
             Pnl_Principal.Location = new Point(0, 0);
             Pnl_Principal.Margin = new Padding(3, 2, 3, 2);
             Pnl_Principal.Name = "Pnl_Principal";
-            Pnl_Principal.Size = new Size(896, 650);
+            Pnl_Principal.Size = new Size(1024, 760);
             Pnl_Principal.TabIndex = 3;
             // 
             // Pnl_Exit
@@ -254,7 +254,7 @@
             Pnl_Exit.Location = new Point(0, 493);
             Pnl_Exit.Margin = new Padding(3, 2, 3, 2);
             Pnl_Exit.Name = "Pnl_Exit";
-            Pnl_Exit.Size = new Size(166, 156);
+            Pnl_Exit.Size = new Size(166, 266);
             Pnl_Exit.TabIndex = 4;
             // 
             // Btn_Exit
@@ -269,7 +269,7 @@
             Btn_Exit.ForeColor = Color.FromArgb(45, 40, 33);
             Btn_Exit.Image = Properties.Resources.sair;
             Btn_Exit.ImageAlign = ContentAlignment.MiddleLeft;
-            Btn_Exit.Location = new Point(0, 97);
+            Btn_Exit.Location = new Point(0, 207);
             Btn_Exit.Margin = new Padding(3, 2, 3, 2);
             Btn_Exit.Name = "Btn_Exit";
             Btn_Exit.Size = new Size(203, 59);
@@ -284,7 +284,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(896, 650);
+            ClientSize = new Size(1024, 760);
             Controls.Add(Pnl_Exit);
             Controls.Add(Flp_Sidebar);
             Controls.Add(Pnl_Top);
