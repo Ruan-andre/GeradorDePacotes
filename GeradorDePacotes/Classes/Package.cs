@@ -49,7 +49,7 @@ namespace GeradorDePacotes.Classes
             catch (Exception ex)
             {
                 LogError = $"Erro durante a geração do pacote: {ex.Message}";
-                throw; 
+                throw;
             }
         }
 
@@ -99,14 +99,14 @@ namespace GeradorDePacotes.Classes
 
                     using (var context = new ApplicationDbContext())
                     {
-                        var foldersToVerify = context.FoldersToVerify.ToList();
-                        var filesToVerify = context.FilesToVerify.ToList();
+                        var foldersToVerify = context.FoldersToVerify.Where(x => !x.Disconsider).ToList();
+                        var filesToVerify = context.FilesToVerify.Where(x => !x.Disconsider).ToList();
 
                         Sb.AppendLine("Pastas não encontradas:");
                         foreach (var folder in foldersToVerify)
                         {
                             Token.ThrowIfCancellationRequested();
-                            if (!folder.Disconsider && !Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
+                            if (!Directory.Exists(Path.Combine(TargetFolder!, folder.NameFolder)))
                             {
                                 Sb.AppendLine(folder.NameFolder);
                             }
@@ -116,7 +116,7 @@ namespace GeradorDePacotes.Classes
                         foreach (var file in filesToVerify)
                         {
                             Token.ThrowIfCancellationRequested();
-                            if (!file.Disconsider && !File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
+                            if (!File.Exists(Path.Combine(TargetFolder!, file.NameFile)))
                             {
                                 Sb.AppendLine(file.NameFile);
                             }
@@ -152,8 +152,8 @@ namespace GeradorDePacotes.Classes
 
                     using (var context = new ApplicationDbContext())
                     {
-                        var foldersToDelete = context.FoldersToDelete.ToList();
-                        var filesToDelete = context.FilesToDelete.ToList();
+                        var foldersToDelete = context.FoldersToDelete.Where(x => !x.Disconsider).ToList();
+                        var filesToDelete = context.FilesToDelete.Where(x => !x.Disconsider).ToList();
 
                         foreach (var folder in foldersToDelete)
                         {
