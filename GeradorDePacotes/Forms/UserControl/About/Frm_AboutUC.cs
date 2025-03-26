@@ -25,7 +25,7 @@ namespace GeradorDePacotes
                     url = "https://github.com/Ruan-andre";
                     break;
                 case "portfolio":
-                    url = "";
+                    url = "https://a-ruan-portfolio.vercel.app";
                     break;
                 default:
                     break;
